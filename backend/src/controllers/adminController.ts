@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { ResponseUtil } from "../utils/Response";
 import logger from "../configs/winstonConfig";
-import { generateStudentId } from "../utils/GeneralUtils";
-import { studentSchemaValidation } from "../dtos/adminDTO";
+import { generateLecturerId, generateStudentId } from "../utils/GeneralUtils";
+import { schemaValidation } from "../dtos/adminDTO";
 import generator from "generate-password";
 import { prisma } from "../configs/prismaConfig";
 import { hash } from "bcryptjs";
@@ -16,7 +16,7 @@ export class AdminController {
     const studentData = req.body;
 
     // perform validations
-    await studentSchemaValidation(req);
+    await schemaValidation(req);
 
     logger.info("%j", studentData);
     const tempPassword = generator.generate({
@@ -60,7 +60,11 @@ export class AdminController {
       ...filteredUser,
     };
 
-    return ResponseUtil.sendResponse(res, "Student created successfully", response);
+    return ResponseUtil.sendResponse(
+      res,
+      "Student created successfully",
+      response
+    );
   }
 
   async uploadStdInfo(req: Request, res: Response, next: NextFunction) {
@@ -72,11 +76,91 @@ export class AdminController {
         ReasonPhrases.UNPROCESSABLE_ENTITY
       );
     }
-    
+
     const currentDir = path.resolve(`src/uploads/students`);
 
-    await csvToDb(currentDir)
+    await csvToDb(currentDir);
 
-    return ResponseUtil.sendResponse(res, "Student information upload successful", null);
+    return ResponseUtil.sendResponse(
+      res,
+      "Student information upload successful",
+      null
+    );
+  }
+
+  async createLecturer(req: Request, res: Response, next: NextFunction) {
+    const lecturerData = req.body;
+
+    // perform validations
+    await schemaValidation(req);
+
+    logger.info("%j", lecturerData);
+    const tempPassword = generator.generate({
+      length: 10,
+      numbers: true,
+      symbols: true,
+      uppercase: true,
+      lowercase: true,
+      strict: true,
+    });
+    const lecturerId = await generateLecturerId();
+    const user = await prisma.$transaction([
+      prisma.lecturer.create({
+        data: {
+          staffId: lecturerId,
+          firstName: lecturerData.firstname,
+          lastName: lecturerData.lastname,
+        },
+      }),
+      prisma.user.create({
+        data: {
+          loginId: lecturerId,
+          email: lecturerData.email,
+          role: "LECTURER",
+          password: await hash(tempPassword, 12),
+        },
+      }),
+    ]);
+    // If user is created, add otp
+    if (user) {
+      const otp = await prisma.otp.create({
+        data: {
+          otpCode: tempPassword,
+          userId: lecturerId,
+        },
+      });
+    }
+    const filteredUser = _.pick(user[1], ["email"]);
+    const response = {
+      ...user[0],
+      ...filteredUser,
+    };
+
+    return ResponseUtil.sendResponse(
+      res,
+      "Lecturer created successfully",
+      response
+    );
+  }
+
+  async uploadLecInfo(req: Request, res: Response, next: NextFunction) {
+    if (!req.files || !req.files.length) {
+      return ResponseUtil.sendError(
+        res,
+        "File cannot be empty",
+        StatusCodes.UNPROCESSABLE_ENTITY,
+        ReasonPhrases.UNPROCESSABLE_ENTITY
+      );
+    }
+
+    const currentDir = path.resolve(`src/uploads/lecturers`);
+
+    await csvToDb(currentDir);
+
+    return ResponseUtil.sendResponse(
+      res,
+      "Lecturer information upload successful",
+      null
+    );
   }
 }

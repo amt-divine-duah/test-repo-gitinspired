@@ -16,28 +16,39 @@ export function generateJWT(payload: object, options?: object) {
 }
 
 export function generateAuthToken(user: User) {
-    const accessToken = generateJWT({
-        userId: user.loginId,
-        tokenType: TokenType.USER_AUTH
-    })
-    return {
-        accessToken: accessToken
-    }
+  const accessToken = generateJWT({
+    userId: user.loginId,
+    tokenType: TokenType.USER_AUTH,
+  });
+  return {
+    accessToken: accessToken,
+  };
 }
 
 async function getExistingIds() {
-  const users = await prisma.user.findMany()
-  const loginIds = _.map(users, "loginId")
-  return loginIds
+  const users = await prisma.user.findMany();
+  const loginIds = _.map(users, "loginId");
+  return loginIds;
 }
 
 export async function generateStudentId() {
-  let studentId: string
-  const existingIds = await getExistingIds()
+  let studentId: string;
+  const existingIds = await getExistingIds();
   do {
     const nanoid = customAlphabet("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", 8);
-    studentId = "STD-" + nanoid()
+    studentId = "STD-" + nanoid();
   } while (studentId in existingIds);
-  
-  return studentId
+
+  return studentId;
+}
+
+export async function generateLecturerId() {
+  let lecturerId: string;
+  const existingIds = await getExistingIds();
+  do {
+    const nanoid = customAlphabet("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", 8);
+    lecturerId = "LEC-" + nanoid();
+  } while (lecturerId in existingIds);
+
+  return lecturerId;
 }
