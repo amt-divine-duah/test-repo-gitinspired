@@ -6,6 +6,7 @@ import { customAlphabet } from "nanoid";
 import { prisma } from "../configs/prismaConfig";
 import _ from "lodash";
 
+// Generate confirmation Token
 export function generateJWT(payload: object, options?: object) {
   const secretKey = configValues.SECRET_KEY;
   const defaultOptions = {
@@ -23,6 +24,15 @@ export function generateAuthToken(user: User) {
   return {
     accessToken: accessToken,
   };
+}
+
+export function validateToken(token: string) {
+  try {
+    return jwt.verify(token, configValues.SECRET_KEY);
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
 }
 
 async function getExistingIds() {

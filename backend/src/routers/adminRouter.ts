@@ -24,5 +24,9 @@ adminRouter.post(
   FileUploader.upload("files", "lecturers", 2 * 1024 * 1024),
   ErrorHandler.catchErrors(adminController.uploadLecInfo)
 );
+adminRouter.get(
+  "/confirm-account/:token",
+  ErrorHandler.catchErrors(adminController.confirmAccount)
+);
 
 export default adminRouter;
