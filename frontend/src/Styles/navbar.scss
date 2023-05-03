@@ -1,0 +1,10 @@
+@import './breakpoints';
+@import '../App.css';
+
+.navbar{
+    @include md{
+        height: 20rem;
+        width: 34rem;
+       background:var(--navBarGradient)  
+    }
+}
