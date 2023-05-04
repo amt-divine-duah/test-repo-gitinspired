@@ -1,0 +1,8 @@
+@import './breakpoints';
+
+
+.home{
+    @include lg{
+        position: relative;
+    }
+}
