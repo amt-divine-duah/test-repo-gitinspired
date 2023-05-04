@@ -1,10 +1,18 @@
+import AdminLecturerDashBoard from "../components/AdminLecturerDashBoard";
+import AdminStudentDashBoard from "../components/AdminStudentDashBoard";
 import NavBar from "../components/NavBar"
+import '../Styles/homePage.scss'
+import {Routes, Route} from 'react-router-dom';
 
 const HomePage = () => {
   return (
-    <section>
+    <main className="home">
       <NavBar />
-    </section>
+      <Routes>
+        <Route path="/student" element={<AdminStudentDashBoard/>}/>
+        <Route path="/lecturer" element={<AdminLecturerDashBoard/>}/>
+      </Routes>
+    </main>
   )
 }
 

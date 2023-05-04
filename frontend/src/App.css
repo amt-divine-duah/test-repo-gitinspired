@@ -3,11 +3,13 @@
   --black2:#363143;
   --black3:#18181B;
   --blueBlack:#4E4466;
+  --deepBlue:#170E7D;
   --blue:#5D34EC;
   --lightBlue:#E8F0FE;
   --ash:#9F9F9F;
   --offWhite: #F2F2F2;
-  --navBarGradient: linear-gradient(180deg, #170E7D 0%, #15104E 100%), #363143;
+  --navBarGradient:  linear-gradient(180deg, #170E7D 0%, #15104E 100%);
+
 
 
 }
