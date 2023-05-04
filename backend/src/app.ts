@@ -8,6 +8,7 @@ import { ErrorHandler } from "./middlewares/ErrorHandler";
 import { ResponseUtil } from "./utils/Response";
 import { StatusCodes, ReasonPhrases } from "http-status-codes";
 import adminRouter from "./routers/adminRouter";
+import lecturerRouter from "./routers/lecturerRouter";
 
 export default function configureApp() {
   const app: Application = express();
@@ -30,6 +31,7 @@ export default function configureApp() {
   
   app.use("/api/auth", authRouter);
   app.use("/api/admin", adminRouter);
+  app.use("/api/lecturer", lecturerRouter);
 
   // end routers
 
