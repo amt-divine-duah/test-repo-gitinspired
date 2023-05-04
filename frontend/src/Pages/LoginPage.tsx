@@ -1,7 +1,6 @@
 
 import "../App.css";
-import React from "react";
-import frame from "../assets/Frame1.png";
+
 const LoginPage = () => {
   return (
     <>
@@ -17,7 +16,7 @@ const LoginPage = () => {
             </p>
           </div>
           <div className="down">
-            <img src={frame} alt="login image" />
+            <img src='./Frame1.png' alt="login image" />
           </div>
         </section>
         <section className="right-box">

@@ -1,7 +1,5 @@
 import "../App.css";
-import frame from "../assets/Frame.png";
-import eye from "../assets/mdi_eye-off.png";
-import React from "react";
+
 const ResetPassword = () => {
 
      const togglePasswordNew= ()  => {
@@ -40,7 +38,7 @@ const ResetPassword = () => {
             </p>
           </div>
           <div className="down">
-            <img src={frame} alt="login image" />
+            <img src='./Frame.png' alt="login image" />
           </div>
         </section>
         <section className="right-box">
@@ -62,7 +60,7 @@ const ResetPassword = () => {
                       className="password-enclosure"
                       id='new-password'
                     />
-                    <img src={eye} alt="password view toggle" id="eye1" onClick={togglePasswordNew}/>
+                    <img src='./eye.png' alt="password view toggle" id="eye1" onClick={togglePasswordNew}/>
                   </div>
                   <div className="password">
                     <label htmlFor="psw">
@@ -76,7 +74,7 @@ const ResetPassword = () => {
                       className="password-enclosure"
                       id='confirm-password'
                     />
-                        <img src={eye} alt="password view toggle" id="eye2" onClick={togglePasswordConfirm}/>
+                        <img src='./eye.png' alt="password view toggle" id="eye2" onClick={togglePasswordConfirm}/>
                   </div>
                 </div>
 
