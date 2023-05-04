@@ -30,10 +30,11 @@ model User {
 }
 
 model Student {
-  id        Int    @id @default(autoincrement())
-  studentId String @unique @default(uuid())
-  firstName String
-  lastName  String
+  id          Int                     @id @default(autoincrement())
+  studentId   String                  @unique @default(uuid())
+  firstName   String
+  lastName    String
+  assignments StudentsOnAssignments[]
 
   @@map("students")
 }
@@ -64,13 +65,20 @@ model Assignment {
   deadline    String
   description String
   course      String
-  uniqueCode  String
+  uniqueCode  String?
   isPublished Boolean
+  updatedAt   DateTime?               @updatedAt
   students    StudentsOnAssignments[]
+
+  @@map("assignments")
 }
 
 model StudentsOnAssignments {
-  student    Student @relation(fields: [studentId], references: [id])
-  studentId  Int
-  assignment
+  student      Student    @relation(fields: [studentId], references: [id])
+  studentId    Int
+  assignment   Assignment @relation(fields: [assignmentId], references: [id])
+  assignmentId Int
+  status       Boolean
+
+  @@id([studentId, assignmentId])
 }

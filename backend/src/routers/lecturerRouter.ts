@@ -15,5 +15,9 @@ lecturerRouter.post(
   "/create-assignment",
   ErrorHandler.catchErrors(lecturerController.createAssignment)
 );
+lecturerRouter.get(
+  "/edit-assignment",
+  ErrorHandler.catchErrors(lecturerController.editAssignment)
+);
 
 export default lecturerRouter;
