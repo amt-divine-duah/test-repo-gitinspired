@@ -7,7 +7,6 @@
   "author": "Amali-Tech",
   "license": "MIT",
   "scripts": {
-    "hash": "ts-node-dev src/utils/hashPassword.ts",
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules --respawn src/index.ts",
     "build": "tsc -p .",
     "start": "node dist/index.js",

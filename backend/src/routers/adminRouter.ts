@@ -28,5 +28,13 @@ adminRouter.get(
   "/confirm-account/:token",
   ErrorHandler.catchErrors(adminController.confirmAccount)
 );
+adminRouter.get(
+  "/lecturers/:page",
+  ErrorHandler.catchErrors(adminController.getLecturers)
+);
+adminRouter.get(
+  "/students/:page",
+  ErrorHandler.catchErrors(adminController.getStudents)
+);
 
 export default adminRouter;
