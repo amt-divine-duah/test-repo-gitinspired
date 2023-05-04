@@ -57,3 +57,20 @@ model Otp {
 
   @@map("otps")
 }
+
+model Assignment {
+  id          Int                     @id @default(autoincrement())
+  title       String
+  deadline    String
+  description String
+  course      String
+  uniqueCode  String
+  isPublished Boolean
+  students    StudentsOnAssignments[]
+}
+
+model StudentsOnAssignments {
+  student    Student @relation(fields: [studentId], references: [id])
+  studentId  Int
+  assignment
+}
