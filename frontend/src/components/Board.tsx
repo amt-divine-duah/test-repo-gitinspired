@@ -5,16 +5,18 @@ type Prop={
   buttonInfo:string
   message:string
   showModal: React.MouseEventHandler
+  data:{}[]
+  userTableName:string
 }
 
-const Board = ({users, buttonInfo,message,showModal}:Prop)=> {
+const Board = ({users, buttonInfo,message,showModal,data,userTableName}:Prop)=> {
   return (
     <div className='main-board'>
       <section className='empty-board'>
 
        <div className="main-board-header">
           <div>
-            <h1>{users}</h1>
+            {data.length > 0 && <h1>{users}</h1>}
           </div>
 
           <div className='main-board-header-right'>
@@ -26,14 +28,15 @@ const Board = ({users, buttonInfo,message,showModal}:Prop)=> {
           </div>
         </div>
 
-        <div className='main-board-body'>
+       { data.length <=0 && <div className='main-board-body'>1
           <img src="./main-page-image.png" alt="" />
           <p>{message}</p>
-        </div>
+        </div>}
+
       </section>
 
      
-       
+      
     </div>
   )
 }
