@@ -11,7 +11,7 @@ import { schemaValidation } from "../dtos/adminDTO";
 import generator from "generate-password";
 import { prisma } from "../configs/prismaConfig";
 import { hash } from "bcryptjs";
-import _ from "lodash";
+import _, { take } from "lodash";
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
 import { csvToDb, getCsvFiles } from "../utils/databaseUtils";
 import path from "path";
@@ -22,6 +22,7 @@ import transporter from "../configs/nodemailerConfig";
 import configValues from "../configs/config";
 import { Token, TokenClass } from "typescript";
 import { JwtPayload } from "jsonwebtoken";
+import { faker } from "@faker-js/faker";
 
 export class AdminController {
   //confirm account
@@ -234,5 +235,53 @@ export class AdminController {
     await csvToDb(currentDir);
 
     return ResponseUtil.sendResponse(res, "Lecturer information upload successful", null);
+  }
+
+  async getLecturers(req: Request, res: Response, next: NextFunction) {
+    const { page } = req.params;
+    let skipNum: number = (Number(page) - 1) * 14;
+    let takeNum: number = 14;
+
+    const results = await prisma.lecturer.findMany({
+      skip: skipNum,
+      take: takeNum,
+      orderBy: {
+        lastName: "asc",
+      },
+    });
+
+    const totalRecords = await prisma.lecturer.count();
+
+    if (results && totalRecords) {
+      return ResponseUtil.sendResponse(res, "Lecturers List", results, 200, {
+        total: totalRecords, // total number of records
+        currentPage: Number(page), // current page number
+        pageSize: 14, // page size
+      });
+    }
+  }
+
+  async getStudents(req: Request, res: Response, next: NextFunction) {
+    const { page } = req.params;
+    let skipNum = (Number(page) - 1) * 14;
+    let takeNum = 14;
+
+    const results = await prisma.student.findMany({
+      skip: skipNum,
+      take: takeNum,
+      orderBy: {
+        lastName: "asc",
+      },
+    });
+
+    const totalRecords = await prisma.student.count();
+
+    if (results && totalRecords) {
+      return ResponseUtil.sendResponse(res, "Students List", results, 200, {
+        total: totalRecords, // total number of records
+        currentPage: Number(page), // current page number
+        pageSize: 14, // page size
+      });
+    }
   }
 }
