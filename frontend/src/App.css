@@ -332,7 +332,8 @@ flex-grow: 0;
 .tooltip {
   position: relative;
   z-index: 1;
-  width: 271px;
+  width: max-content;
+  padding: 8px;
   height: 34px;
 
   /* Inside auto layout */
@@ -343,7 +344,7 @@ flex-grow: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  display: '';
+  display: none;
   background: #FFFFFF;
   border: 1px solid #B6B6BB;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
