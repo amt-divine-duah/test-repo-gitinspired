@@ -1,9 +1,16 @@
-
 import "../App.css";
+import Main from "../components/Main";
+import Frame1 from "/Frame1.png"
 
 const LoginPage = () => {
+
+
+  async function handleSubmit(){
+    console.log("Hello") 
+  }
+
   return (
-    <>
+    <Main>
       <div className="big-box">
         <section className="left-box">
           <div className="top">
@@ -16,12 +23,12 @@ const LoginPage = () => {
             </p>
           </div>
           <div className="down">
-            <img src='./Frame1.png' alt="login image" />
+            <img src={Frame1} alt="login image" />
           </div>
         </section>
         <section className="right-box">
           <div className="box-outer">
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="box-inner">
                 <p className="form-title">Welcome back, Log in</p>
                 <div
@@ -41,13 +48,11 @@ const LoginPage = () => {
                       className="email-enclosure"
                     />
                   </div>
-                
-                    <div
-                      className="tooltip"
-                      data-message="Please enter correct email address"
-                    ></div>
-                  
-                 
+
+                  <div
+                    className="tooltip"
+                    data-message="Please enter correct email address"
+                  ></div>
 
                   <div className="password">
                     <label htmlFor="psw">
@@ -71,9 +76,8 @@ const LoginPage = () => {
           </div>
         </section>
       </div>
-    </>
+    </Main>
   );
 };
 
 export default LoginPage;
-

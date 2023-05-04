@@ -1,31 +1,31 @@
 import "../App.css";
+import Main from "../components/Main";
 
 const ResetPassword = () => {
-
-     const togglePasswordNew= ()  => {
+  const togglePasswordNew = () => {
     //  const passwordInput = document.querySelectorAll("input");
-    const passwordInput = document.getElementById('new-password');
-     const passwordShowButton = document.getElementById('eye1');
- 
-     if(passwordInput.type === 'password') {
-        passwordInput.type = 'text';
-     }else {
-        passwordInput.type = 'password';
-     }
-     }
-     const togglePasswordConfirm= ()  => {
-        //  const passwordInput = document.querySelectorAll("input");
-        const passwordInput = document.getElementById('confirm-password');
-         const passwwordShowButton = document.getElementById('eye2');
+    const passwordInput = document.getElementById("new-password");
+    const passwordShowButton = document.getElementById("eye1");
 
-         if(passwordInput.type === 'password') {
-            passwordInput.type = 'text'
-         }else {
-            passwordInput.type = 'password';
-         }
-         }
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+    } else {
+      passwordInput.type = "password";
+    }
+  };
+  const togglePasswordConfirm = () => {
+    //  const passwordInput = document.querySelectorAll("input");
+    const passwordInput = document.getElementById("confirm-password");
+    const passwwordShowButton = document.getElementById("eye2");
+
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+    } else {
+      passwordInput.type = "password";
+    }
+  };
   return (
-    <>
+    <Main>
       <div className="big-box">
         <section className="left-box">
           <div className="top">
@@ -38,7 +38,7 @@ const ResetPassword = () => {
             </p>
           </div>
           <div className="down">
-            <img src='./Frame.png' alt="login image" />
+            <img src="/Frame.png" alt="login image" />
           </div>
         </section>
         <section className="right-box">
@@ -46,7 +46,7 @@ const ResetPassword = () => {
             <form>
               <div className="box-inner">
                 <p className="form-title">Reset Passsword</p>
-              
+
                 <div className="label-box">
                   <div className="password">
                     <label htmlFor="password">
@@ -58,9 +58,14 @@ const ResetPassword = () => {
                       name="newpassword"
                       required
                       className="password-enclosure"
-                      id='new-password'
+                      id="new-password"
                     />
-                    <img src='./eye.png' alt="password view toggle" id="eye1" onClick={togglePasswordNew}/>
+                    <img
+                      src="/eye.png"
+                      alt="password view toggle"
+                      id="eye1"
+                      onClick={togglePasswordNew}
+                    />
                   </div>
                   <div className="password">
                     <label htmlFor="psw">
@@ -72,9 +77,14 @@ const ResetPassword = () => {
                       name="confirm password"
                       required
                       className="password-enclosure"
-                      id='confirm-password'
+                      id="confirm-password"
                     />
-                        <img src='./eye.png' alt="password view toggle" id="eye2" onClick={togglePasswordConfirm}/>
+                    <img
+                      src="/eye.png"
+                      alt="password view toggle"
+                      id="eye2"
+                      onClick={togglePasswordConfirm}
+                    />
                   </div>
                 </div>
 
@@ -86,7 +96,7 @@ const ResetPassword = () => {
           </div>
         </section>
       </div>
-    </>
+    </Main>
   );
 };
 
