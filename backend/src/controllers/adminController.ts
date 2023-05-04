@@ -62,11 +62,7 @@ export class AdminController {
     });
 
     const response = { payload, updateUser };
-    return ResponseUtil.sendResponse(
-      res,
-      "Account confirmed successfully",
-      response
-    );
+    return ResponseUtil.sendResponse(res, "Account confirmed successfully", response);
   }
 
   async createStudent(req: Request, res: Response, next: NextFunction) {
@@ -133,11 +129,7 @@ export class AdminController {
       ...filteredUser,
     };
 
-    return ResponseUtil.sendResponse(
-      res,
-      "Student created successfully",
-      response
-    );
+    return ResponseUtil.sendResponse(res, "Student created successfully", response);
   }
 
   async uploadStdInfo(req: Request, res: Response, next: NextFunction) {
@@ -152,13 +144,10 @@ export class AdminController {
 
     const currentDir = path.resolve(`src/uploads/students`);
 
-    await csvToDb(currentDir);
+    const errors = await csvToDb(currentDir);
+    console.log(errors, "All errors");
 
-    return ResponseUtil.sendResponse(
-      res,
-      "Student information upload successful",
-      null
-    );
+    return ResponseUtil.sendResponse(res, "File uploaded successfully", null);
   }
 
   async createLecturer(req: Request, res: Response, next: NextFunction) {
@@ -227,11 +216,7 @@ export class AdminController {
       ...filteredUser,
     };
 
-    return ResponseUtil.sendResponse(
-      res,
-      "Lecturer created successfully",
-      response
-    );
+    return ResponseUtil.sendResponse(res, "Lecturer created successfully", response);
   }
 
   async uploadLecInfo(req: Request, res: Response, next: NextFunction) {
@@ -248,10 +233,6 @@ export class AdminController {
 
     await csvToDb(currentDir);
 
-    return ResponseUtil.sendResponse(
-      res,
-      "Lecturer information upload successful",
-      null
-    );
+    return ResponseUtil.sendResponse(res, "Lecturer information upload successful", null);
   }
 }

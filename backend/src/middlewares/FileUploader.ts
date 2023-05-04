@@ -10,6 +10,7 @@ export class FileUploader {
     fileSize: number,
     fileTypes: string[] = [
       "text/csv",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     ]
   ) {
     const storage = multer.diskStorage({
@@ -21,7 +22,11 @@ export class FileUploader {
         cb(null, folder);
       },
       filename: (req, file, callBack) => {
-        callBack(null, crypto.randomBytes(16).toString("hex") + path.extname(file.originalname));
+        callBack(
+          null,
+          crypto.randomBytes(16).toString("hex") +
+            path.extname(file.originalname)
+        );
       },
     });
     const fileFilter = (req, file, cb) => {
@@ -36,7 +41,7 @@ export class FileUploader {
       limits: { fileSize: fileSize },
       fileFilter,
     }).array(fileFieldName);
-    
-    return upload
+
+    return upload;
   }
 }
