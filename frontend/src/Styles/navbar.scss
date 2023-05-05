@@ -17,9 +17,15 @@
             align-items: center;
             gap: 4rem;
 
-            .link{
+            
+            a{
                 color: #fff;
+                &.active{
+                    border-bottom: 4px solid #170E7D;
+                    line-height: 2rem;
+                }
             }
+            
         }
        
         .right-nav{
