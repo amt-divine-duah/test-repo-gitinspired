@@ -1,18 +1,20 @@
+
 :root {
-  --black1:#484848;
-  --black2:#363143;
-  --black3:#18181B;
-  --blueBlack:#4E4466;
-  --deepBlue:#170E7D;
-  --blue:#5D34EC;
-  --lightBlue:#E8F0FE;
-  --ash:#9F9F9F;
+  --black1: #484848;
+  --black2: #363143;
+  --black3: #18181B;
+  --blueBlack: #4E4466;
+  --deepBlue: #170E7D;
+  --blue: #5D34EC;
+  --lightBlue: #E8F0FE;
+  --ash: #9F9F9F;
   --offWhite: #F2F2F2;
-  --navBarGradient:  linear-gradient(180deg, #170E7D 0%, #15104E 100%);
+  --navBarGradient: linear-gradient(180deg, #170E7D 0%, #15104E 100%);
 
 
 
 }
+
 
 
 .big-box {
@@ -269,59 +271,79 @@
   order: 1;
   flex-grow: 0;
 }
+
 #eye1 {
   height: 16px;
   width: 16px;
   position: absolute;
-left: 386px;
-right: 22.67px;
-top: 162px;
-bottom: 8.33%;
+  left: 386px;
+  right: 22.67px;
+  top: 162px;
+  bottom: 8.33%;
 }
+
 #eye2 {
   height: 16px;
   width: 16px;
   position: absolute;
-left: 386px;
-right: 22px;
-top: 264px;
-bottom: 8.33%;
+  left: 386px;
+  right: 22px;
+  top: 264px;
+  bottom: 8.33%;
 }
+
 .error {
   border: 1px solid #FF3131;
 }
 
 
 .tooltip-main {
-  width: 271px;
+  max-width: max-content;
   height: 34px;
+  position: relative;
 
   /* Inside auto layout */
   flex: none;
-order: 0;
-flex-grow: 0;
+  order: 0;
+  flex-grow: 0;
 
-  display: flex;
   align-items: center;
   justify-content: center;
   display: none;
-  background: #FFFFFF;
   border: 1px solid #B6B6BB;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
-  background-color: #D0D5DD;
   color: #EF2637;
 }
 
 /* .tooltip:hover {
   display: none;
 } */
-.tooltip-main::after {
-  content: attr(data-message);
+.tooltip-main-content {
+
+  position: relative;
+  background-color: #fff;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+
+}
+
+.tooltip-main-content>p {
+  padding: 6px 33px;
 }
 
 .tooltip-main::before {
   content: '';
-
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  top: -8.5px;
+  left: 10%;
+  margin-left: 25px;
+  background-color: #fff;
+  transform: rotate(45deg);
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+  border: 1px solid #B6B6BB;
 }
 
 .tooltips-container {
@@ -329,44 +351,114 @@ flex-grow: 0;
 
 }
 
-.tooltip {
-  position: relative;
-  z-index: 1;
-  width: max-content;
-  padding: 8px;
+.tooltip-email {
+  max-width: max-content;
   height: 34px;
+  position: relative;
 
   /* Inside auto layout */
   flex: none;
   order: 0;
   flex-grow: 0;
 
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
-  display: none;
-  background: #FFFFFF;
+
   border: 1px solid #B6B6BB;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
-
   color: #EF2637;
 }
 
-.tooltip::after {
-  content: attr(data-message);
-}
 
-.tooltip::before {
-  content: '';
+.tooltip-email-content {
+
   position: relative;
-
-  -webkit-filter: drop-shadow(0px 1px 4px rgba(70, 70, 70, 1));
-  filter: drop-shadow(0px 1px 4px rgba(70, 70, 70, 1));
-
+  background-color: #fff;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
 
 }
 
-.btn {
+.tooltip-email::before {
+  content: '';
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  top: -8.5px;
+  left: 10%;
+  margin-left: 25px;
+  background-color: #fff;
+  transform: rotate(45deg);
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+  border: 1px solid #B6B6BB;
+}
+
+.tooltip-email-content>p {
+  padding: 6px 8px;
+}
+
+
+.validation {
+padding: 16px;
+position: absolute;
+  background-color: #FFFFFF;
+  width: 220px;
+  height: 180px;
+border-radius: 2px;
+border: 1px solid #C2C8D0;
+ margin-top: 20px;
+ transition: 0.3s;
+display: none;
+
+}
+
+.validation ul {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.validation ul li {
+list-style: none;
+color: #858585;
+font-size: 14px;
+line-height: 20px;
+font-family: Roboto;
+letter-spacing: 0.25px;
+
+flex: none;
+order: 0;
+flex-grow: 0;
+display: flex;
+gap: 8px;
+
+}
+
+
+.caution {
+  color: #2D333A;
+  font-size: 13px;
+  letter-spacing: 0.0px;
+}
+
+.validation li::before {
+  content: url('checkmark-circle.svg');
+  width: 16px;
+  height: 16px;
+   display: inline-flex;
+   padding-top: 2px;
+  }
+  .validation li.pass::before {
+    content: url('checkmark-pass.svg');
+    width: 16px;
+    height: 16px;
+     display: inline-flex;
+     padding-top: 2px;
+    }
+
+.login {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -387,7 +479,7 @@ flex-grow: 0;
   flex-grow: 0;
 }
 
-.btn>p {
+.login>p {
   width: 47px;
   height: 19px;
 
@@ -400,3 +492,7 @@ flex-grow: 0;
   color: #DFE9FA;
 
 }
+.visible {
+  display: block;
+}
+
