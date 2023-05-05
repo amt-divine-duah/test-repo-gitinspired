@@ -25,10 +25,6 @@ adminRouter.post(
   ErrorHandler.catchErrors(adminController.uploadLecInfo)
 );
 adminRouter.get(
-  "/confirm-account/:token",
-  ErrorHandler.catchErrors(adminController.confirmAccount)
-);
-adminRouter.get(
   "/lecturers/:page",
   ErrorHandler.catchErrors(adminController.getLecturers)
 );

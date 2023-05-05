@@ -22,12 +22,26 @@ export default function configureApp() {
   // end middlewares
 
   // routers
-  app.get("/hello", (req: Request, res: Response, next: NextFunction) => {
-    return res.status(200).json({
-      success: true,
-      message: "Welcome to this place",
-    });
-  });
+  app.get(
+    "/api/health-check",
+    (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const healthcheck = {
+          uptime: process.uptime(),
+          message: "OK",
+          timestamp: Date.now(),
+        };
+        return ResponseUtil.sendResponse(res, "Server is up", healthcheck);
+      } catch (error) {
+        return ResponseUtil.sendError(
+          res,
+          `${error}`,
+          StatusCodes.SERVICE_UNAVAILABLE,
+          ReasonPhrases.SERVICE_UNAVAILABLE
+        );
+      }
+    }
+  );
   
   app.use("/api/auth", authRouter);
   app.use("/api/admin", adminRouter);

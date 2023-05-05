@@ -8,6 +8,7 @@ export async function resetPasswordSchemaValidation(req: Request) {
     {
       password: {
         isStrongPassword: {
+          bail: true,
           options: {
             minLength: 8,
             minLowercase: 1,
@@ -18,6 +19,7 @@ export async function resetPasswordSchemaValidation(req: Request) {
           errorMessage: "Password requirement not met",
         },
         custom: {
+          bail: true,
           options: (value, { req }) => {
             if (value !== req.body.confirmPassword) return false;
             return true;

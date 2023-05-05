@@ -23,51 +23,7 @@ import { studentInviteTemplate } from "../templates/studentInviteTemplate";
 import { lecturerInviteTemplate } from "../templates/lecturerInviteTemplate";
 
 export class AdminController {
-  //confirm account
-  async confirmAccount(req: Request, res: Response, next: NextFunction) {
-    const { token } = req.params;
-    const payload = validateToken(token);
-    if (!payload) {
-      return ResponseUtil.sendError(
-        res,
-        "Invalid or expired Token",
-        StatusCodes.BAD_REQUEST,
-        ReasonPhrases.BAD_REQUEST
-      );
-    }
-    const userId = payload["userId"];
-    logger.info(userId);
-    const getUser = await prisma.user.findFirst({
-      where: {
-        loginId: userId,
-      },
-    });
-    if (getUser.isActive) {
-      return ResponseUtil.sendError(
-        res,
-        "User account has already been confirmed",
-        StatusCodes.BAD_REQUEST,
-        ReasonPhrases.BAD_REQUEST
-      );
-    }
-
-    const updateUser = await prisma.user.update({
-      where: {
-        loginId: userId,
-      },
-      data: {
-        isActive: true,
-      },
-    });
-
-    const response = { payload, updateUser };
-    return ResponseUtil.sendResponse(
-      res,
-      "Account confirmed successfully",
-      response
-    );
-  }
-
+  
   async createStudent(req: Request, res: Response, next: NextFunction) {
     const studentData = req.body;
 
@@ -164,7 +120,6 @@ export class AdminController {
     // perform validations
     await schemaValidation(req);
 
-    logger.info("%j", lecturerData);
     const tempPassword = generator.generate({
       length: 8,
       numbers: true,
