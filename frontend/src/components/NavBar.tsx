@@ -1,22 +1,31 @@
 import '../Styles/navbar.scss'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
+import SignoutModal from './SignoutModal'
+import { useState } from 'react'
 
 const NavBar = () => {
+  const[logout, setLogout]=useState(false)
+  const handleLogout=()=>{
+    setLogout(prev=>!prev)
+  }
   return (
-    <nav className="navbar">
+    <header className="navbar">
       <div className="left-nav">
         <img src="./logo.png" alt="" />
-     <Link to={'/'} className='link'>Dashboard</Link>
-    <Link to={'/student'} className='link'>Student</Link>
-    <Link to={'/lecturer'} className='link'>Lecturer</Link>
+      
+      <NavLink to={'/'}>Dashboard</NavLink>  
+      <NavLink to={'/student'}>Student</NavLink>
+      <NavLink to={'/lecturer'}>Lecturer</NavLink>
+    
       </div>
 
       <div className="right-nav">
-        <button className='logout'>Logout</button>
+        <button className='logout' onClick={handleLogout}>Logout</button>
         <p>ellaneizer@gmail.com</p>
         <img src="./user 2.png" alt="" />
       </div>
-    </nav>
+      {logout===true && <SignoutModal handleLogout={handleLogout} /> }
+    </header>
   )
 }
 

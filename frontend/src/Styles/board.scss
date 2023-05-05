@@ -7,10 +7,53 @@
             display: grid;
             margin: 2rem 13rem;
            
+            .main-board-table{
+                table{
+                    margin-top: 3rem;
+                    border-collapse: collapse;
+                    width: 100%;
+                }
+                
+                table th:first-child,
+                table th:nth-child(2),
+                table td:nth-child(2){
+                    text-align: left;
+                   
+                };
 
+                table th:nth-child(3),
+                table td:nth-child(3){
+                   
+                    text-align: center;
+                    
+                }
+                
+                thead tr
+                {
+                    border-bottom: 2px solid #000;
+                    
+                }
+                tbody tr{
+                    border-bottom: 1px solid #000;
+                }
+                
+                thead th{
+                    padding: 0.3rem 0;
+                    padding-left: 3em;
+                }
+                tbody td{
+                    padding: 1rem 0;
+                    padding-left: 3rem;
+                }
+                th:first-child,
+                td:first-child{
+                    width: 40%;
+                }
+            }
             .main-board-header{
                 display: flex;
                 justify-content: space-between;
+                align-items: center;
 
                 .main-board-btn{
                     display: flex;
@@ -52,5 +95,6 @@
              }
         }
     }
+   
    
 }
