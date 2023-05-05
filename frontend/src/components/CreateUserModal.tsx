@@ -7,7 +7,7 @@ type Prop ={
 
 const CreateUserModal = ({showModal,user}:Prop) => {
   return (
-    <div className="createUserContainer" onClick={showModal}>
+    <div className="container" onClick={showModal}>
        <div className="createUserModal" onClick={(e)=>{e.stopPropagation()}}>
         <h2>Tell us a little about the {user} you are adding</h2>
         <p>Please fill the following details to get started </p>
