@@ -92,6 +92,7 @@ export class AdminController {
           studentId: studentId,
           firstName: studentData.firstname,
           lastName: studentData.lastname,
+          email: studentData.email,
         },
       }),
       prisma.user.create({
@@ -184,6 +185,7 @@ export class AdminController {
           staffId: lecturerId,
           firstName: lecturerData.firstname,
           lastName: lecturerData.lastname,
+          email: lecturerData.email,
         },
       }),
       prisma.user.create({

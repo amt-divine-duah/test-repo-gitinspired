@@ -32,6 +32,7 @@ model User {
 model Student {
   id          Int                     @id @default(autoincrement())
   studentId   String                  @unique @default(uuid())
+  email       String                  @unique
   firstName   String
   lastName    String
   assignments StudentsOnAssignments[]
@@ -43,6 +44,7 @@ model Lecturer {
   id        Int    @id @default(autoincrement())
   staffId   String @unique @default(uuid())
   firstName String
+  email     String @unique
   lastName  String
 
   @@map("lecturers")
