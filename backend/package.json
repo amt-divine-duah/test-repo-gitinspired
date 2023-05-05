@@ -13,6 +13,7 @@
     "prisma": "npx prisma",
     "prisma:generate": "prisma generate",
     "migration:run": "npx prisma migrate dev",
+    "migration:deploy": "prisma migrate deploy",
     "seed": "ts-node prisma/seed.ts"
   },
   "dependencies": {
