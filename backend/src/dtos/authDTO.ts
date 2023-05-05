@@ -62,10 +62,22 @@ export async function loginSchemaValidation(req: Request) {
       },
       password: {
         isLength: {
+          bail: true,
           options: {
             min: 8,
           },
-          errorMessage: "Password should be at least 8 chars",
+          errorMessage: "Password should be at least 8 characters",
+        },
+        isStrongPassword: {
+          bail: true,
+          options: {
+            minLength: 8,
+            minLowercase: 1,
+            minUppercase: 1,
+            minNumbers: 1,
+            minSymbols: 1,
+          },
+          errorMessage: "password requirements not met"
         },
       },
     },

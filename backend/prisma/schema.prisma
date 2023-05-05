@@ -34,6 +34,7 @@ model Student {
   studentId String @unique @default(uuid())
   firstName String
   lastName  String
+  email     String @unique
 
   @@map("students")
 }
@@ -43,6 +44,7 @@ model Lecturer {
   staffId   String @unique @default(uuid())
   firstName String
   lastName  String
+  email     String @unique
 
   @@map("lecturers")
 }

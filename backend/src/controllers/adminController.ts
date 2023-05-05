@@ -11,18 +11,16 @@ import { schemaValidation } from "../dtos/adminDTO";
 import generator from "generate-password";
 import { prisma } from "../configs/prismaConfig";
 import { hash } from "bcryptjs";
-import _, { take } from "lodash";
+import _ from "lodash";
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
-import { csvToDb, getCsvFiles } from "../utils/databaseUtils";
+import { csvToDb } from "../utils/databaseUtils";
 import path from "path";
 import { mailOptionsInterface } from "../interfaces/mailOptionsInterface";
 import { EMAIL_ACTIVATION_SUBJECT } from "../constants/messages";
-import { confirmAccountTemplate } from "../templates/activateAccount";
 import transporter from "../configs/nodemailerConfig";
 import configValues from "../configs/config";
-import { Token, TokenClass } from "typescript";
-import { JwtPayload } from "jsonwebtoken";
-import { faker } from "@faker-js/faker";
+import { studentInviteTemplate } from "../templates/studentInviteTemplate";
+import { lecturerInviteTemplate } from "../templates/lecturerInviteTemplate";
 
 export class AdminController {
   //confirm account
@@ -63,7 +61,11 @@ export class AdminController {
     });
 
     const response = { payload, updateUser };
-    return ResponseUtil.sendResponse(res, "Account confirmed successfully", response);
+    return ResponseUtil.sendResponse(
+      res,
+      "Account confirmed successfully",
+      response
+    );
   }
 
   async createStudent(req: Request, res: Response, next: NextFunction) {
@@ -74,7 +76,7 @@ export class AdminController {
 
     logger.info("%j", studentData);
     const tempPassword = generator.generate({
-      length: 10,
+      length: 8,
       numbers: true,
       symbols: true,
       uppercase: true,
@@ -88,6 +90,7 @@ export class AdminController {
           studentId: studentId,
           firstName: studentData.firstname,
           lastName: studentData.lastname,
+          email: studentData.email,
         },
       }),
       prisma.user.create({
@@ -111,8 +114,8 @@ export class AdminController {
       if (otp) {
         const token = generateAuthToken(user[1]);
         const filteredUser = _.pick(user[1], ["email"]);
-        let message = confirmAccountTemplate(
-          filteredUser.email,
+        let message = studentInviteTemplate(
+          studentId,
           configValues.ACCOUNT_CONFIRMATION_URL + "/" + token.accessToken,
           otp.otpCode
         );
@@ -130,7 +133,11 @@ export class AdminController {
       ...filteredUser,
     };
 
-    return ResponseUtil.sendResponse(res, "Student created successfully", response);
+    return ResponseUtil.sendResponse(
+      res,
+      "Student created successfully",
+      response
+    );
   }
 
   async uploadStdInfo(req: Request, res: Response, next: NextFunction) {
@@ -159,7 +166,7 @@ export class AdminController {
 
     logger.info("%j", lecturerData);
     const tempPassword = generator.generate({
-      length: 10,
+      length: 8,
       numbers: true,
       symbols: true,
       uppercase: true,
@@ -173,6 +180,7 @@ export class AdminController {
           staffId: lecturerId,
           firstName: lecturerData.firstname,
           lastName: lecturerData.lastname,
+          email: lecturerData.email,
         },
       }),
       prisma.user.create({
@@ -197,8 +205,8 @@ export class AdminController {
         // If otp was created, send email with verification link
         const token = generateAuthToken(user[1]);
         const filteredUser = _.pick(user[1], ["email"]);
-        let message = confirmAccountTemplate(
-          filteredUser.email,
+        let message = lecturerInviteTemplate(
+          lecturerId,
           configValues.ACCOUNT_CONFIRMATION_URL + "/" + token.accessToken,
           otp.otpCode
         );
@@ -217,7 +225,11 @@ export class AdminController {
       ...filteredUser,
     };
 
-    return ResponseUtil.sendResponse(res, "Lecturer created successfully", response);
+    return ResponseUtil.sendResponse(
+      res,
+      "Lecturer created successfully",
+      response
+    );
   }
 
   async uploadLecInfo(req: Request, res: Response, next: NextFunction) {
@@ -234,7 +246,11 @@ export class AdminController {
 
     await csvToDb(currentDir);
 
-    return ResponseUtil.sendResponse(res, "Lecturer information upload successful", null);
+    return ResponseUtil.sendResponse(
+      res,
+      "Lecturer information upload successful",
+      null
+    );
   }
 
   async getLecturers(req: Request, res: Response, next: NextFunction) {

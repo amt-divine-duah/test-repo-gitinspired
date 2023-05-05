@@ -15,7 +15,7 @@ import configValues from "../configs/config";
 import transporter from "../configs/nodemailerConfig";
 import { EMAIL_ACTIVATION_SUBJECT } from "../constants/messages";
 import { mailOptionsInterface } from "../interfaces/mailOptionsInterface";
-import { confirmAccountTemplate } from "../templates/activateAccount";
+import { studentInviteTemplate } from "../templates/studentInviteTemplate";
 
 const readdir = util.promisify(fs.readdir);
 
@@ -33,7 +33,6 @@ export const getCsvFiles = async (currentDir: string) => {
   }
 };
 
-
 async function createStudentAccount(user: UserInterface) {
   const tempPassword = generator.generate({
     length: 10,
@@ -50,6 +49,7 @@ async function createStudentAccount(user: UserInterface) {
         studentId: studentId,
         firstName: user.firstname,
         lastName: user.lastname,
+        email: user.email
       },
     }),
     prisma.user.create({
@@ -63,7 +63,7 @@ async function createStudentAccount(user: UserInterface) {
   ]);
 
   console.log("I have results", results);
-  
+
   if (results) {
     const otp = await prisma.otp.create({
       data: {
@@ -75,7 +75,7 @@ async function createStudentAccount(user: UserInterface) {
     if (otp) {
       const token = generateAuthToken(results[1]);
       const filteredUser = _.pick(results[1], ["email"]);
-      let message = confirmAccountTemplate(
+      let message = studentInviteTemplate(
         filteredUser.email,
         configValues.ACCOUNT_CONFIRMATION_URL + "/" + token.accessToken,
         otp.otpCode
