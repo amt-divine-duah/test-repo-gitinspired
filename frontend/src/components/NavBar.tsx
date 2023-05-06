@@ -1,7 +1,7 @@
 import "../Styles/navbar.scss";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
-import SignoutModal from "./SignOutModal";
+import SignoutModal from "./SignoutModal";
 import { useAuthUser } from "react-auth-kit";
 
 const NavBar = () => {
