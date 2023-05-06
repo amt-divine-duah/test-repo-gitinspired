@@ -1,0 +1,13 @@
+@import './breakpoints';
+@import '../App.css';
+
+
+.lecturer-main-board{
+    @include lg{
+        width: 100%;
+        header{
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+}
