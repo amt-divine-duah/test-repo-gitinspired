@@ -4,10 +4,10 @@
 
 .lecturer-main-board{
     @include lg{
-        width: 100%;
-        header{
+              .card-section{
             display: flex;
-            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
     }
 }
