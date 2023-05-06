@@ -9,3 +9,51 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum Role {
+  ADMIN
+  LECTURER
+  STUDENT
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  loginId   String   @unique @default(uuid())
+  password  String
+  createdAt DateTime @default(now())
+  isActive  Boolean  @default(false)
+  role      Role
+  Otp       Otp[]
+
+  @@map("users")
+}
+
+model Student {
+  id        Int    @id @default(autoincrement())
+  studentId String @unique @default(uuid())
+  firstName String
+  lastName  String
+
+  @@map("students")
+}
+
+model Lecturer {
+  id        Int    @id @default(autoincrement())
+  staffId   String @unique @default(uuid())
+  firstName String
+  lastName  String
+
+  @@map("lecturers")
+}
+
+model Otp {
+  id            Int       @id @default(autoincrement())
+  user          User      @relation(fields: [userId], references: [loginId])
+  userId        String
+  otpCode       String
+  otpExpiration DateTime?
+  createdAt     DateTime  @default(now())
+
+  @@map("otps")
+}

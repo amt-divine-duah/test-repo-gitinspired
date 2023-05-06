@@ -1,0 +1,74 @@
+@import './breakpoints';
+@import '../App.css';
+
+.sidebar{
+    @include lg{
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2rem 0;
+        background: linear-gradient(180deg, #170E7D 0%, #15104E 100%);
+       
+        ;
+      
+   
+        .sidebar-top{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: 2.5rem;
+
+            .img{
+                margin: 0 auto;
+            }
+          
+            
+            ul{
+                display: flex;
+                flex-direction: column;
+                list-style: none;
+                text-align: center;
+                line-height: 2.5rem;
+            
+            
+                li{
+                  
+                    a{
+                        color: #fff;
+                        &.active{
+                            display: block;
+                            background-color:#130C68;
+                            
+                            
+                        }
+                    }
+                }
+               
+            }
+        }
+
+        .sidebar-bottom{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            color: #fff;
+            gap: 2rem;
+            .profile-pic-with-name{
+                display: flex;
+                align-items: center;
+                margin-left: 1rem;
+                gap: 1rem;
+            }
+            button{
+                border: none;
+                background-color: transparent;
+                color: #fff;
+                cursor: pointer;
+            }
+            
+        }
+       
+    }
+}
