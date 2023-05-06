@@ -1,0 +1,77 @@
+@import './breakpoints';
+@import '../App.css';
+
+
+.uploadModalContainer {
+    @include lg {
+        position: absolute;
+        background-color: rgba(59, 59, 64, 0.8);
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        display: grid;
+        place-items: center;
+
+        .uploadModal {
+            display: grid;
+            place-items: center;
+            background-color: #fff;
+            width: 582px;
+            height: 615px;
+            border-radius: 16px;
+
+        }
+
+        .modalFileUpload {
+            position: relative;
+            display: grid;
+            place-items: center;
+            height: 357px;
+            width: 395px;
+            background-color: #FBFBFB;
+            border-radius: 16px;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+            p {
+                text-align: center;
+            }
+
+            & input {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                color: transparent;
+
+
+            }
+
+            & input::-webkit-file-upload-button {
+                background-color: red;
+                position: absolute;
+                top: 30%;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: -1;
+
+            }
+
+            #files {
+                background-color: transparent;
+            }
+
+            .uploadbtn {
+                width: 8rem;
+                height: 2rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 8px;
+                background-color: #170E7D;
+                color: #fff;
+            }
+        }
+
+    }
+}

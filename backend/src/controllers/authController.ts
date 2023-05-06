@@ -53,13 +53,13 @@ export class AuthController {
     if (!user.isActive) {
       return ResponseUtil.sendError(
         res,
-        "Please activate your account and try again",
+        "Please activate your account",
         StatusCodes.BAD_REQUEST,
         ReasonPhrases.BAD_REQUEST
       );
     }
 
-    const filteredUser = _.pick(user, ["id", "email", "loginId"]);
+    const filteredUser = _.pick(user, ["id", "email", "loginId", "role"]);
     const token = generateAuthToken(user);
     const response = {
       ...filteredUser,

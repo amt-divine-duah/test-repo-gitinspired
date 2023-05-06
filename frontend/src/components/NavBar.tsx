@@ -1,29 +1,35 @@
-import '../Styles/navbar.scss'
-import { Link } from 'react-router-dom'
+import "../Styles/navbar.scss";
+import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import SignoutModal from "./SignOutModal";
+import { useAuthUser } from "react-auth-kit";
 
 const NavBar = () => {
+  const [logout, setLogout] = useState(false);
+  const auth = useAuthUser();
+  const handleLogout = () => {
+    setLogout((prev) => !prev);
+  };
   return (
-    <nav className="navbar">
+    <header className="navbar">
       <div className="left-nav">
-        <img src="./logo.png" alt="" />
-        <Link to={"/admin/dashboard"} className="link">
-          Dashboard
-        </Link>
-        <Link to={"/admin/dashboard"} className="link">
-          Student
-        </Link>
-        <Link to={"/admin/dashboard"} className="link">
-          Lecturer
-        </Link>
+        <img src="/logo.png" alt="" />
+
+        <NavLink to={"/admin/dashboard"}>Dashboard</NavLink>
+        <NavLink to={"/admin/student"}>Student</NavLink>
+        <NavLink to={"/admin/lecturer"}>Lecturer</NavLink>
       </div>
 
       <div className="right-nav">
-        <button className="logout">Logout</button>
-        <p>ellaneizer@gmail.com</p>
+        <button className="logout" onClick={handleLogout}>
+          Logout
+        </button>
+        <p>{auth()?.email}</p>
         <img src="/user 2.png" alt="" />
       </div>
-    </nav>
+      {logout === true && <SignoutModal handleLogout={handleLogout} />}
+    </header>
   );
-}
+};
 
-export default NavBar
+export default NavBar;

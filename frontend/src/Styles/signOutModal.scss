@@ -1,0 +1,59 @@
+@import './breakpoints';
+@import '../App.css';
+@import './createUserModal.scss';
+
+.container {
+    @include lg {
+        .signOutModal {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 2rem 3rem;
+            width: 493px;
+            height: 273px;
+            border-radius: 16px;
+            background-color: #fff;
+            box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.25);
+            color: black;
+            line-height: 5rem;
+
+            h3 {
+                font-weight: 400;
+            }
+
+            p {
+                line-height: 1.5;
+
+                .logoutBoldText {
+                    font-weight: 600;
+                }
+            }
+
+            .logout-btns {
+                display: flex;
+                align-self: flex-end;
+                gap: 2rem;
+                padding-right: 2rem;
+                padding-top: 2rem;
+
+                button {
+                    padding: 0.5rem 20px;
+                    border: 1px solid;
+                    border-radius: 8px;
+                    cursor: pointer;
+
+                    &:first-child {
+                        background-color: transparent;
+                    }
+
+                    &:nth-child(2) {
+                        background-color: #170E7D;
+                        border: 1px solid;
+                        color: #fff;
+                    }
+                }
+
+            }
+        }
+    }
+}

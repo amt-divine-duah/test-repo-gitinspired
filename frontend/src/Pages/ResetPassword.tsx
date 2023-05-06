@@ -1,31 +1,23 @@
 import "../App.css";
-import Main from "../components/Main";
-
+import { useState } from "react";
 const ResetPassword = () => {
-  const togglePasswordNew = () => {
-    //  const passwordInput = document.querySelectorAll("input");
-    const passwordInput = document.getElementById("new-password");
-    const passwordShowButton = document.getElementById("eye1");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-    if (passwordInput.type === "password") {
-      passwordInput.type = "text";
+  const passwordView = (number: number) => {
+    const passwordInput = document.querySelectorAll(
+      "input"
+    ) as NodeListOf<HTMLInputElement>;
+
+    if (passwordInput[number].type === "password") {
+      passwordInput[number].type = "text";
     } else {
-      passwordInput.type = "password";
+      passwordInput[number].type = "password";
     }
   };
-  const togglePasswordConfirm = () => {
-    //  const passwordInput = document.querySelectorAll("input");
-    const passwordInput = document.getElementById("confirm-password");
-    const passwwordShowButton = document.getElementById("eye2");
 
-    if (passwordInput.type === "password") {
-      passwordInput.type = "text";
-    } else {
-      passwordInput.type = "password";
-    }
-  };
   return (
-    <Main>
+    <>
       <div className="big-box">
         <section className="left-box">
           <div className="top">
@@ -38,7 +30,7 @@ const ResetPassword = () => {
             </p>
           </div>
           <div className="down">
-            <img src="/Frame.png" alt="login image" />
+            <img src="./Frame.png" alt="login image" />
           </div>
         </section>
         <section className="right-box">
@@ -59,12 +51,17 @@ const ResetPassword = () => {
                       required
                       className="password-enclosure"
                       id="new-password"
+                      onChange={(e) => {
+                        setNewPassword(e.target.value);
+                      }}
                     />
                     <img
-                      src="/eye.png"
+                      src="./eye.png"
                       alt="password view toggle"
                       id="eye1"
-                      onClick={togglePasswordNew}
+                      onClick={() => {
+                        passwordView(0);
+                      }}
                     />
                   </div>
                   <div className="password">
@@ -78,12 +75,17 @@ const ResetPassword = () => {
                       required
                       className="password-enclosure"
                       id="confirm-password"
+                      onChange={(e) => {
+                        setConfirmPassword(e.target.value);
+                      }}
                     />
                     <img
-                      src="/eye.png"
+                      src="./eye.png"
                       alt="password view toggle"
                       id="eye2"
-                      onClick={togglePasswordConfirm}
+                      onClick={() => {
+                        passwordView(1);
+                      }}
                     />
                   </div>
                 </div>
@@ -96,7 +98,7 @@ const ResetPassword = () => {
           </div>
         </section>
       </div>
-    </Main>
+    </>
   );
 };
 

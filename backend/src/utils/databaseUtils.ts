@@ -156,6 +156,7 @@ export async function csvToDb(currentDir: string) {
               logger.info("Log this user for me", user);
               await createStudentAccount(user);
             });
+            
             // Remove file
             logger.info("removing file......%j", filename);
             fs.unlinkSync(currentFilePath);
