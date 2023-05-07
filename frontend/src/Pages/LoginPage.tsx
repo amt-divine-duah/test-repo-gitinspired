@@ -44,7 +44,7 @@ const LoginPage = () => {
       modalBox.classList.add('visible');
       setTimeout(()=> {
         modalBox.classList.remove('visible');
-      },500)
+      },900)
  
  }
   function passwordCheck(){
@@ -150,7 +150,7 @@ const LoginPage = () => {
 
                       onKeyUp={() => {
                         passwordCheck();
-                        modalAppear();
+                        password.length < 11 ? modalAppear() : '';
                       }}
                     />
                     <div className="validation"
