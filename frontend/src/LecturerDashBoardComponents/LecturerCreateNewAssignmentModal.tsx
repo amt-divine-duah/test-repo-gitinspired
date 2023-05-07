@@ -17,7 +17,7 @@ const LecturerCreateNewAssignmentModal = ({handleShowAssignmentModal}:Prop) => {
           </header>
           <div className="modal-content">
             <div className="modal-left-side">
-
+              <h3>Create new Assignment</h3>
             <label htmlFor="title">Title</label>
               <div className="modal-input-container">
               <input type="text" id='title' placeholder='e.g.  Javascript' />

@@ -29,31 +29,34 @@ const Board = ({users, buttonInfo,message,showAddUserModal,data,userTableName,sh
           </div>
         </div>
 
-       { data.length ===0 && <div className='main-board-body'>1
+       { data.length ===0 && <div className='main-board-body'>
           <img src="./main-page-image.png" alt="" />
           <p>{message}</p>
         </div>}
-            <div className="main-board-table">
-              <table>
-                <thead>
-                  <tr>
-                    <th>{userTableName}</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                  </tr>
+        { data.length > 0 &&
+          <div className="main-board-table">
+          <table>
+            <thead>
+              <tr>
+                <th>{userTableName}</th>
+                <th>Name</th>
+                <th>Email</th>
+              </tr>
 
-                </thead>
-                <tbody>
-                {data.map((item: any,index): any=>(
-                  <tr key={index}>
-                    <td>{item.id}</td>
-                    <td>{item.name}</td>
-                    <td>{item.email}</td>
-                  </tr>
-                ))}
-                </tbody>
-              </table>
-            </div>
+            </thead>
+            <tbody>
+            {data.map((item: any,index): any=>(
+              <tr key={index}>
+                <td>{item.id}</td>
+                <td>{item.name}</td>
+                <td>{item.email}</td>
+              </tr>
+            ))}
+            </tbody>
+          </table>
+        </div>
+        }
+            
       </section>
 
      
