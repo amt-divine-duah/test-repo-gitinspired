@@ -41,7 +41,7 @@ export function studentInviteTemplate(
                 Below is your password and student id. Click on the claim button to get started.
                 <ul>
                     <li>generated password: <b>${otp}</b></li>
-                    <li> staff ID is <b>${studentId}</b>.</li>
+                    <li> student ID is <b>${studentId}</b>.</li>
                 </ul>
                 Best regards,
             </span>

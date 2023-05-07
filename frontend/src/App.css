@@ -500,3 +500,13 @@ gap: 8px;
   display: block;
 }
 
+.reset-btn{
+  background-color: #170E7D;
+  color: #fff;
+  width: 100%;
+  padding: 1rem 0rem;
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid;
+  cursor: pointer;
+}
