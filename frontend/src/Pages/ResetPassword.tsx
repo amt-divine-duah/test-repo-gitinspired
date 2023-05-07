@@ -1,8 +1,25 @@
+import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
+import api from "../ApiClient";
 import "../App.css";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { showSuccessMessage, showErrorMessage } from "../constants/messages";
+import { StatusCodes } from "http-status-codes";
+
+interface FormErrors {
+  password?: string[];
+  confirmPassword?: string[];
+}
+
 const ResetPassword = () => {
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const passwordRef = useRef<HTMLInputElement>(null);
+  const confirmPasswordRef = useRef<HTMLInputElement>(null);
+  
+  const [formErrors, setFormErrors] = useState<FormErrors>({});
+
+
+  const navigate = useNavigate();
+  const { token } = useParams();
 
   const passwordView = (number: number) => {
     const passwordInput = document.querySelectorAll(
@@ -15,6 +32,71 @@ const ResetPassword = () => {
       passwordInput[number].type = "password";
     }
   };
+
+  useEffect(() => {
+    // TODO: Check if user is authenticated first
+    (async () => {
+      try {
+        const response = await api.get(`/api/auth/confirm-account/${token}`);
+        if (response.status === StatusCodes.OK) {
+          showSuccessMessage("Please reset your password");
+        }
+        else {
+          showErrorMessage("Something went wrong")
+          navigate("auth/login")
+        }
+         return; 
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          showErrorMessage(error.response?.data["message"]);
+        } else {
+          showErrorMessage("Something went wrong");
+        }
+        navigate("/auth/login");
+        // return
+      }
+    })();
+  }, []);
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    try {
+      const password = passwordRef.current ? passwordRef.current.value : "";
+      const confirmPassword = confirmPasswordRef.current ? confirmPasswordRef.current.value : "";
+      const formData = {password, confirmPassword, token}
+      const response = await api.post("api/auth/reset-password", formData);
+      if (response.status === StatusCodes.OK) {
+        showSuccessMessage(response.data?.message);
+        navigate("/auth/login");
+      }
+      else {
+       showErrorMessage(`Something went wrong`);
+       navigate("/auth/login")
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === StatusCodes.UNPROCESSABLE_ENTITY) {
+          setFormErrors(error.response?.data["error"]);
+        }
+        else if (error.response?.status === StatusCodes.BAD_REQUEST) {
+          setFormErrors({});
+          showErrorMessage(`${error.response?.data["message"]}`);
+        }
+        else {
+          setFormErrors({})
+          showErrorMessage(`Something went wrong`);
+        }
+        return
+      }
+    }
+  }
+
+  if (formErrors["password"]?.[0]) {
+    showErrorMessage(formErrors["password"]?.[0]);
+  }
+  else if (formErrors["confirmPassword"]?.[0]) {
+    showErrorMessage(formErrors["confirmPassword"]?.[0]);
+  }
 
   return (
     <>
@@ -30,12 +112,12 @@ const ResetPassword = () => {
             </p>
           </div>
           <div className="down">
-            <img src="./Frame.png" alt="login image" />
+            <img src="/Frame.png" alt="login image" />
           </div>
         </section>
         <section className="right-box">
           <div className="box-outer">
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="box-inner">
                 <p className="form-title">Reset Passsword</p>
 
@@ -51,12 +133,10 @@ const ResetPassword = () => {
                       required
                       className="password-enclosure"
                       id="new-password"
-                      onChange={(e) => {
-                        setNewPassword(e.target.value);
-                      }}
+                      ref={passwordRef}
                     />
                     <img
-                      src="./eye.png"
+                      src="/eye.png"
                       alt="password view toggle"
                       id="eye1"
                       onClick={() => {
@@ -75,12 +155,10 @@ const ResetPassword = () => {
                       required
                       className="password-enclosure"
                       id="confirm-password"
-                      onChange={(e) => {
-                        setConfirmPassword(e.target.value);
-                      }}
+                      ref={confirmPasswordRef}
                     />
                     <img
-                      src="./eye.png"
+                      src="/eye.png"
                       alt="password view toggle"
                       id="eye2"
                       onClick={() => {
@@ -90,8 +168,8 @@ const ResetPassword = () => {
                   </div>
                 </div>
 
-                <button type="submit" className="btn">
-                  <p> Login </p>
+                <button className="btn">
+                  <p>Reset Password</p>
                 </button>
               </div>
             </form>

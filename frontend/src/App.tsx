@@ -6,7 +6,8 @@ import ResetPassword from "./Pages/ResetPassword";
 import LoginPage from "./Pages/LoginPage";
 import { AuthProvider, RequireAuth } from "react-auth-kit";
 import LandingPage from "./Pages/LandingPage";
-
+import AdminStudentDashBoard from "./components/AdminStudentDashBoard";
+import AdminLecturerDashBoard from "./components/AdminLecturerDashBoard";
 const App = () => {
   return (
       <AuthProvider authType={"localstorage"} authName={"_auth"}>
@@ -15,7 +16,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Navigate to="/auth/login" />} />
             <Route path="/auth/login" element={<LoginPage />} />
-            <Route path="/auth/reset-password" element={<ResetPassword />} />
+            <Route path="/auth/claim-account/:token" element={<ResetPassword />} />
             <Route
               path="/landing"
               element={
@@ -29,6 +30,22 @@ const App = () => {
               element={
                 <RequireAuth loginPath="/auth/login">
                   <HomePage />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/admin/student"
+              element={
+                <RequireAuth loginPath="/auth/login">
+                  <AdminStudentDashBoard />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/admin/lecturer"
+              element={
+                <RequireAuth loginPath="/auth/login">
+                  <AdminLecturerDashBoard />
                 </RequireAuth>
               }
             />

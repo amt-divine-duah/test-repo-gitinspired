@@ -3,9 +3,9 @@ import api from "../ApiClient";
 import "../App.css";
 import { useEffect, useState } from "react";
 import { StatusCodes } from "http-status-codes";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useSignIn, useIsAuthenticated } from "react-auth-kit";
+import { showErrorMessage, showSuccessMessage } from "../constants/messages";
 
 interface FormErrors {
   emailOrId?: string[];
@@ -45,16 +45,7 @@ const LoginPage = () => {
             },
           })
         ) {
-          toast.success(`${response.data?.message}`, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
+          showSuccessMessage(`${response.data?.message}`)
           navigate("/landing");
         }
       }
@@ -74,31 +65,13 @@ const LoginPage = () => {
         else {
           setFormErrors({});
           setInvalidRes(null)
-          toast.error(`Something went wrong`, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-          });
+          showErrorMessage("Something went wrong");
           return
         }
         
       }
       else {
-        toast.error(`Something went wrong`, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
+        showErrorMessage("Something went wrong");
       }
     }
   }
@@ -118,7 +91,6 @@ const LoginPage = () => {
     emailBorder?.classList.remove("error");
   }
   if (formErrors["password"]?.[0]) {
-    
     passwordBorder?.classList.add("error");
     emailBorder?.classList.remove("error");
     passwordBorder?.classList.add("error");
