@@ -26,7 +26,6 @@ const LecturerDashBoard = () => {
         <Route path="/assignment-details" element={<AssignmentDetails/>}/>
       </Routes>
       </div>
- 
     </div>
   )
 }
