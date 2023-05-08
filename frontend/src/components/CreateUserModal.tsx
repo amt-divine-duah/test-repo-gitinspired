@@ -38,7 +38,8 @@ const CreateUserModal = ({ showModal, user, onCreateUser }: Prop) => {
         if (user==="student") {
           const student: UserInterface = {
             studentId: response.data?.data["studentId"],
-            name: `${response.data?.data["firstName"]} ${response.data?.data["lastName"]}`,
+            firstName: `${response.data?.data["firstName"]}`,
+            lastName: `${response.data?.data["lastName"]}`,
             email: response.data?.data["email"],
           };
           setFormErrors({});
@@ -49,7 +50,8 @@ const CreateUserModal = ({ showModal, user, onCreateUser }: Prop) => {
           console.log("This is response", response)
           const lecturer: UserInterface = {
             staffId: response.data?.data["staffId"],
-            name: `${response.data?.data["firstName"]} ${response.data?.data["lastName"]}`,
+            firstName: `${response.data?.data["firstName"]}`,
+            lastName: `${response.data?.data["lastName"]}`,
             email: response.data?.data["email"],
           };
           setFormErrors({});

@@ -21,9 +21,9 @@ import transporter from "../configs/nodemailerConfig";
 import configValues from "../configs/config";
 import { studentInviteTemplate } from "../templates/studentInviteTemplate";
 import { lecturerInviteTemplate } from "../templates/lecturerInviteTemplate";
+import { Paginator } from "../utils/Paginator";
 
 export class AdminController {
-  
   async createStudent(req: Request, res: Response, next: NextFunction) {
     const studentData = req.body;
 
@@ -209,50 +209,36 @@ export class AdminController {
   }
 
   async getLecturers(req: Request, res: Response, next: NextFunction) {
-    const { page } = req.params;
-    let skipNum: number = (Number(page) - 1) * 14;
-    let takeNum: number = 14;
 
-    const results = await prisma.lecturer.findMany({
-      skip: skipNum,
-      take: takeNum,
-      orderBy: {
-        lastName: "asc",
-      },
-    });
+    const { records: lecturers, paginationInfo } = await Paginator.paginate(
+      "lecturer",
+      req,
+      prisma
+    );
 
-    const totalRecords = await prisma.lecturer.count();
-
-    if (results && totalRecords) {
-      return ResponseUtil.sendResponse(res, "Lecturers List", results, 200, {
-        total: totalRecords, // total number of records
-        currentPage: Number(page), // current page number
-        pageSize: 14, // page size
-      });
-    }
+    return ResponseUtil.sendResponse(
+      res,
+      "Lecturers fetched successfully",
+      lecturers,
+      StatusCodes.OK,
+      paginationInfo
+    );
   }
 
   async getStudents(req: Request, res: Response, next: NextFunction) {
-    const { page } = req.params;
-    let skipNum = (Number(page) - 1) * 14;
-    let takeNum = 14;
 
-    const results = await prisma.student.findMany({
-      skip: skipNum,
-      take: takeNum,
-      orderBy: {
-        lastName: "asc",
-      },
-    });
-
-    const totalRecords = await prisma.student.count();
-
-    if (results && totalRecords) {
-      return ResponseUtil.sendResponse(res, "Students List", results, 200, {
-        total: totalRecords, // total number of records
-        currentPage: Number(page), // current page number
-        pageSize: 14, // page size
-      });
-    }
+    const { records: students, paginationInfo } = await Paginator.paginate(
+      "student",
+      req,
+      prisma
+    );
+    
+    return ResponseUtil.sendResponse(
+      res,
+      "Students fetched successfully",
+      students,
+      StatusCodes.OK,
+      paginationInfo
+    );
   }
 }

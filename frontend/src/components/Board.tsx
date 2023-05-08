@@ -62,7 +62,7 @@ const Board = ({
                     ) : (
                       <td>{item.staffId}</td>
                     )}
-                    <td>{item.name}</td>
+                    <td>{item.lastName} {item.firstName}</td>
                     <td>{item.email}</td>
                   </tr>
                 ))}

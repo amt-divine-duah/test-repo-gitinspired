@@ -8,7 +8,6 @@ export class Paginator {
     const offset = (page - 1) * pageSize;
 
     // get the Items
-    // get the Items
     const records = await prisma[modelName].findMany({
       skip: offset,
       take: pageSize,

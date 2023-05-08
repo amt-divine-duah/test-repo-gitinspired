@@ -6,6 +6,9 @@ import UploadModal from "./UploadModal";
 import Main from "./Main";
 import { UserInterface } from "../interfaces/UserInterface";
 import api from "../ApiClient";
+import axios from "axios";
+import { showErrorMessage } from "../constants/messages";
+import _ from "lodash";
 
 const AdminStudentDashBoard = () => {
   const [showCreateUserModal, setShowCreateUserModal] = useState(false);
@@ -13,7 +16,7 @@ const AdminStudentDashBoard = () => {
   const [studentData, setStudentData] = useState<UserInterface[]>([]);
 
   const handleCreateUser = (newUser: UserInterface) => {
-    setStudentData((prevData) => [...prevData, newUser]);
+    setStudentData((prevData) => [newUser, ...prevData,]);
     setShowCreateUserModal((prev) => !prev);
   };
 
@@ -28,11 +31,14 @@ const AdminStudentDashBoard = () => {
   useEffect(() => {
     (async () => {
       try {
-        // TODO: GET Students
-        const response = await api.get("/admin/");
-        console.log(response)
+        const response = await api.get("/api/admin/students");
+        const keysToPick = ["studentId", "firstName", "lastName", "email"];
+        const student = _.map(response.data?.data, (obj) => _.pick(obj, keysToPick)) as UserInterface[];
+        setStudentData(student)
       } catch (error) {
-        console.log("Error");
+        if (axios.isAxiosError(error)) {
+          showErrorMessage("Something went wrong");
+        }
       }
     })();
   }, []);

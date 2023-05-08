@@ -25,11 +25,11 @@ adminRouter.post(
   ErrorHandler.catchErrors(adminController.uploadLecInfo)
 );
 adminRouter.get(
-  "/lecturers/:page",
+  "/lecturers",
   ErrorHandler.catchErrors(adminController.getLecturers)
 );
 adminRouter.get(
-  "/students/:page",
+  "/students",
   ErrorHandler.catchErrors(adminController.getStudents)
 );
 

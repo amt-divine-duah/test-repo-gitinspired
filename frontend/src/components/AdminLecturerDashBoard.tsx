@@ -11,7 +11,7 @@ const AdminLecturerDashBoard = () => {
   const [lecturersData, setLecturersData] = useState<UserInterface[]>([]);
 
   const handleCreateUser = (newUser: UserInterface) => {
-    setLecturersData((prevData) => [...prevData, newUser]);
+    setLecturersData((prevData) => [newUser, ...prevData]);
     setShowCreateUserModal((prev) => !prev);
   };
 
