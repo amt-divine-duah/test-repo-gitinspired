@@ -14,72 +14,62 @@ const LoginPage = () => {
 
     const passwordBorder = document.getElementById("password") as HTMLElement;
 
-    if (email.length < 8) {
-      emailTooltip?.classList.add("visible");
-      emailBorder?.classList.add("error");
-    } else {
-      emailTooltip?.classList.remove("visible");
-      emailBorder?.classList.remove("error");
-    }
+    email.length < 8
+      ? emailBorder?.classList.add("error")
+      : emailBorder?.classList.remove("error");
 
-    if (password.length < 8) {
-      emailBorder?.classList.add("error");
-      passwordBorder?.classList.add("error");
-      mainTooltip?.classList.add("visible");
-    } else {
-      emailBorder?.classList.remove("error");
-      passwordBorder?.classList.remove("error");
-      mainTooltip?.classList.remove("visible");
-    }
+    email.length < 8 ?     emailTooltip?.classList.add("visible"):      emailTooltip?.classList.remove("visible");
+
+    password.length < 8
+    ? passwordBorder?.classList.add("error")
+    : passwordBorder?.classList.remove("error");
+
+   ( email.length && password.length) < 8 ?   mainTooltip?.classList.add("visible") : mainTooltip?.classList.remove("visible");
   }
+  
   function handleSubmit(event: React.MouseEvent) {
     event.preventDefault();
   }
 
- function modalAppear () {
-    const modalBox = document.getElementById(
-        "validation"
-      ) as HTMLElement;
-    
-      modalBox.classList.add('visible');
-      setTimeout(()=> {
-        modalBox.classList.remove('visible');
-      },900)
- 
- }
-  function passwordCheck(){
+  function modalAppear() {
+    const modalBox = document.getElementById("validation") as HTMLElement;
 
-    const characterlength = document.getElementById(
-        "length"
-      ) as HTMLElement;
-      const lowerCase = document.getElementById(
-        "lower"
-      ) as HTMLElement;
-      const upperCase = document.getElementById(
-        "upper"
-      ) as HTMLElement;
-      const numeric = document.getElementById(
-        "number"
-      ) as HTMLElement;
+    modalBox.classList.add("visible");
+    setTimeout(() => {
+      modalBox.classList.remove("visible");
+    }, 900);
+  }
+  function passwordCheck() {
+    const characterlength = document.getElementById("length") as HTMLElement;
+    const lowerCase = document.getElementById("lower") as HTMLElement;
+    const upperCase = document.getElementById("upper") as HTMLElement;
+    const numeric = document.getElementById("number") as HTMLElement;
 
-    const number = new RegExp('(?=.*[0-9])');
-    const length = new RegExp('(?=.{8,})');
-    const lower = new RegExp('(?=.*[a-z])');
-    const upper = new RegExp('(?=.*[A-Z])');
+    const number = new RegExp("(?=.*[0-9])");
+    const length = new RegExp("(?=.{8,})");
+    const lower = new RegExp("(?=.*[a-z])");
+    const upper = new RegExp("(?=.*[A-Z])");
 
     // data.isBookmarked ? (
     //     <IsTicked data={"trending-bookmark"} />
     //   ) : (
     //     <NotTicked data={"trending-bookmark"} />
     //   )}
-    number.test(password) ? numeric.classList.add('pass') : numeric.classList.remove('pass');
-  
-    lower.test(password) ? lowerCase.classList.add('pass') : lowerCase.classList.remove('pass');
+    number.test(password)
+      ? numeric.classList.add("pass")
+      : numeric.classList.remove("pass");
 
-    upper.test(password) ? upperCase.classList.add('pass') : upperCase.classList.remove('pass');
-   
-    length.test(password) ? characterlength.classList.add('pass') : characterlength.classList.remove('pass');
+    lower.test(password)
+      ? lowerCase.classList.add("pass")
+      : lowerCase.classList.remove("pass");
 
+    upper.test(password)
+      ? upperCase.classList.add("pass")
+      : upperCase.classList.remove("pass");
+
+    length.test(password)
+      ? characterlength.classList.add("pass")
+      : characterlength.classList.remove("pass");
   }
 
   return (
@@ -101,7 +91,7 @@ const LoginPage = () => {
         </section>
         <section className="right-box">
           <div className="box-outer">
-            <form onSubmit={()=>handleSubmit}>
+            <form onSubmit={() => handleSubmit}>
               <div className="box-inner">
                 <p className="form-title">Welcome back, Log in</p>
                 <div className="tooltip-main" id="tooltip-main">
@@ -147,14 +137,12 @@ const LoginPage = () => {
                       onChange={(e) => {
                         setPassword(e.target.value);
                       }}
-
                       onKeyUp={() => {
                         passwordCheck();
-                        password.length < 11 ? modalAppear() : '';
+                        password.length < 11 ? modalAppear() : "";
                       }}
                     />
-                    <div className="validation"
-                    id="validation">
+                    <div className="validation" id="validation">
                       <ul>
                         <p className="caution">You password must contain:</p>
                         <li id="length">At least 8 Characters</li>
