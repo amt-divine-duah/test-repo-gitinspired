@@ -3,10 +3,13 @@ import LecturerDashBoard from "./Pages/LecturerDashBoard"
 
 
 
+
 const App = () => {
   return (
     <>
-    <LecturerDashBoard/>
+    {/* <LecturerDashBoard/> */}
+     <HomePage/> 
+ 
     </>
   )
 }

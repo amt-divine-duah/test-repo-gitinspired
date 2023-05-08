@@ -1,6 +1,5 @@
 @import './breakpoints';
 @import '../App.css';
-
 .main-board{
     @include lg{
         display: flex;
@@ -16,6 +15,11 @@
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
+
+                    h1{
+                        color: #31394E;
+                        font-size: 1.8rem;
+                    }
     
                     .main-board-btn{
                         display: flex;
@@ -53,7 +57,10 @@
                     display: flex;
                     flex-direction: column;
                     align-items: center;
-                    margin: 0rem auto 0 auto;
+                  
+                    @include xl{
+                        margin-top: 4rem;
+                    }
                  }
     
             }
