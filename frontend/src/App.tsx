@@ -8,7 +8,7 @@ import ResetPassword from "./Pages/ResetPassword"
 const App = () => {
   return (
     <>
-     <ResetPassword />
+     <LoginPage/>
     </>
   )
 }
