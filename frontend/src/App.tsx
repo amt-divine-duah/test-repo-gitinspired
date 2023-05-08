@@ -1,11 +1,13 @@
-import LecturerDashBoard from "./Pages/LecturerDashBoard"
+import HomePage from "./Pages/HomePage"
+
+
 
 
 
 const App = () => {
   return (
     <>
-    <LecturerDashBoard/>
+  <HomePage/>
     </>
   )
 }
