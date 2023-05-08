@@ -1,37 +1,31 @@
-import { Assignment } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
 import { generateUniqueCode } from "../utils/GeneralUtils";
 import _, { take } from "lodash";
 import { prisma } from "../configs/prismaConfig";
 import { ResponseUtil } from "../utils/Response";
+import logger from "../configs/winstonConfig";
 
 export class LecturerController {
   async createAssignment(req: Request, res: Response, next: NextFunction) {
-    const students = req.body.students || []; //array of student ids
-    const arr = students.split(","); //**for testing only!**
-    const studentIds = [];
-    arr.forEach((a) => {
-      studentIds.push({
+    const students = req.body.students; //array of student ids
+    const studentIds = students.map((i) => {
+      return {
         status: false,
         student: {
           connect: {
-            id: Number(a),
+            id: i,
           },
         },
-      });
+      };
     });
-
-    // const studentIds = _.map(students, (stud) => {
-    //   return { id: stud.id };
-    // });
-    // console.log(studentIds);
+    console.log(studentIds);
     const results = await prisma.assignment.create({
       data: {
         title: req.body.title,
         description: req.body.description,
         course: req.body.course,
         deadline: req.body.deadline,
-        isPublished: false,
+        isPublished: req.body.publish,
         uniqueCode: await generateUniqueCode(),
         students: {
           create: studentIds,

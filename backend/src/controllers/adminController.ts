@@ -23,6 +23,7 @@ import configValues from "../configs/config";
 import { Token, TokenClass } from "typescript";
 import { JwtPayload } from "jsonwebtoken";
 import { faker } from "@faker-js/faker";
+import { User } from "@prisma/client";
 
 /**
  * @AdminController - Contains all functions that can be carried out by the administrator account
@@ -50,7 +51,7 @@ export class AdminController {
         loginId: userId,
       },
     });
-    if (getUser.isActive) {
+    if (getUser && getUser.isActive) {
       return ResponseUtil.sendError(
         res,
         "User account has already been confirmed",
@@ -82,7 +83,6 @@ export class AdminController {
     // perform validations
     await schemaValidation(req);
 
-    logger.info("%j", studentData);
     const tempPassword = generator.generate({
       length: 10,
       numbers: true,

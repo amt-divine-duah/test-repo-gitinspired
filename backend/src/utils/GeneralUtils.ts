@@ -1,10 +1,11 @@
 import { User } from "@prisma/client";
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import configValues from "../configs/config";
 import { TokenType } from "../constants/TokenType";
 import { customAlphabet } from "nanoid";
 import { prisma } from "../configs/prismaConfig";
 import _ from "lodash";
+import logger from "../configs/winstonConfig";
 
 // Generate confirmation Token
 export function generateJWT(payload: object, options?: object) {
@@ -26,11 +27,11 @@ export function generateAuthToken(user: User) {
   };
 }
 
-export function validateToken(token: string) {
+export function validateToken(token: string): string | JwtPayload | boolean {
   try {
     return jwt.verify(token, configValues.SECRET_KEY);
   } catch (error) {
-    console.log(error);
+    logger.error(error);
     return false;
   }
 }
