@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import '../Styles/board.scss'
 import Table from './Table'
 
@@ -16,9 +17,33 @@ type Prop={
 }
 
 const Board = ({users, buttonInfo,message,showAddUserModal,data,userTableName,showUploadModal}:Prop)=> {
+  const [currentPage, setCurrentPage]= useState(1)
+  const recordsPerPage= 3;
+  const lastIndex= currentPage * recordsPerPage;
+  const firstIndex = lastIndex - recordsPerPage;
+  const records =data.slice(firstIndex,lastIndex);
+  const numberOfPages= Math.ceil(data.length/recordsPerPage)
+  
+  const nextPage=()=>{
+   
+    if(currentPage===numberOfPages){
+      return currentPage===lastIndex
+    }
+  
+    setCurrentPage(prev=>prev+1)
+  }
+
+  const previousPage=()=>{
+   
+    if(currentPage===firstIndex){
+      return currentPage===firstIndex
+    }
+    setCurrentPage(prev=>prev-1)
+  }
+
   return (
     <div className='main-board'>
-      <section className='empty-board'>
+      <section className='admin-board'>
 
        <div className="main-board-header">
           <div>
@@ -38,20 +63,22 @@ const Board = ({users, buttonInfo,message,showAddUserModal,data,userTableName,sh
           <img src="./main-page-image.png" alt="" />
           <p>{message}</p>
         </div>}
-            {data.length>0 && <Table userTableName={userTableName} data={data} />}
-        <div className="footer">
-        <div className="footer-left-side">
-          <p>Page 1 of 3</p>
-        </div>
-        <div className="footer-right-side">
-            <button>Prev</button>
-            <button>Next</button>
-        </div>
-      </div>
+            {data.length>0 && <Table userTableName={userTableName} data={records} />}
+           
+        
       </section>
-      
 
-     
+      { data.length >0 &&
+              <div className="footer">
+              <div className="footer-left-side">
+                <p>Page {currentPage} of {numberOfPages}</p>
+              </div>
+              <div className="footer-right-side">
+                  { currentPage===1?<button  type='button' disabled onClick={previousPage}>Prev</button>:<button onClick={previousPage}>Prev</button>}
+                  {currentPage===numberOfPages  ? <button type='button' disabled onClick={nextPage}>Next</button>: <button onClick={nextPage}>Next</button>}
+              </div>
+            </div>
+            }
       
     </div>
   )

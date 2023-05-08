@@ -28,6 +28,11 @@ const AdminStudentDashBoard = () => {
       id:'1234',
       name:'Benstrong',
       email:'benstrong@gamil.com'
+    },
+    {
+      id:'1234',
+      name:'Benstrong',
+      email:'benstrong@gamil.com'
     }
 
   ])
