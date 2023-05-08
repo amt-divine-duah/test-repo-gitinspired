@@ -46,27 +46,29 @@ export class LecturerController {
   }
 
   async editAssignment(req: Request, res: Response, next: NextFunction) {
-    //must return information on the saved assignments and invited students
-    const id = req.body.assignmentId;
-    //get students
-    const students = await prisma.studentsOnAssignments.findMany({
-      where: {
-        assignmentId: id,
-      },
-      select: {
-        studentId: true,
-      },
-    });
-    const assignment = await prisma.assignment.findFirst({
-      where: {
-        id: id,
-      },
-    });
+    if (req.method === "GET") {
+      //must return information on the saved assignments and invited students
+      const id = req.body.assignmentId;
+      //get students
+      const students = await prisma.studentsOnAssignments.findMany({
+        where: {
+          assignmentId: id,
+        },
+        select: {
+          studentId: true,
+        },
+      });
+      const assignment = await prisma.assignment.findFirst({
+        where: {
+          id: id,
+        },
+      });
 
-    return ResponseUtil.sendResponse(res, "students on assignment", {
-      assignment: assignment,
-      students: students,
-    });
+      return ResponseUtil.sendResponse(res, "students on assignment", {
+        assignment: assignment,
+        students: students,
+      });
+    }
   }
 
   async getSubmissions(req: Request, res: Response, next: NextFunction) {
