@@ -1,11 +1,16 @@
 import '../Styles/board.scss'
+import Table from './Table'
 
 type Prop={
   users:string,
   buttonInfo:string
   message:string
   showAddUserModal: React.MouseEventHandler
-  data:{}[]
+  data:{
+    id:string
+    name:string
+    email:string
+  }[]
   userTableName:string
   showUploadModal:React.MouseEventHandler
 }
@@ -29,32 +34,22 @@ const Board = ({users, buttonInfo,message,showAddUserModal,data,userTableName,sh
           </div>
         </div>
 
-       { data.length ===0 && <div className='main-board-body'>1
+       { data.length ===0 && <div className='main-board-body'>
           <img src="./main-page-image.png" alt="" />
           <p>{message}</p>
         </div>}
-            <div className="main-board-table">
-              <table>
-                <thead>
-                  <tr>
-                    <th>{userTableName}</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                  </tr>
-
-                </thead>
-                <tbody>
-                {data.map((item: any,index): any=>(
-                  <tr key={index}>
-                    <td>{item.id}</td>
-                    <td>{item.name}</td>
-                    <td>{item.email}</td>
-                  </tr>
-                ))}
-                </tbody>
-              </table>
-            </div>
+            {data.length>0 && <Table userTableName={userTableName} data={data} />}
+        <div className="footer">
+        <div className="footer-left-side">
+          <p>Page 1 of 3</p>
+        </div>
+        <div className="footer-right-side">
+            <button>Prev</button>
+            <button>Next</button>
+        </div>
+      </div>
       </section>
+      
 
      
       

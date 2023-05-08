@@ -26,7 +26,7 @@ const LecturerDashBoard = () => {
         <Route path="/assignment-details" element={<AssignmentDetails/>}/>
       </Routes>
       </div>
-     
+     <h1>h</h1>
     </div>
   )
 }
