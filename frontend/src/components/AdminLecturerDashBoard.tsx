@@ -8,7 +8,7 @@ import '../Styles/admin-leturer.scss';
 const AdminLecturerDashBoard = () => {
   const [showCreateUserModal,setShowCreateUserModal] =useState(false)
   const [showUploadModal, setShowUploadModal]= useState(false)
-  const [lecturersData, setLecturersData]= useState([
+  const [lecturersData]= useState([
     // {
     //   id:'1234',
     //   name:'Benstrong',
