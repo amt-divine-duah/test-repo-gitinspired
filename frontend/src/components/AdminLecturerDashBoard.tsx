@@ -9,16 +9,16 @@ const AdminLecturerDashBoard = () => {
   const [showCreateUserModal,setShowCreateUserModal] =useState(false)
   const [showUploadModal, setShowUploadModal]= useState(false)
   const [lecturersData, setLecturersData]= useState([
-    {
-      id:'1234',
-      name:'Benstrong',
-      email:'benstrong@gamil.com'
-    },
-    {
-      id:'1234',
-      name:'Benstrong',
-      email:'benstrong@gamil.com'
-    }
+    // {
+    //   id:'1234',
+    //   name:'Benstrong',
+    //   email:'benstrong@gamil.com'
+    // },
+    // {
+    //   id:'1234',
+    //   name:'Benstrong',
+    //   email:'benstrong@gamil.com'
+    // }
 
   ])
 

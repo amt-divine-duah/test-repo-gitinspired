@@ -7,6 +7,8 @@
             margin-top: 2rem;
             border-collapse: collapse;
             width: 100%;
+            color:#797676;
+            ;
         }
         
         table th:first-child,
@@ -25,16 +27,17 @@
         
         thead tr
         {
-            border-bottom: 2px solid #000;
+            border-bottom: 2px solid #797676;
             
         }
         tbody tr{
-            border-bottom: 1px solid #000;
+            border-bottom: 1px solid #797676;
         }
         
         thead th{
             padding: 0.3rem 0;
-            padding-left: 3em;
+            padding-left: 2.2em;
+            font-size: 1.3rem;
         }
         tbody td{
             padding: 1rem 0;

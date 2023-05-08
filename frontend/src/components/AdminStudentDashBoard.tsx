@@ -9,26 +9,31 @@ const AdminStudentDashBoard = () => {
   const [showCreateUserModal,setShowCreateUserModal] =useState(false)
   const [showUploadModal, setShowUploadModal]= useState(false)
   const [studentData]= useState([
-    // {
-    //   id:'1234',
-    //   name:'I am a Student',
-    //   email:'benstrong@gamil.com'
-    // },
-    // {
-    //   id:'1234',
-    //   name:'Benstrong',
-    //   email:'benstrong@gamil.com'
-    // },
-    // {
-    //   id:'1234',
-    //   name:'Benstrong',
-    //   email:'benstrong@gamil.com'
-    // },  
-    // {
-    //   id:'1234',
-    //   name:'Benstrong',
-    //   email:'benstrong@gamil.com'
-    // }
+    {
+      id:'1234',
+      name:'I am a Student',
+      email:'benstrong@gamil.com'
+    },
+    {
+      id:'1234',
+      name:'Benstrong',
+      email:'benstrong@gamil.com'
+    },
+    {
+      id:'1234',
+      name:'Benstrong',
+      email:'benstrong@gamil.com'
+    },  
+    {
+      id:'1234',
+      name:'Benstrong',
+      email:'benstrong@gamil.com'
+    },
+    {
+      id:'1234',
+      name:'Benstrong',
+      email:'benstrong@gamil.com'
+    }
 
   ])
 
