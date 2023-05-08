@@ -58,6 +58,7 @@ export class LecturerController {
           studentId: true,
         },
       });
+      //get assignment details for populating form fields
       const assignment = await prisma.assignment.findFirst({
         where: {
           id: id,
@@ -68,6 +69,23 @@ export class LecturerController {
         assignment: assignment,
         students: students,
       });
+    }
+
+    if (req.method === "POST") {
+      const id = req.body.assignmentId;
+      //update with given assignment info
+      const assignment = prisma.assignment.update({
+        where: {
+          id: id,
+        },
+        data: {
+          title: req.body.title,
+          deadline: req.body.deadline,
+          description: req.body.description,
+          course: req.body.course,
+        },
+      });
+      //get invited student
     }
   }
 
