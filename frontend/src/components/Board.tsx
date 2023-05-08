@@ -39,15 +39,18 @@ const Board = ({users, buttonInfo,message,showAddUserModal,data,userTableName,sh
           <p>{message}</p>
         </div>}
             {data.length>0 && <Table userTableName={userTableName} data={data} />}
-        <div className="footer">
-        <div className="footer-left-side">
-          <p>Page 1 of 3</p>
-        </div>
-        <div className="footer-right-side">
-            <button>Prev</button>
-            <button>Next</button>
-        </div>
-      </div>
+            { data.length >0 &&
+              <div className="footer">
+              <div className="footer-left-side">
+                <p>Page 1 of 3</p>
+              </div>
+              <div className="footer-right-side">
+                  <button>Prev</button>
+                  <button>Next</button>
+              </div>
+            </div>
+            }
+        
       </section>
       
 
