@@ -24,6 +24,12 @@ import { Token, TokenClass } from "typescript";
 import { JwtPayload } from "jsonwebtoken";
 import { faker } from "@faker-js/faker";
 
+/**
+ * @AdminController - Contains all functions that can be carried out by the administrator account
+ * @req - The http request
+ * @res - The http response
+ * @next - The next function to be called
+ */
 export class AdminController {
   //confirm account
   async confirmAccount(req: Request, res: Response, next: NextFunction) {
