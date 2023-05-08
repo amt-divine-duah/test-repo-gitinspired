@@ -40,46 +40,77 @@ export class LecturerController {
   }
 
   async editAssignment(req: Request, res: Response, next: NextFunction) {
+    const id = Number(req.body.assignmentId);
+    //get students
+    const oldStudents = await prisma.studentsOnAssignments.findMany({
+      where: {
+        assignmentId: id,
+      },
+      select: {
+        studentId: true,
+      },
+    });
+    //get assignment details for populating form fields
+    const assignment = await prisma.assignment.findFirst({
+      where: {
+        id: id,
+      },
+    });
     if (req.method === "GET") {
-      //must return information on the saved assignments and invited students
-      const id = req.body.assignmentId;
-      //get students
-      const students = await prisma.studentsOnAssignments.findMany({
-        where: {
-          assignmentId: id,
-        },
-        select: {
-          studentId: true,
-        },
-      });
-      //get assignment details for populating form fields
-      const assignment = await prisma.assignment.findFirst({
-        where: {
-          id: id,
-        },
-      });
-
+      //must return information on the saved assignment and invited students
       return ResponseUtil.sendResponse(res, "students on assignment", {
         assignment: assignment,
-        students: students,
+        students: oldStudents,
       });
     }
 
     if (req.method === "POST") {
-      const id = req.body.assignmentId;
-      //update with given assignment info
-      const assignment = prisma.assignment.update({
+      //get newly invited students without already invited students
+      const newStudentIds = req.body.students;
+      const oldIds = oldStudents.map((stud) => stud.studentId);
+
+      const newStudents = [];
+      newStudentIds.forEach((id) => {
+        if (!oldIds.includes(id)) {
+          newStudents.push({
+            status: false,
+            student: {
+              connect: {
+                id: id,
+              },
+            },
+          });
+        }
+      });
+      const results = await prisma.assignment.update({
         where: {
           id: id,
         },
         data: {
           title: req.body.title,
-          deadline: req.body.deadline,
           description: req.body.description,
           course: req.body.course,
+          deadline: req.body.deadline,
+          isPublished: req.body.publish,
+          students: {
+            create: newStudents,
+          },
         },
       });
-      //get invited student
+      return ResponseUtil.sendResponse(res, "assignment list", newStudents);
+      //update with given assignment info and update invited students list
+      // const assignment = prisma.assignment.update({
+      //   where: {
+      //     id: id,
+      //   },
+      //   data: {
+      //     title: req.body.title,
+      //     deadline: req.body.deadline,
+      //     description: req.body.description,
+      //     course: req.body.course,
+      //     isPublished: req.body.publish,
+      //   },
+      // });
     }
   }
 

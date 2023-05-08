@@ -82,5 +82,5 @@ model StudentsOnAssignments {
   assignmentId Int
   status       Boolean
 
-  @@id([studentId, assignmentId])
+  @@unique([studentId, assignmentId])
 }
