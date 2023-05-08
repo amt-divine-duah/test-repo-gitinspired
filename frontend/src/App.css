@@ -32,7 +32,8 @@ body {
   place-items: center;
   align-items: center;
   justify-content: center;
-
+  margin: 0;
+  padding: 0;
 }
 
 
@@ -88,9 +89,16 @@ body {
 }
 
 .down {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr;
+  place-items: center;
+  align-items: center;
+  justify-content: center;
 }
+.down > img {
 
+  object-fit: cover;
+}
 .box-outer {
   display: flex;
   flex-direction: column;
@@ -248,19 +256,15 @@ body {
   height: 16px;
   width: 16px;
   position: absolute;
-left: 386px;
-right: 22.67px;
-top: 162px;
-bottom: 8.33%;
+  margin-top: 3.3em;
+  margin-left: 22em;
 }
 #eye2 {
   height: 16px;
   width: 16px;
   position: absolute;
-left: 386px;
-right: 22px;
-top: 264px;
-bottom: 8.33%;
+  margin-top: 3.3em;
+  margin-left: 22em;
 }
 .error {
   border: 1px solid #FF3131;
@@ -363,7 +367,6 @@ flex-grow: 0;
 }
 
 .btn>p {
-  width: 47px;
   height: 19px;
 
   font-family: 'Inter';
