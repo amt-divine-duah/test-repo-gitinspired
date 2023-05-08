@@ -19,5 +19,9 @@ lecturerRouter.get(
   "/edit-assignment",
   ErrorHandler.catchErrors(lecturerController.editAssignment)
 );
+lecturerRouter.get(
+  "/submissions/",
+  ErrorHandler.catchErrors(lecturerController.getSubmissions)
+);
 
 export default lecturerRouter;

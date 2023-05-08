@@ -7,8 +7,8 @@ import { ResponseUtil } from "../utils/Response";
 
 export class LecturerController {
   async createAssignment(req: Request, res: Response, next: NextFunction) {
-    const students = req.body.students;
-    const arr = students.split(",");
+    const students = req.body.students || []; //array of student ids
+    const arr = students.split(","); //**for testing only!**
     const studentIds = [];
     arr.forEach((a) => {
       studentIds.push({
@@ -46,11 +46,12 @@ export class LecturerController {
   }
 
   async editAssignment(req: Request, res: Response, next: NextFunction) {
-    const id = req.body.assignment.id;
+    //must return information on the saved assignments and invited students
+    const id = req.body.assignmentId;
     //get students
     const students = await prisma.studentsOnAssignments.findMany({
       where: {
-        assignmentId: Number(id),
+        assignmentId: id,
       },
       select: {
         studentId: true,
@@ -58,7 +59,7 @@ export class LecturerController {
     });
     const assignment = await prisma.assignment.findFirst({
       where: {
-        id: Number(id),
+        id: id,
       },
     });
 
@@ -66,5 +67,15 @@ export class LecturerController {
       assignment: assignment,
       students: students,
     });
+  }
+
+  async getSubmissions(req: Request, res: Response, next: NextFunction) {
+    //get all published assignments
+    const assignments = await prisma.assignment.findMany({
+      where: {
+        isPublished: true,
+      },
+    });
+    return ResponseUtil.sendResponse(res, "assignment list", assignments);
   }
 }
