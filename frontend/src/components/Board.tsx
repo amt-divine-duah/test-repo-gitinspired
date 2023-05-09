@@ -60,7 +60,7 @@ const Board = ({users, buttonInfo,message,showAddUserModal,data,userTableName,sh
         </div>
 
        { data.length ===0 && <div className='main-board-body'>
-          <img src="./main-page-image.png" alt="" />
+         <img src="./main-page-image.png" alt="" />
           <p>{message}</p>
         </div>}
             {data.length>0 && <Table userTableName={userTableName} data={records} />}

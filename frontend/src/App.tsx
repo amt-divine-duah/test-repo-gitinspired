@@ -1,16 +1,16 @@
-import HomePage from "./Pages/HomePage"
+
 import LecturerDashBoard from "./Pages/LecturerDashBoard"
+import './App.css';
 
 
 
 
 const App = () => {
   return (
-    <>
-    {/* <LecturerDashBoard/> */}
-     <HomePage/> 
- 
-    </>
+    <div className="app">
+      <LecturerDashBoard/>
+    </div>
+  
   )
 }
 
