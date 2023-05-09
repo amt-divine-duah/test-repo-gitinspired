@@ -12,7 +12,8 @@
     "start": "node dist/index.js",
     "prisma": "npx prisma",
     "prisma:generate": "prisma generate",
-    "migration:run": "npx prisma migrate dev",
+    "migrate": "npx prisma migrate dev",
+    "migrate-reset": "npx prisma migrate reset",
     "seed": "ts-node prisma/seed.ts"
   },
   "dependencies": {

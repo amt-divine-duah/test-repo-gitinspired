@@ -18,7 +18,6 @@ export class LecturerController {
         },
       };
     });
-    console.log(studentIds);
     const results = await prisma.assignment.create({
       data: {
         title: req.body.title,
@@ -27,6 +26,11 @@ export class LecturerController {
         deadline: req.body.deadline,
         isPublished: req.body.publish,
         uniqueCode: await generateUniqueCode(),
+        createdBy: {
+          connect: {
+            id: req.body.createdBy,
+          },
+        },
         students: {
           create: studentIds,
         },

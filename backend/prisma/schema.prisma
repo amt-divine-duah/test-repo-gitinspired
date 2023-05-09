@@ -41,11 +41,12 @@ model Student {
 }
 
 model Lecturer {
-  id        Int    @id @default(autoincrement())
-  staffId   String @unique @default(uuid())
-  firstName String
-  email     String @unique
-  lastName  String
+  id         Int          @id @default(autoincrement())
+  staffId    String       @unique @default(uuid())
+  firstName  String
+  email      String       @unique
+  lastName   String
+  Assignment Assignment[]
 
   @@map("lecturers")
 }
@@ -67,7 +68,9 @@ model Assignment {
   deadline    String
   description String
   course      String
-  uniqueCode  String?
+  lecturerId  Int
+  createdBy   Lecturer                @relation(fields: [lecturerId], references: [id])
+  uniqueCode  String?                 @unique
   isPublished Boolean
   updatedAt   DateTime?               @updatedAt
   students    StudentsOnAssignments[]
