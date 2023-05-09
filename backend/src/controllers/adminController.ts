@@ -109,7 +109,6 @@ export class AdminController {
     const currentDir = path.resolve(`src/uploads/students`);
 
     const errors = await csvToDb(currentDir);
-    console.log(errors, "All errors");
 
     return ResponseUtil.sendResponse(res, "File uploaded successfully", null);
   }

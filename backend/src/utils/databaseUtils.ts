@@ -62,8 +62,6 @@ async function createStudentAccount(user: UserInterface) {
     }),
   ]);
 
-  console.log("I have results", results);
-
   if (results) {
     const otp = await prisma.otp.create({
       data: {
@@ -100,6 +98,7 @@ export async function csvToDb(currentDir: string) {
       const currentFilePath = path.join(currentDir, filename);
       const uploadedFileStream = fs.createReadStream(currentFilePath);
       let csvCollection = [];
+      
 
       // Wrap the CSV parsing in a promise to await it
       await new Promise((resolve, reject) => {
@@ -121,22 +120,22 @@ export async function csvToDb(currentDir: string) {
               validator.isEmpty(data["lastname"]) ||
               !validator.isAlpha(data["lastname"])
             ) {
-              return cb(null, false, "Name is bob");
+              return cb(null, false);
             }
             return cb(null, true);
           })
           .on("data-invalid", (row, rowNumber) => {
             logger.error(
-              `Row number ${rowNumber} in ${filename} with data ${JSON.stringify(
-                row
-              )} is invalid`
+              `Row number ${rowNumber} in ${
+                filename.split(/-(.+)/)[1]
+              } with data ${JSON.stringify(row)} is invalid`
             );
             const error = new Error("CsvUploadError");
             error["statusCode"] = StatusCodes.UNPROCESSABLE_ENTITY;
-            error[
-              "details"
-            ] = `Row number ${rowNumber} in ${filename} contains invalid data`;
-            error["filename"] = filename;
+            error["details"] = `Row number ${rowNumber} in ${
+              filename.split(/-(.+)/)[1]
+            } contains invalid data`;
+            error["filename"] = filename.split(/-(.+)/)[1];
             errors.push(error);
           })
           .transform((data) => {

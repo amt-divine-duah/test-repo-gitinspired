@@ -10,12 +10,15 @@ export class FileUploader {
     fileSize: number,
     fileTypes: string[] = [
       "text/csv",
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     ]
   ) {
     const storage = multer.diskStorage({
       destination: (req, file, cb) => {
+        const uploadsFolder = path.resolve("src/uploads");
         const folder = path.resolve(`src/uploads/${folderName}`);
+        if (!fs.existsSync(uploadsFolder)) {
+          fs.mkdirSync(uploadsFolder);
+        }
         if (!fs.existsSync(folder)) {
           fs.mkdirSync(folder);
         }
@@ -24,7 +27,9 @@ export class FileUploader {
       filename: (req, file, callBack) => {
         callBack(
           null,
-          crypto.randomBytes(16).toString("hex") +
+          crypto.randomBytes(12).toString("hex") +
+            "-" +
+            path.parse(file.originalname).name +
             path.extname(file.originalname)
         );
       },
