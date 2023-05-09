@@ -5,18 +5,24 @@ import CreateUserModal from "./CreateUserModal";
 import UploadModal from "./UploadModal";
 import Main from "./Main";
 import { UserInterface } from "../interfaces/UserInterface";
-import api from "../ApiClient";
 import axios from "axios";
-import { showErrorMessage } from "../constants/messages";
 import _ from "lodash";
+import api from "../ApiClient";
+import { showErrorMessage } from "../constants/messages";
 
 const AdminStudentDashBoard = () => {
   const [showCreateUserModal, setShowCreateUserModal] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
-  const [studentData, setStudentData] = useState<UserInterface[]>([]);
+  const [studentData, setStudentData] = useState<UserInterface[] | undefined | null>();
 
   const handleCreateUser = (newUser: UserInterface) => {
-    setStudentData((prevData) => [newUser, ...prevData,]);
+    setStudentData((prevData) => {
+      if (prevData === undefined || prevData === null) {
+        return [newUser];
+      } else {
+        return [newUser, ...prevData];
+      }
+    });
     setShowCreateUserModal((prev) => !prev);
   };
 
@@ -33,12 +39,20 @@ const AdminStudentDashBoard = () => {
       try {
         const response = await api.get("/api/admin/students");
         const keysToPick = ["studentId", "firstName", "lastName", "email"];
-        const student = _.map(response.data?.data, (obj) => _.pick(obj, keysToPick)) as UserInterface[];
-        setStudentData(student)
+        const lecturers = _.map(response.data?.data, (obj) =>
+          _.pick(obj, keysToPick)
+        ) as UserInterface[];
+        setStudentData(lecturers)
       } catch (error) {
         if (axios.isAxiosError(error)) {
           showErrorMessage("Something went wrong");
+          setStudentData(null);
         }
+        else {
+          showErrorMessage("Something went wrong");
+          setStudentData(null);
+        }
+        
       }
     })();
   }, []);
@@ -52,7 +66,7 @@ const AdminStudentDashBoard = () => {
           message="Oops, no students created or uploaded yet. Click on any of the buttons above to get started"
           showAddUserModal={handleShowCreateUserModal}
           showUploadModal={handleUploadModal}
-          data={studentData}
+          data={studentData && studentData}
           userTableName="Student ID"
         />
         {showCreateUserModal === true && (

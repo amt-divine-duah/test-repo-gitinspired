@@ -1,12 +1,15 @@
+import { useState } from "react";
 import "../Styles/board.scss";
+import Table from "./Table";
 import { UserInterface } from "../interfaces/UserInterface";
+import { CircularProgress } from "@mui/joy";
 
 type Prop = {
   users: string;
   buttonInfo: string;
   message: string;
   showAddUserModal: React.MouseEventHandler;
-  data: UserInterface[];
+  data: UserInterface[] | undefined | null;  
   userTableName: string;
   showUploadModal: React.MouseEventHandler;
 };
@@ -20,11 +23,37 @@ const Board = ({
   userTableName,
   showUploadModal,
 }: Prop) => {
+  
+  let contents;
+  if (data === undefined) {
+    contents = (
+      <div className="landingPage">
+        <CircularProgress size="lg" />
+      </div>
+    );
+  }
+  else if (data?.length === 0) {
+    contents = (
+      <div className="main-board-body">
+        <img src="/main-page-image.png" alt="" />
+        <p>{message}</p>
+      </div>
+    );
+  }
+  else if (data === null) {
+    contents = <p>Could not retrieve student lists</p>
+  }
+  else {
+    contents = <Table userTableName={userTableName} data={data} />;
+  }
+
   return (
     <div className="main-board">
-      <section className="empty-board">
+      <section className="admin-board">
         <div className="main-board-header">
-          <div>{data.length > 0 && <h1>{users}</h1>}</div>
+          <div>
+            {data?.length !== undefined && data.length > 0 && <h1>{users}</h1>}
+          </div>
 
           <div className="main-board-header-right">
             <button className="main-board-btn" onClick={showAddUserModal}>
@@ -38,39 +67,21 @@ const Board = ({
           </div>
         </div>
 
-        {data.length === 0 && (
-          <div className="main-board-body">
-            <img src="/main-page-image.png" alt="" />
-            <p>{message}</p>
-          </div>
-        )}
-        {data.length > 0 && (
-          <div className="main-board-table">
-            <table>
-              <thead>
-                <tr>
-                  <th>{userTableName}</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.map((item: UserInterface, index): JSX.Element => (
-                  <tr key={index}>
-                    {item.studentId ? (
-                      <td>{item.studentId}</td>
-                    ) : (
-                      <td>{item.staffId}</td>
-                    )}
-                    <td>{item.lastName} {item.firstName}</td>
-                    <td>{item.email}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
+        {contents}
       </section>
+
+      {data?.length !== undefined && data.length > 0 && (
+        <div className="footer">
+          <div className="footer-left-side">
+            <p>Page 1 of 3</p>
+          </div>
+          <div className="footer-right-side">
+            <button type="button">Prev</button>
+
+            <button type="button">Next</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

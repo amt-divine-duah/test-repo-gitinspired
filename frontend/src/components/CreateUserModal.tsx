@@ -1,11 +1,11 @@
+import axios from "axios";
+import { StatusCodes } from "http-status-codes";
 import React from "react";
 import api from "../ApiClient";
 import "../Styles/createUserModal.scss";
-import _ from "lodash";
-import { StatusCodes } from "http-status-codes";
-import axios from "axios";
-import { showErrorMessage, showSuccessMessage } from "../constants/messages";
+import { showSuccessMessage, showErrorMessage } from "../constants/messages";
 import { UserInterface } from "../interfaces/UserInterface";
+import _ from "lodash";
 
 type Prop = {
   user: string;
@@ -35,7 +35,7 @@ const CreateUserModal = ({ showModal, user, onCreateUser }: Prop) => {
     try {
       const response = await api.post(`/api/admin/create-${user}`, formData);
       if (response.status === StatusCodes.OK) {
-        if (user==="student") {
+        if (user === "student") {
           const student: UserInterface = {
             studentId: response.data?.data["studentId"],
             firstName: `${response.data?.data["firstName"]}`,
@@ -45,9 +45,8 @@ const CreateUserModal = ({ showModal, user, onCreateUser }: Prop) => {
           setFormErrors({});
           showSuccessMessage(response.data?.message);
           onCreateUser(student);
-        }
-        else if (user==="lecturer") {
-          console.log("This is response", response)
+        } else if (user === "lecturer") {
+          console.log("This is response", response);
           const lecturer: UserInterface = {
             staffId: response.data?.data["staffId"],
             firstName: `${response.data?.data["firstName"]}`,
@@ -56,7 +55,7 @@ const CreateUserModal = ({ showModal, user, onCreateUser }: Prop) => {
           };
           setFormErrors({});
           showSuccessMessage(response.data?.message);
-          console.log(lecturer, "I have lecturer")
+          console.log(lecturer, "I have lecturer");
           onCreateUser(lecturer);
         }
       }
@@ -83,7 +82,6 @@ const CreateUserModal = ({ showModal, user, onCreateUser }: Prop) => {
   } else if (formErrors["lastname"]?.[0]) {
     showErrorMessage(formErrors["lastname"]?.[0]);
   }
-
   return (
     <div className="container" onClick={showModal}>
       <div
