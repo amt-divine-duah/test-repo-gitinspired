@@ -386,6 +386,9 @@ flex-grow: 0;
   background-color: #FFFFFF;
   display: flex;
 }
+.main-content {
+  width: 90%;
+}
 .side-bar {
   width: 200px;
   min-height: 100vh;
@@ -441,11 +444,9 @@ flex-grow: 0;
   margin-top: 41px;
   margin-bottom: 48px;
   margin-left: 42px;
-  margin-right: 42px;
+  margin-right: 34px;
   display: flex;
   flex-wrap: wrap;
-  width: inherit;
-
 }
 
 .search-bar {
@@ -570,7 +571,6 @@ flex-grow: 0;
   flex-wrap: wrap;
   margin: 0 66px;
   gap: 30px;
-
 }
 
 .assignment-description {
@@ -659,3 +659,4 @@ flex-grow: 0;
 
   color: #3E3693;
 }
+
