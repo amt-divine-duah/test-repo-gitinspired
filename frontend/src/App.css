@@ -687,7 +687,6 @@ flex-grow: 0;
 .folder-image {
   width: 85px;
   height: 85px;
-  background-color: #170E7D;
 }
 
 .submission-title {
@@ -802,4 +801,179 @@ caret-color:  #111111;
   display: flex;
   flex-direction: row;
   width: fit-content;
+}
+.submissionClicked-container {
+  margin-top: 56px;
+  margin-left: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 67px;
+}
+
+.submission-details-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  width: 1171px;
+  background: #FFFFFF;
+  border: 1px solid #DEDEDE;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+}
+
+.name-list {
+  display: flex;
+  flex-direction: column;
+  width: 278px;
+  height: 690px;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  justify-items: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.name-list>p {
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  /* identical to box height */
+  color: #31394E;
+  text-align: center;
+  margin-top: 24px;
+
+  height: fit-content ;
+}
+
+.name-list>p:hover {
+  background: #F2F2F2;
+  border-radius: 8px;
+  height: 51px;
+  width: 200px;
+  text-align: center;
+  cursor: pointer;
+  padding: 16px 8px;
+  transition: 0.2s;
+}
+
+.submission-documents {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  width: 891px;
+
+}
+
+.document-features {
+  display: flex;
+  flex-direction: row;
+  height: 64px;
+  justify-items: center;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 36px;
+  margin-right: 31px;
+
+}
+
+.snapshot {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.snapshot-button {
+  display: flex;
+  width: 128px;
+  height: 34px;
+  background: #19291A;
+  border-radius: 8px;
+  color: #FFFFFF;
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  justify-items: center;
+  align-items: center;
+  gap: 11px;
+  padding-left: 8px;
+}
+.snapshot-button, .download-button:hover {
+  cursor: pointer;
+}
+.button-image {
+  padding: 4px 0;
+ 
+  object-fit: cover;
+}
+
+.dropdown {
+  height: 113px;
+  width: 128px;
+  position: absolute;
+  margin-top: 36px;
+  text-align: center;
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  /* identical to box height */
+  color: #FFFFFF;
+  background: #19291A;
+  border-radius: 8px;
+  display: none;
+}
+.dropdown-visible {
+  display: block;
+}
+
+.dropdown>ul {
+  padding-top: 11px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dropdown>ul>li {
+  list-style: none;
+}
+
+.download-button {
+  width: 142px;
+  height: 34px;
+  background: #1A9E27;
+  border-radius: 8px;
+  display: flex;
+  color: #FFFFFF;
+  justify-items: center;
+  align-items: center;
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  gap: 5px;
+ padding-left: 4px;
+}
+
+
+table {
+  border-top: 0.5px solid #B9BBBE;
+  width: 856px;
+  margin-left: 18px;
+  margin-right: 18px;
+}
+
+td {
+  border-bottom: 0.5px solid #B9BBBE;
+  height: 48px;
+}
+.document {
+  display: flex;
+  gap: 24px;
+  margin-left: 97px;
 }
