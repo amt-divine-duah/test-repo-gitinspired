@@ -3,11 +3,6 @@ import { generateUniqueCode } from "../utils/GeneralUtils";
 import _, { result, take } from "lodash";
 import { prisma } from "../configs/prismaConfig";
 import { ResponseUtil } from "../utils/Response";
-import logger from "../configs/winstonConfig";
-import { mailOptionsInterface } from "../interfaces/mailOptionsInterface";
-import { ASSIGNMENT_EMAIL_SUBJECT } from "../constants/messages";
-import { assignmentInviteTemplate } from "../templates/assignmentInviteTemplate";
-import transporter from "../configs/nodemailerConfig";
 import sendAssignment from "../utils/sendAssignmentUtil";
 
 export class LecturerController {
@@ -101,7 +96,6 @@ export class LecturerController {
       //get newly invited students without already invited students
       const givenStudentIds = req.body.students;
       const oldIds = oldStudents.map((stud) => stud.studentId);
-      const newIds = [];
       const newStudents = [];
       //separate newly invite   d students from already invited students
       givenStudentIds.forEach((id) => {
@@ -114,7 +108,6 @@ export class LecturerController {
               },
             },
           });
-          newIds.push(id);
         }
       });
       const results = await prisma.assignment.update({
@@ -133,6 +126,7 @@ export class LecturerController {
         },
       });
       if (results.isPublished) {
+        //send email to invited students posted to route, assuming assignment has not yet been published
         const studentsInfo = [];
         const assignmentInfo = {
           title: results.title,
@@ -229,5 +223,23 @@ export class LecturerController {
     }
 
     return ResponseUtil.sendResponse(res, "assignment list", result);
+  }
+
+  async inviteStudents(req: Request, res: Response, next: NextFunction) {
+    const assignmentId = req.body.assignmentId;
+    const givenStudents = req.body.students;
+    //get students invited to that assignment
+    const oldStudentsIds = await prisma.studentsOnAssignments.findMany({
+      where: {
+        assignmentId: assignmentId,
+      },
+      select: {
+        studentId: true,
+      },
+    });
+    const oldIds = oldStudentsIds.map((stud) => stud.studentId);
+    const newStudents = [];
+    //seperate old stuednts from new students
+    //send email to new students only
   }
 }
