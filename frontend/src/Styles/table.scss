@@ -3,6 +3,7 @@
 
 .main-board-table{
     @include lg{
+        width: 100%;
         table{
             margin-top: 2rem;
             border-collapse: collapse;
