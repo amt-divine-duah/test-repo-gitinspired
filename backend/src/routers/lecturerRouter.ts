@@ -24,7 +24,15 @@ lecturerRouter.post(
   ErrorHandler.catchErrors(lecturerController.editAssignment)
 );
 lecturerRouter.get(
-  "/submissions/",
+  "/dashboard",
+  ErrorHandler.catchErrors(lecturerController.getAssignments)
+);
+lecturerRouter.get(
+  "/drafts",
+  ErrorHandler.catchErrors(lecturerController.getDrafts)
+);
+lecturerRouter.get(
+  "/submissions",
   ErrorHandler.catchErrors(lecturerController.getSubmissions)
 );
 
