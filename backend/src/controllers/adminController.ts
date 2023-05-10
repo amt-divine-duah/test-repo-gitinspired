@@ -226,7 +226,7 @@ export class AdminController {
           subject: EMAIL_ACTIVATION_SUBJECT,
           html: message,
         };
-        await transporter.sendMail(mailOptions);
+        // await transporter.sendMail(mailOptions);
       }
     }
 

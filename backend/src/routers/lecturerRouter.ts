@@ -35,6 +35,10 @@ lecturerRouter.get(
   "/submissions",
   ErrorHandler.catchErrors(lecturerController.getSubmissions)
 );
+lecturerRouter.get(
+  "/invite-students",
+  ErrorHandler.catchErrors(lecturerController.inviteStudents)
+);
 lecturerRouter.post(
   "/invite-students",
   ErrorHandler.catchErrors(lecturerController.inviteStudents)

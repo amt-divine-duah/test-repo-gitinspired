@@ -4,6 +4,7 @@ import _, { result, take } from "lodash";
 import { prisma } from "../configs/prismaConfig";
 import { ResponseUtil } from "../utils/Response";
 import sendAssignment from "../utils/sendAssignmentUtil";
+import logger from "../configs/winstonConfig";
 
 export class LecturerController {
   async createAssignment(req: Request, res: Response, next: NextFunction) {
@@ -47,6 +48,7 @@ export class LecturerController {
             email: true,
             firstName: true,
             lastName: true,
+            id: true,
           },
         });
         studentsInfo.push(email);
@@ -78,6 +80,7 @@ export class LecturerController {
         studentId: true,
       },
     });
+    const oldIds = oldStudents.map((stud) => stud.studentId);
     //get assignment details for populating form fields
     const assignment = await prisma.assignment.findFirst({
       where: {
@@ -95,10 +98,10 @@ export class LecturerController {
     if (req.method === "POST") {
       //get newly invited students without already invited students
       const givenStudentIds = req.body.students;
-      const oldIds = oldStudents.map((stud) => stud.studentId);
+
       const newStudents = [];
       //separate newly invite   d students from already invited students
-      givenStudentIds.forEach((id) => {
+      givenStudentIds.forEach((id: number) => {
         if (!oldIds.includes(id)) {
           newStudents.push({
             status: false,
@@ -226,8 +229,9 @@ export class LecturerController {
   }
 
   async inviteStudents(req: Request, res: Response, next: NextFunction) {
-    const assignmentId = req.body.assignmentId;
+    const assignmentId = Number(req.body.assignmentId);
     const givenStudents = req.body.students;
+
     //get students invited to that assignment
     const oldStudentsIds = await prisma.studentsOnAssignments.findMany({
       where: {
@@ -238,8 +242,85 @@ export class LecturerController {
       },
     });
     const oldIds = oldStudentsIds.map((stud) => stud.studentId);
+
+    if (req.method === "GET") {
+      const getOldStudents = [];
+      for (let i = 0; i < oldIds.length; i++) {
+        const student = await prisma.student.findFirst({
+          where: {
+            id: oldIds[i],
+          },
+          select: {
+            firstName: true,
+            lastName: true,
+            email: true,
+            id: true,
+          },
+        });
+        getOldStudents.push(student);
+      }
+      return ResponseUtil.sendResponse(
+        res,
+        "List of invited students",
+        getOldStudents
+      );
+    }
+
     const newStudents = [];
+    const newIds = [];
     //seperate old stuednts from new students
+    givenStudents.forEach((id: number) => {
+      if (!oldIds.includes(id)) {
+        newStudents.push({
+          status: false,
+          student: {
+            connect: {
+              id: id,
+            },
+          },
+        });
+        newIds.push(id);
+      }
+    });
+    //update database to add new students
+    const results = await prisma.assignment.update({
+      where: {
+        id: assignmentId,
+      },
+      data: {
+        students: {
+          create: newStudents,
+        },
+      },
+    });
+    logger.info(results);
+
     //send email to new students only
+    const assignmentInfo = {
+      title: results.title,
+      deadline: results.deadline,
+      uniqueCode: results.uniqueCode,
+      link: `toBeImplemented`,
+    };
+    const studentListToEmail = [];
+    for (let i = 0; i < newIds.length; i++) {
+      const email = await prisma.student.findFirst({
+        where: {
+          id: newIds[i],
+        },
+        select: {
+          email: true,
+          firstName: true,
+          lastName: true,
+        },
+      });
+      studentListToEmail.push(email);
+    }
+    sendAssignment(assignmentInfo, studentListToEmail);
+    return ResponseUtil.sendResponse(
+      res,
+      "Students invites successfully",
+      results
+    );
   }
 }
