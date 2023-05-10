@@ -377,3 +377,285 @@ flex-grow: 0;
   color: #DFE9FA;
 
 }
+
+.lecturer-view {
+  max-width: 1440px;
+  height: inherit;
+  width: 100vw;
+  /* background: #FCFCFD; */
+  background-color: #FFFFFF;
+  display: flex;
+}
+.side-bar {
+  width: 200px;
+  min-height: 100vh;
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  background: linear-gradient(180deg, #170E7D 0%, #15104E 100%);
+}
+
+.logo {
+  margin-top: 16px;
+  margin-bottom: 42px;
+}
+
+.pages {
+  width: 100%;
+  margin-bottom: 583px;
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+
+  color: #FFFFFF;
+}
+
+.page {
+  height: 51px;
+  padding: 16px 58px;
+}
+.avatar {
+  display: flex;
+  place-items: center;
+  gap: 10.6px;
+}
+.nav-logout {
+  margin-top: 49px;
+  margin-bottom: 48px;
+  height: 34px;
+  width: 100px;
+  text-align: center;
+  padding: 6px 0;
+}
+.active {
+  background: #130C68;
+}
+
+.draft-active {
+  background: #5D34EC;
+}
+.page-features {
+  margin-top: 41px;
+  margin-bottom: 48px;
+  margin-left: 42px;
+  margin-right: 42px;
+  display: flex;
+  flex-wrap: wrap;
+  width: inherit;
+
+}
+
+.search-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-self: flex-start;
+  position: relative;
+  width: 349px;
+}
+
+.search-bar>img {
+  position: absolute;
+  margin: 5px 0;
+  margin-left: 15px;
+}
+
+.search-bar>input {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #959595;
+}
+
+.search-input::placeholder {
+  padding-left: 56px;
+}
+
+.header-right {
+  display: flex;
+  margin-left: auto;
+  gap: 32px;
+}
+
+.action {
+  height: 34px;
+  border-radius: 8px;
+}
+
+.assign {
+  background-color: #170E7D;
+  padding: 7px 10px;
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+
+  color: #FFFFFF;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 14px 0;
+  gap: 8px;
+  width: 128px;
+
+}
+
+.filter {
+  background-color: transparent;
+  padding: 0 20px;
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 36px;
+  letter-spacing: 0.02em;
+  color: #9F9F9F;
+
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 14px 20px;
+  gap: 8px;
+  width: 209px;
+  border: 1px solid #9F9F9F;
+}
+.page-header {
+  margin-left: 42px;
+  margin-bottom: 22px;
+  font-family: Work Sans;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 38px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #31394E;
+
+}
+.assignment-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 66px;
+  gap: 30px;
+
+}
+
+.card-wrapper {
+  box-sizing: border-box;
+  width: 349px;
+  height: 278px;
+  background: #FFFFFF;
+  border: 1px solid #DEDEDE;
+  border-radius: 8px;
+}
+
+.card-wrapper:hover {
+  border: 1px solid #5D34EC;
+}
+
+.card-title {
+  background: linear-gradient(180deg, #170E7D 0%, #645EA8 100%);
+  border-radius: 8px 8px 0px 0px;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.assignment-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 66px;
+  gap: 30px;
+
+}
+
+.assignment-description {
+  margin: 24px 14px;
+}
+
+.assignment-description>p:nth-child(1) {
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: #31394E;
+  width: 90px;
+  height: 19px;
+  margin-bottom: 10px;
+}
+
+.assignment-description>p:nth-child(2) {
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  width: 311px;
+  height: 42px;
+  color: #9F9F9F;
+  margin-bottom: 24px;
+}
+
+.assignment-features {
+  display: flex;
+  height: 24px;
+  place-items: center;
+}
+
+.assignment-features>p {
+  width: 82px;
+  height: 14px;
+
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  /* identical to box height */
+  color: #FF3131;
+
+}
+
+.assignment-features>img {
+  width: 24px;
+  height: 24px;
+  margin-left: auto;
+}
+
+.assignment-uniqueness {
+  display: flex;
+  height: 44px;
+  width: 100%;
+  background: #F7F9FB;
+  border-radius: 8px;
+  place-items: center;
+  justify-content: center;
+  gap: 2em;
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  /* identical to box height */
+  margin-top: 18px;
+
+  color: #31394E;
+}
+
+.assignment-code {
+  display: flex;
+  gap: 11.62px;
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+
+  color: #3E3693;
+}
