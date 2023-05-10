@@ -660,3 +660,54 @@ flex-grow: 0;
   color: #3E3693;
 }
 
+.submission-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 66px;
+  gap: 30px;
+  margin-top: 124px;
+  height: fit-content;
+
+}
+
+.submission-card-wrapper {
+  width: 349px;
+  height: 165px;
+  background: #FFFFFF;
+  border: 1px solid #DEDEDE;
+  border-radius: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  place-items: center;
+  justify-content: center;
+  gap: 26px;
+}
+
+.folder-image {
+  width: 85px;
+  height: 85px;
+  background-color: #170E7D;
+}
+
+.submission-title {
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 28px;
+  text-transform: uppercase;
+
+  color: #31394E;
+}
+
+.number-submissions {
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+
+  color: #1A9E27;
+}
+
