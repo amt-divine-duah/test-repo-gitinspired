@@ -2,7 +2,7 @@ const SubmissionCard = (prop: {height: number, width: number, title: string, num
   return (
     <div className="submission-card-wrapper" style={{height: prop.height, width: prop.width}}>
       <div className="folder-image">
-        <img src="" alt="folder icon" />
+        <img src="/folder.png" alt="folder icon" />
 
       </div>
       <div>
