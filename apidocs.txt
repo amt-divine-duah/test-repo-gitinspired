@@ -1,0 +1,21 @@
+//Create assignment field requirements
+{
+    "title": "first assignment edited",
+    "description":"random description edited",
+    "course": "javascript",
+    "deadline": "2024-05-09",
+	"lecturerId": 1
+    "publish": true,
+    "students": [3,4]
+}
+
+//edit assignment 
+{
+    "title": "first assignment edited",
+    "description":"random description edited",
+    "course": "javascript",
+    "deadline": "2024-05-09",
+	"assignmentId": 1
+    "publish": true,
+    "students": [3,4]
+}
