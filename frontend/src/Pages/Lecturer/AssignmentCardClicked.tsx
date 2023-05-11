@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
 import ActionButton from "../../components/Lecturer/ActionButton";
-import BottomContent from "../../components/Lecturer/AssignmentClickedBottomContent";
-import TopContent from "../../components/Lecturer/AssignmentClickedTopContent";
+import BottomContent from "../../components/Lecturer/BottomContent";
+import TopContent from "../../components/Lecturer/TopContent";
 import Searchbar from "../../components/Lecturer/Searchbar";
 import useData from "../../hooks/useAssignmentData";
 
@@ -20,7 +20,7 @@ const AssignmentCardClicked = () => {
 
     const {assignments} = useData();
      const output = assignments.filter((item) => {
-        return item.javascript === uniqueCode
+        return item.title === 'Javascript'
     });
   return (
        
@@ -35,14 +35,14 @@ const AssignmentCardClicked = () => {
         {/* //// */}
         <div className="clicked-top">
           <h2 className="clicked-header1">Assignment</h2>
-          {assignments.map((item) => {
+          {output.map((item) => {
              return (
                 <TopContent title={item.title} uniqueCode={item.code} date={item.date} details={item.fullDetails} />
              )
             })}
         
         </div>
-        {assignments.map((item) => {
+        {output.map((item) => {
              return (
                 <BottomContent  invitedStudents={item.numberOfStudents}/>
              )
