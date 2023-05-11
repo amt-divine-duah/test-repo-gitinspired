@@ -107,10 +107,10 @@ export class AdminController {
     }
 
     const currentDir = path.resolve(`src/uploads/students`);
+    const response = await csvToDb(currentDir, "student");
 
-    const errors = await csvToDb(currentDir);
-
-    return ResponseUtil.sendResponse(res, "File uploaded successfully", null);
+    return ResponseUtil.sendResponse(res, "Student information upload successful", response)
+    
   }
 
   async createLecturer(req: Request, res: Response, next: NextFunction) {
@@ -198,13 +198,13 @@ export class AdminController {
 
     const currentDir = path.resolve(`src/uploads/lecturers`);
 
-    await csvToDb(currentDir);
+    const response = await csvToDb(currentDir, "lecturer");
 
-    return ResponseUtil.sendResponse(
-      res,
-      "Lecturer information upload successful",
-      null
-    );
+     return ResponseUtil.sendResponse(
+       res,
+       "Lecturer information upload successful",
+       response
+     );
   }
 
   async getLecturers(req: Request, res: Response, next: NextFunction) {

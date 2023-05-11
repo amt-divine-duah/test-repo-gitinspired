@@ -9,11 +9,16 @@ import axios from "axios";
 import _ from "lodash";
 import api from "../ApiClient";
 import { showErrorMessage } from "../constants/messages";
+import { PaginationInfoInterface } from "../interfaces/PaginationInfoInterface";
+import { StatusCodes } from "http-status-codes";
 
 const AdminStudentDashBoard = () => {
   const [showCreateUserModal, setShowCreateUserModal] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [studentData, setStudentData] = useState<UserInterface[] | undefined | null>();
+  const [paginationInfo, setPaginationInfo] = useState<
+    PaginationInfoInterface | undefined
+  >();
 
   const handleCreateUser = (newUser: UserInterface) => {
     setStudentData((prevData) => {
@@ -22,6 +27,27 @@ const AdminStudentDashBoard = () => {
       } else {
         return [newUser, ...prevData];
       }
+    });
+    setPaginationInfo((prevPagination: PaginationInfoInterface | undefined) => {
+      if (prevPagination) {
+        const currentPage = prevPagination.currentPage;
+        const pageSize = prevPagination.pageSize;
+        const totalItems = prevPagination.totalItems + 1;
+        let pages = prevPagination.pages;
+        const hasPrevious = currentPage > 1;
+        pages = Math.ceil(totalItems / pageSize);
+
+        return {
+          ...prevPagination,
+          currentPage: currentPage,
+          pageSize: pageSize,
+          totalItems: totalItems,
+          pages: pages,
+          hasNext: currentPage < pages,
+          hasPrevious: hasPrevious,
+        };
+      }
+      return prevPagination;
     });
     setShowCreateUserModal((prev) => !prev);
   };
@@ -34,15 +60,51 @@ const AdminStudentDashBoard = () => {
     setShowUploadModal((prev) => !prev);
   };
 
+  function handleBulkUpload(newUsers: UserInterface[]) {
+    setStudentData((prevData) => {
+      if (prevData === undefined || prevData === null) {
+        return [...newUsers];
+      } else {
+        return [...newUsers, ...prevData];
+      }
+    });
+    setPaginationInfo((prevPagination: PaginationInfoInterface | undefined) => {
+      if (prevPagination) {
+        const currentPage = prevPagination.currentPage;
+        const pageSize = prevPagination.pageSize;
+        const totalItems = prevPagination.totalItems + newUsers.length;
+        let pages = prevPagination.pages;
+        const hasPrevious = currentPage > 1;
+        pages = Math.ceil(totalItems / pageSize);
+
+        return {
+          ...prevPagination,
+          currentPage: currentPage,
+          pageSize: pageSize,
+          totalItems: totalItems,
+          pages: pages,
+          hasNext: currentPage < pages,
+          hasPrevious: hasPrevious,
+        };
+      }
+      return prevPagination;
+    });
+    setShowUploadModal((prev) => !prev);
+  }
+  function handleHideModal() {
+    setShowUploadModal((prev) => !prev);
+  }
+
   useEffect(() => {
     (async () => {
       try {
         const response = await api.get("/api/admin/students");
         const keysToPick = ["studentId", "firstName", "lastName", "email"];
-        const lecturers = _.map(response.data?.data, (obj) =>
+        const students = _.map(response.data?.data, (obj) =>
           _.pick(obj, keysToPick)
         ) as UserInterface[];
-        setStudentData(lecturers)
+        setStudentData(students)
+        setPaginationInfo(response.data?.paginationInfo);
       } catch (error) {
         if (axios.isAxiosError(error)) {
           showErrorMessage("Something went wrong");
@@ -57,6 +119,59 @@ const AdminStudentDashBoard = () => {
     })();
   }, []);
 
+  const loadNextPage = async () => {
+    if (paginationInfo && studentData && paginationInfo.currentPage) {
+      try {
+        const response = await api.get("/api/admin/students", {
+          params: {
+            page: paginationInfo?.currentPage + 1,
+          },
+        });
+        if (response.status === StatusCodes.OK) {
+          const keysToPick = ["studentId", "firstName", "lastName", "email"];
+          const students = _.map(response.data?.data, (obj) =>
+            _.pick(obj, keysToPick)
+          ) as UserInterface[];
+          setStudentData(students);
+          setPaginationInfo(response.data?.paginationInfo);
+        } else {
+          showErrorMessage("Something went wrong");
+          setStudentData(null);
+        }
+      } catch (error) {
+        showErrorMessage("Something went wrong");
+        setStudentData(null);
+      }
+    }
+  };
+
+  // previous page
+  const loadPrevPage = async () => {
+    if (paginationInfo && studentData && paginationInfo.currentPage) {
+      try {
+        const response = await api.get("/api/admin/students", {
+          params: {
+            page: paginationInfo?.currentPage - 1,
+          },
+        });
+        if (response.status === StatusCodes.OK) {
+          const keysToPick = ["studentId", "firstName", "lastName", "email"];
+          const students = _.map(response.data?.data, (obj) =>
+            _.pick(obj, keysToPick)
+          ) as UserInterface[];
+          setStudentData(students);
+          setPaginationInfo(response.data?.paginationInfo);
+        } else {
+          showErrorMessage("Something went wrong");
+          setStudentData(null);
+        }
+      } catch (error) {
+        showErrorMessage("Something went wrong");
+        setStudentData(null);
+      }
+    }
+  };
+
   return (
     <Main header>
       <div className="admin-student">
@@ -68,6 +183,9 @@ const AdminStudentDashBoard = () => {
           showUploadModal={handleUploadModal}
           data={studentData && studentData}
           userTableName="Student ID"
+          paginationInfo={paginationInfo}
+          loadNextPage={loadNextPage}
+          loadPrevPage={loadPrevPage}
         />
         {showCreateUserModal === true && (
           <CreateUserModal
@@ -77,7 +195,12 @@ const AdminStudentDashBoard = () => {
           />
         )}
         {showUploadModal === true && (
-          <UploadModal showUploadModal={handleUploadModal} />
+          <UploadModal
+            showUploadModal={handleUploadModal}
+            user="student"
+            onBulkUpload={handleBulkUpload}
+            hideModal={handleHideModal}
+          />
         )}
       </div>
     </Main>

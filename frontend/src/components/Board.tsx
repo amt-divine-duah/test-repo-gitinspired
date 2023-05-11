@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "../Styles/board.scss";
 import Table from "./Table";
 import { UserInterface } from "../interfaces/UserInterface";
@@ -73,18 +72,36 @@ const Board = ({
         {contents}
       </section>
 
-      {paginationInfo?.hasNext && (
+      {paginationInfo?.hasNext || paginationInfo?.hasPrevious ? (
         <div className="footer">
           <div className="footer-left-side">
-            <p>Page {paginationInfo.currentPage} of {paginationInfo.pages}</p>
+            <p>
+              Page {paginationInfo.currentPage} of {paginationInfo.pages}
+            </p>
           </div>
           <div className="footer-right-side">
-            <button type="button" onClick={loadPrevPage}>Prev</button>
+            {paginationInfo?.hasPrevious ? (
+              <button type="button" onClick={loadPrevPage}>
+                Prev
+              </button>
+            ) : (
+              <button type="button" disabled>
+                Prev
+              </button>
+            )}
 
-            <button type="button" onClick={loadNextPage}>Next</button>
+            {paginationInfo?.hasNext ? (
+              <button type="button" onClick={loadNextPage}>
+                Next
+              </button>
+            ) : (
+              <button type="button" disabled>
+                Next
+              </button>
+            )}
           </div>
         </div>
-      )}
+      ) : null}
     </div>
   );
 };
