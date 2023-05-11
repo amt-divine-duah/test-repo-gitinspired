@@ -101,7 +101,7 @@ export class LecturerController {
         uniqueCode: await generateUniqueCode(),
         createdBy: {
           connect: {
-            id: req.body.createdBy,
+            staffId: req.body.createdBy,
           },
         },
         students: {
