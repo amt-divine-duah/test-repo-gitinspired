@@ -380,7 +380,6 @@ flex-grow: 0;
 
 .lecturer-view {
   max-width: 1440px;
-  height: inherit;
   width: 100vw;
   /* background: #FCFCFD; */
   background-color: #FFFFFF;
@@ -391,7 +390,7 @@ flex-grow: 0;
 }
 .side-bar {
   width: 200px;
-  min-height: 100vh;
+  height: 100vh;
   color: #FFFFFF;
   display: flex;
   flex-direction: column;
