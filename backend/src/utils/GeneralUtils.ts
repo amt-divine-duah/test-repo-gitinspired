@@ -62,3 +62,20 @@ export async function generateLecturerId() {
 
   return lecturerId;
 }
+
+export async function generateUniqueCode() {
+  let uniqueCode: string;
+  const existingCodes = await getExistingCodes();
+  do {
+    const nanoid = customAlphabet("0123456789", 7);
+    uniqueCode = nanoid();
+  } while (uniqueCode in existingCodes);
+
+  return uniqueCode;
+}
+
+async function getExistingCodes() {
+  const assignments = await prisma.assignment.findMany();
+  const codes = _.map(assignments, "uniqueCode");
+  return codes;
+}

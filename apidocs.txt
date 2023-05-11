@@ -1,0 +1,29 @@
+//Create assignment field requirements - api/lecturer/create-assignment
+
+{
+    "title": "first assignment ",
+    "description":"random description ",
+    "course": "javascript",
+    "deadline": "2024-05-09",
+	"createdBy": 1,
+    "publish": true,
+    "students": [3,4]
+}
+
+//edit assignment - api/lecturer/edit-assignment
+{
+    "title": "first assignment edited",
+    "description":"random description edited",
+    "course": "javascript",
+    "deadline": "2024-05-09",
+	"assignmentId": 1,
+    "publish": true,
+    "students": [3,4]
+}
+
+//drafts - api/lecturer/drafts
+{ lecturerId: number } table id field
+
+//lecturer dashboard - api/lecturer/dashboard
+
+
