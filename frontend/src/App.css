@@ -399,6 +399,7 @@ flex-grow: 0;
   flex-direction: column;
   place-items: center;
   background: linear-gradient(180deg, #170E7D 0%, #15104E 100%);
+  justify-content: space-between;
 }
 .side-bar > *:hover {
 cursor: pointer;
@@ -406,21 +407,21 @@ cursor: pointer;
 .logo {
   margin-top: 16px;
   margin-bottom: 42px;
+  text-align: center;
 }
 
 .pages {
   width: 100%;
-  margin-bottom: 583px;
   font-family: 'Work Sans';
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
-
   color: #FFFFFF;
 }
 
 .page {
+  width: 200px;
   height: 51px;
   padding: 16px 58px;
 }
@@ -443,6 +444,7 @@ cursor: pointer;
 
 .draft-active {
   background: #5D34EC;
+
 }
 
 .page-features {
@@ -810,8 +812,7 @@ caret-color:  #111111;
   width: fit-content;
 }
 .submissionClicked-container {
-  margin-top: 56px;
-  margin-left: 36px;
+  padding: 56px 32px 52px 37px;
   display: flex;
   flex-direction: column;
   gap: 67px;
