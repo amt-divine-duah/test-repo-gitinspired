@@ -2,19 +2,9 @@ import { useState } from "react";
 import Searchbar from "../../components/Lecturer/Searchbar";
 import ActionButton from "../../components/Lecturer/ActionButton";
 import Table from "../../components/Table";
+import useStudents from "../../hooks/useStudentData";
 const StudentTab = () => {
-  const [studentList] = useState([
-    {
-      id: "1234",
-      name: "Benstrong",
-      email: "benstrong@gamil.com",
-    },
-    {
-      id: "1234",
-      name: "Benstrong",
-      email: "benstrong@gamil.com",
-    },
-  ]);
+  const {students} = useStudents();
   return (
       <div className="main-content">
         <div className="page-features">
@@ -27,7 +17,7 @@ const StudentTab = () => {
         <div className="student-page-view">
           <h2 className="page-header">All Students</h2>
           <div className="assignment-container">
-            <Table userTableName={"Student ID"} data={studentList} />
+            <Table userTableName={"Student ID"} data={students} />
           </div>
           <div>
            {/* pagewsitcher component */}
