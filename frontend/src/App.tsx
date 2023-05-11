@@ -1,6 +1,7 @@
 
 import LecturerDashBoard from "./Pages/LecturerDashBoard"
 import './App.css';
+import HomePage from "./Pages/HomePage";
 
 
 

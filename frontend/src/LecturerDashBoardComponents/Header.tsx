@@ -7,6 +7,7 @@ const Header = () => {
     const handleModalDisplay=()=>{
         setShowCreateAssignment(prev=>!prev)
       }
+      
   return (
     <header>
       <div className="left-side-of-header">
@@ -20,6 +21,10 @@ const Header = () => {
         <button onClick={handleModalDisplay}>Assignment+</button>
       </div>
           {showCreateAssignment===true && <LecturerCreateNewAssignmentModal handleShowAssignmentModal={handleModalDisplay} />} 
+          <dialog data-model>
+            This is a modal
+            <button data-close-modal></button>
+          </dialog>
      </header>
   )
 }
