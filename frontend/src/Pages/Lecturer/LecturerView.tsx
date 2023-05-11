@@ -1,4 +1,5 @@
 import SideBar from "../../components/Lecturer/SideBar";
+import AssignmentCardClicked from "./AssignmentCardClicked";
 import DashboardTab from "./DashboardTab";
 import DraftTab from "./DraftTab";
 import StudentTab from "./StudentTab";
@@ -14,7 +15,8 @@ return (
         {/* <StudentTab /> */}
         {/* <SubmissionTab /> */}
         {/* <DraftTab /> */}
-        <SubmissionCardClicked />
+        {/* <SubmissionCardClicked /> */}
+        <AssignmentCardClicked/>
     </div>
 )
 }

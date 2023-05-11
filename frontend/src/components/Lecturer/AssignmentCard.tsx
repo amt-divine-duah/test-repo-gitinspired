@@ -1,6 +1,12 @@
+import { useNavigate } from "react-router-dom";
 const AssignmentCard = (prop: {title: string, description: string, date: string, uniqueCode: string}) => {
+  const navigate = useNavigate();
+  const cardClicked = (event: React.MouseEvent<HTMLDivElement>) => {
+    const name = event.currentTarget.getAttribute("id");
+    navigate(`/AssignmentCardClicked/`, { state: { name: name } });
+  };
     return (
-      <div className="card-wrapper">
+      <div className="card-wrapper" onClick={cardClicked} id={prop.uniqueCode}>
         <div className="card-title">
           <h2>{prop.title}</h2>
         </div>
