@@ -30,21 +30,23 @@ model User {
 }
 
 model Student {
-  id        Int    @id @default(autoincrement())
-  studentId String @unique @default(uuid())
-  firstName String
-  lastName  String
-  email     String @unique
+  id          Int                     @id @default(autoincrement())
+  studentId   String                  @unique @default(uuid())
+  firstName   String
+  lastName    String
+  email       String                  @unique
+  assignments StudentsOnAssignments[]
 
   @@map("students")
 }
 
 model Lecturer {
-  id        Int    @id @default(autoincrement())
-  staffId   String @unique @default(uuid())
-  firstName String
-  lastName  String
-  email     String @unique
+  id         Int          @id @default(autoincrement())
+  staffId    String       @unique @default(uuid())
+  firstName  String
+  lastName   String
+  email      String       @unique
+  Assignment Assignment[]
 
   @@map("lecturers")
 }
@@ -58,4 +60,30 @@ model Otp {
   createdAt     DateTime  @default(now())
 
   @@map("otps")
+}
+
+model Assignment {
+  id          Int                     @id @default(autoincrement())
+  title       String
+  deadline    String
+  description String
+  course      String
+  lecturerId  Int
+  createdBy   Lecturer                @relation(fields: [lecturerId], references: [id])
+  uniqueCode  String?                 @unique
+  isPublished Boolean
+  updatedAt   DateTime?               @updatedAt
+  students    StudentsOnAssignments[]
+
+  @@map("assignments")
+}
+
+model StudentsOnAssignments {
+  student      Student    @relation(fields: [studentId], references: [id])
+  studentId    Int
+  assignment   Assignment @relation(fields: [assignmentId], references: [id])
+  assignmentId Int
+  status       Boolean
+
+  @@unique([studentId, assignmentId])
 }

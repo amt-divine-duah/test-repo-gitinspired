@@ -208,7 +208,6 @@ export class AdminController {
   }
 
   async getLecturers(req: Request, res: Response, next: NextFunction) {
-
     const { records: lecturers, paginationInfo } = await Paginator.paginate(
       "lecturer",
       req,
@@ -225,13 +224,12 @@ export class AdminController {
   }
 
   async getStudents(req: Request, res: Response, next: NextFunction) {
-
     const { records: students, paginationInfo } = await Paginator.paginate(
       "student",
       req,
       prisma
     );
-    
+
     return ResponseUtil.sendResponse(
       res,
       "Students fetched successfully",
