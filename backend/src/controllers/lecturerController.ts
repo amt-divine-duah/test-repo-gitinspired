@@ -5,6 +5,8 @@ import { prisma } from "../configs/prismaConfig";
 import { ResponseUtil } from "../utils/Response";
 import sendAssignment from "../utils/sendAssignmentUtil";
 import logger from "../configs/winstonConfig";
+import { Paginator } from "../utils/Paginator";
+import { StatusCodes } from "http-status-codes";
 
 export class LecturerController {
   async createAssignment(req: Request, res: Response, next: NextFunction) {
@@ -321,6 +323,31 @@ export class LecturerController {
       res,
       "Students invites successfully",
       results
+    );
+  }
+  async searchStudents(req: Request, res: Response, next: NextFunction) {
+    const searchParameter = req.body.search;
+
+    const result = await prisma.student.findMany({
+      where: {
+        firstName: {
+          search: searchParameter,
+        },
+        lastName: {
+          search: searchParameter,
+        },
+        studentId: {
+          search: searchParameter,
+        },
+        email: {
+          search: searchParameter,
+        },
+      },
+    });
+    return ResponseUtil.sendResponse(
+      res,
+      `Search results for ${searchParameter}`,
+      result
     );
   }
 }
