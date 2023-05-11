@@ -1,0 +1,89 @@
+@import './breakpoints';
+
+.admin-main-dashboard-route{
+    @include  lg{
+        display: grid;
+        grid-template-columns: 60%  35%;
+        width: 100%;
+        height: 90%;
+        max-width: 1440px;
+        max-height: 1028px;
+
+        .left-admin-dashboard{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            margin: 0 1rem;
+            
+              
+           .overview-content{
+           .overview-cards{
+                width: 209.54px;
+                height: 88.07px;
+                background-color:#F7F9FB ;
+                padding-left: 1rem;
+                gap: 1rem;
+                border-radius: 8px;
+            .overview-image{
+                width: 42.52px;
+                height: 42.52px;
+                border-radius: 100%;
+                background-color: #E5E3FE;
+            }
+            display: flex;
+            align-items: center;
+           }
+           }
+               .admin-dashboard-header{
+                display: flex;
+                align-items: center;
+                background: 'green';
+                background-size: 300px 100px;
+                
+
+                .admin-header-text{
+                    margin-top: 4rem;
+                    padding-left: 1rem;
+                    align-items: center;
+                    width: 100rem;
+                    border-radius: 8px;
+                  
+                    h1{
+                        color: #31394E;
+                        font-weight: 400;
+                        font-size: 48px;
+                    }
+                    p{
+                        color: #788B9A;
+                    line-height: 1.5rem;
+                        
+                    }
+                }
+               }
+               .left-admin-dashboard-down{
+                
+                .student-progress-graph{
+                    width: 90%;
+                    img{
+                        width: 100%;
+                    }
+                }
+               }
+        }
+        .right-admin-dashboard{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            margin: 2rem 1rem 1rem 2rem;
+            width: 100%;
+
+            .right-admin-dashboard-down{
+                height: 50%;
+               
+            }
+
+            
+        }
+
+    }
+}

@@ -1,4 +1,5 @@
 import AdminLecturerDashBoard from "../components/AdminLecturerDashBoard";
+import AdminMainDashBoard from "../components/AdminMainDashBoard";
 import AdminStudentDashBoard from "../components/AdminStudentDashBoard";
 import NavBar from "../components/NavBar"
 import '../Styles/homePage.scss'
@@ -11,6 +12,7 @@ const HomePage = () => {
       <Routes>
         <Route path="/student" element={<AdminStudentDashBoard/>}/>
         <Route path="/lecturer" element={<AdminLecturerDashBoard/>}/>
+        <Route path="/admin-dashboard" element={<AdminMainDashBoard/>} />
       </Routes>
     </main>
   )
