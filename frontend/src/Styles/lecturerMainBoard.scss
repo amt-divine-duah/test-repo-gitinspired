@@ -1,13 +1,15 @@
+
 @import './breakpoints';
 @import '../App.css';
 
 
 .lecturer-main-board{
     @include lg{
-              .card-section{
+            .card-section{
             display: flex;
             flex-wrap: wrap;
             gap: 1rem;
         }
     }
+
 }

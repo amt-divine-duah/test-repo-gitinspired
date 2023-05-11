@@ -1,6 +1,5 @@
 @import './breakpoints';
 @import '../App.css';
-
 .main-board{
     @include lg{
         display: flex;
@@ -8,14 +7,25 @@
         justify-content: space-between;
         height: 100%;
         margin: 2rem 13rem;
+        
 
 
         .admin-board{
-                display: grid;
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+               
+                
+            
                 .main-board-header{
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
+
+                    h1{
+                        color: #31394E;
+                        font-size: 1.8rem;
+                    }
     
                     .main-board-btn{
                         display: flex;
@@ -51,9 +61,14 @@
     
                 .main-board-body{
                     display: flex;
+                    height: 100%;
                     flex-direction: column;
                     align-items: center;
-                    margin: 0rem auto 0 auto;
+                    justify-content: center;
+                   
+                   
+                  
+                    
                  }
     
             }
@@ -92,3 +107,4 @@
    
    
 }
+
