@@ -8,7 +8,7 @@ import validator from "validator";
 import { StatusCodes } from "http-status-codes";
 import generator from "generate-password";
 import { UserInterface } from "../interfaces/modelInterface";
-import { generateAuthToken, generateStudentId } from "./GeneralUtils";
+import { generateAuthToken, generateLecturerId, generateStudentId } from "./GeneralUtils";
 import { hash } from "bcryptjs";
 import { prisma } from "../configs/prismaConfig";
 import configValues from "../configs/config";
@@ -16,6 +16,7 @@ import transporter from "../configs/nodemailerConfig";
 import { EMAIL_ACTIVATION_SUBJECT } from "../constants/messages";
 import { mailOptionsInterface } from "../interfaces/mailOptionsInterface";
 import { studentInviteTemplate } from "../templates/studentInviteTemplate";
+import { lecturerInviteTemplate } from "../templates/lecturerInviteTemplate";
 
 const readdir = util.promisify(fs.readdir);
 
@@ -86,11 +87,72 @@ async function createStudentAccount(user: UserInterface) {
       transporter.sendMail(mailOptions);
     }
   }
+
+  return results[0]
 }
 
-export async function csvToDb(currentDir: string) {
+// Create Lecturer
+async function createLecturerAccount(user: UserInterface) {
+  const tempPassword = generator.generate({
+    length: 10,
+    numbers: true,
+    symbols: true,
+    uppercase: true,
+    lowercase: true,
+    strict: true,
+  });
+  const staffId = await generateLecturerId();
+  const results = await prisma.$transaction([
+    prisma.lecturer.create({
+      data: {
+        staffId: staffId,
+        firstName: user.firstname,
+        lastName: user.lastname,
+        email: user.email
+      },
+    }),
+    prisma.user.create({
+      data: {
+        loginId: staffId,
+        email: user.email,
+        role: "LECTURER",
+        password: await hash(tempPassword, 12),
+      },
+    }),
+  ]);
+
+  if (results) {
+    const otp = await prisma.otp.create({
+      data: {
+        otpCode: tempPassword,
+        userId: staffId,
+      },
+    });
+    // If otp was created, send email with verification link
+    if (otp) {
+      const token = generateAuthToken(results[1]);
+      const filteredUser = _.pick(results[1], ["email"]);
+      let message = lecturerInviteTemplate(
+        filteredUser.email,
+        configValues.ACCOUNT_CONFIRMATION_URL + "/" + token.accessToken,
+        otp.otpCode
+      );
+      const mailOptions: mailOptionsInterface = {
+        to: filteredUser.email,
+        subject: EMAIL_ACTIVATION_SUBJECT,
+        html: message,
+      };
+      transporter.sendMail(mailOptions);
+    }
+  }
+
+  return results[0]
+}
+
+export async function csvToDb(currentDir: string, model: string) {
   const filenames = await getCsvFiles(currentDir);
   let errors = [];
+  let results = []
 
   // Use Promise.all to wait for all the CSV files to be parsed
   await Promise.all(
@@ -98,7 +160,8 @@ export async function csvToDb(currentDir: string) {
       const currentFilePath = path.join(currentDir, filename);
       const uploadedFileStream = fs.createReadStream(currentFilePath);
       let csvCollection = [];
-      
+      const processedEmails = []; // Track processed emails
+      const duplicateEmails = []; // Track duplicate emails
 
       // Wrap the CSV parsing in a promise to await it
       await new Promise((resolve, reject) => {
@@ -110,8 +173,12 @@ export async function csvToDb(currentDir: string) {
                 email: data["email"],
               },
             });
+            // Check for duplicate email
+            if (existingUser || processedEmails.includes(data["email"])) {
+              duplicateEmails.push(data["email"]);
+              return cb(null, false);
+            }
             if (
-              existingUser ||
               !validator.isEmail(data["email"]) ||
               typeof data["firstname"] !== "string" ||
               validator.isEmpty(data["firstname"]) ||
@@ -122,6 +189,8 @@ export async function csvToDb(currentDir: string) {
             ) {
               return cb(null, false);
             }
+            // If email is valid and not a duplicate, mark it as processed
+            processedEmails.push(data["email"]);
             return cb(null, true);
           })
           .on("data-invalid", (row, rowNumber) => {
@@ -150,12 +219,19 @@ export async function csvToDb(currentDir: string) {
           .on("error", (error) => {
             reject(error);
           })
-          .on("end", (data) => {
-            csvCollection.map(async (user: UserInterface) => {
-              logger.info("Log this user for me", user);
-              await createStudentAccount(user);
-            });
-            
+          .on("end", async (data) => {
+            await Promise.all(
+              csvCollection.map(async (user: UserInterface) => {
+                let createdUser;
+                if (model === "student") {
+                  createdUser = await createStudentAccount(user);
+                }
+                else if (model === "lecturer") {
+                  createdUser = await createLecturerAccount(user);
+                }
+                results.push(createdUser);
+              })
+            );
             // Remove file
             logger.info("removing file......%j", filename);
             fs.unlinkSync(currentFilePath);
@@ -174,5 +250,5 @@ export async function csvToDb(currentDir: string) {
     throw error;
   }
   // Return nothing if there are no errors
-  return;
+  return results;
 }

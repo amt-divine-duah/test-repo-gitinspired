@@ -63,6 +63,42 @@ const AdminLecturerDashBoard = () => {
     setShowUploadModal((prev) => !prev);
   };
 
+  function handleBulkUpload(newUsers: UserInterface[]) {
+    setLecturersData((prevData) => {
+      if (prevData === undefined || prevData === null) {
+        return [...newUsers];
+      } else {
+        return [...newUsers, ...prevData];
+      }
+    });
+    setPaginationInfo((prevPagination: PaginationInfoInterface | undefined) => {
+      if (prevPagination) {
+        const currentPage = prevPagination.currentPage;
+        const pageSize = prevPagination.pageSize;
+        const totalItems = prevPagination.totalItems + newUsers.length;
+        let pages = prevPagination.pages;
+        const hasPrevious = currentPage > 1;
+        pages = Math.ceil(totalItems / pageSize);
+
+        return {
+          ...prevPagination,
+          currentPage: currentPage,
+          pageSize: pageSize,
+          totalItems: totalItems,
+          pages: pages,
+          hasNext: currentPage < pages,
+          hasPrevious: hasPrevious,
+        };
+      }
+      return prevPagination;
+    });
+    setShowUploadModal((prev) => !prev);
+  }
+
+  function handleHideModal() {
+    setShowUploadModal((prev) => !prev);
+  }
+
   useEffect(() => {
     (async () => {
       try {
@@ -163,7 +199,12 @@ const AdminLecturerDashBoard = () => {
           />
         )}
         {showUploadModal === true && (
-          <UploadModal showUploadModal={handleUploadModal} />
+          <UploadModal
+            showUploadModal={handleUploadModal}
+            user="lecturer"
+            onBulkUpload={handleBulkUpload}
+            hideModal={handleHideModal}
+          />
         )}
       </div>
     </Main>
