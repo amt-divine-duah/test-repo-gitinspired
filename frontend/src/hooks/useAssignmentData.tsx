@@ -8,7 +8,7 @@ const useData = () => {
         "Your task is to develop a web application using JavaScript that provides a user-friendly interface for tracking and managing tasks. ",
       date: "1st May",
       numberOfStudents: 7,
-      code: '51133',
+      code: '51143',
       fullDetails:
         "Your task is to develop a web application using JavaScript that provides a user-friendly interface for tracking and managing tasks.Build a web application using React that allows users to browse and search a collection of items.Develop a TypeScript program that reads input data from a JSON file and outputs the data to the console.",
       students: [
@@ -47,7 +47,7 @@ const useData = () => {
           "Your task is to develop a web application using JavaScript that provides a user-friendly interface for tracking and managing tasks. ",
         date: "1st May",
         numberOfStudents: 3,
-        code: '51133',
+        code: '51153',
         fullDetails:
           "Your task is to develop a web application using JavaScript that provides a user-friendly interface for tracking and managing tasks.Build a web application using React that allows users to browse and search a collection of items.Develop a TypeScript program that reads input data from a JSON file and outputs the data to the console.",
         students: [
@@ -70,7 +70,7 @@ const useData = () => {
           "Your task is to develop a web application using JavaScript that provides a user-friendly interface for tracking and managing tasks. ",
         date: "1st May",
         numberOfStudents: 1,
-        code: '51133',
+        code: '51163',
         fullDetails:
           "Your task is to develop a web application using JavaScript that provides a user-friendly interface for tracking and managing tasks.Build a web application using React that allows users to browse and search a collection of items.Develop a TypeScript program that reads input data from a JSON file and outputs the data to the console.",
         students: [
