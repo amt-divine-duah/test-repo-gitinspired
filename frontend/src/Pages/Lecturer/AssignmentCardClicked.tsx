@@ -1,27 +1,27 @@
 import { useLocation } from "react-router-dom";
 import ActionButton from "../../components/Lecturer/ActionButton";
-import BottomContent from "../../components/Lecturer/BottomContent";
 import TopContent from "../../components/Lecturer/TopContent";
+import BottomContent from "../../components/Lecturer/BottomContent";
 import Searchbar from "../../components/Lecturer/Searchbar";
 import useData from "../../hooks/useAssignmentData";
 
 const AssignmentCardClicked = () => {
-    // const keyword = useLocation();
-    // const uniqueCode: string = keyword.state.name;
+    const keyword = useLocation();
+    const uniqueCode: string = keyword.state.name;
      
-    // const dataValue = useData();
+    const dataValue = useData();
 
     
-    // const assignmentData = dataValue.assignments;
+    const assignmentData = dataValue.assignments;
 
-    // const output = assignmentData.filter((item) => {
-    //     return item.code === uniqueCode
-    // });
-
-    const {assignments} = useData();
-     const output = assignments.filter((item) => {
-        return item.title === 'Javascript'
+    const output = assignmentData.filter((item) => {
+        return item.code === uniqueCode;
     });
+
+    // const {assignments} = useData();
+    //  const output = assignments.filter((item) => {
+    //     return item.title === 'Javascript'
+    // });
   return (
        
       <div className="main-content">

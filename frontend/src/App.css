@@ -398,7 +398,9 @@ flex-grow: 0;
   place-items: center;
   background: linear-gradient(180deg, #170E7D 0%, #15104E 100%);
 }
-
+.side-bar > *:hover {
+cursor: pointer;
+}
 .logo {
   margin-top: 16px;
   margin-bottom: 42px;
@@ -440,6 +442,7 @@ flex-grow: 0;
 .draft-active {
   background: #5D34EC;
 }
+
 .page-features {
   margin-top: 41px;
   margin-bottom: 48px;
@@ -683,7 +686,9 @@ flex-grow: 0;
   justify-content: center;
   gap: 26px;
 }
-
+.card-wrapper, .submission-card-wrapper:hover {
+cursor: pointer;
+}
 .folder-image {
   width: 85px;
   height: 85px;
