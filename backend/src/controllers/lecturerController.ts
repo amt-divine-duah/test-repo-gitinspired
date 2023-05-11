@@ -322,4 +322,30 @@ export class LecturerController {
       results
     );
   }
+
+  async searchStudents(req: Request, res: Response, next: NextFunction) {
+    const searchParameter = req.body.search;
+
+    const result = await prisma.student.findMany({
+      where: {
+        firstName: {
+          search: searchParameter,
+        },
+        lastName: {
+          search: searchParameter,
+        },
+        studentId: {
+          search: searchParameter,
+        },
+        email: {
+          search: searchParameter,
+        },
+      },
+    });
+    return ResponseUtil.sendResponse(
+      res,
+      `Search results for ${searchParameter}`,
+      result
+    );
+  }
 }

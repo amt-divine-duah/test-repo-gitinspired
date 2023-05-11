@@ -19,7 +19,6 @@ lecturerRouter.get(
   "/drafts",
   ErrorHandler.catchErrors(lecturerController.getDrafts)
 );
-
 lecturerRouter.get(
   "/submissions",
   ErrorHandler.catchErrors(lecturerController.getSubmissions)
@@ -43,6 +42,10 @@ lecturerRouter.get(
 lecturerRouter.post(
   "/invite-students",
   ErrorHandler.catchErrors(lecturerController.inviteStudents)
+);
+lecturerRouter.post(
+  "/search-students",
+  ErrorHandler.catchErrors(lecturerController.searchStudents)
 );
 
 export default lecturerRouter;
