@@ -13,7 +13,7 @@ const App = () => {
     <div className="app">
       {/* <LecturerDashBoard/> */}
       {/* <HomePage/> */}
-      <ResetPassword/>
+      <LecturerView/>
       
     </div>
   

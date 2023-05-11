@@ -393,7 +393,7 @@ flex-grow: 0;
 }
 .side-bar {
   width: 200px;
-  height: 100vh;
+  min-height: 100vh;
   color: #FFFFFF;
   display: flex;
   flex-direction: column;
