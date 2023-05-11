@@ -13,7 +13,7 @@ const LecturerDashBoard = () => {
   return (
     <div className="lecturerDashBoard">
       <Sidebar />
-      <div className="main-board">
+      <div className="main-lecturer-board">
       <Header/>
       <section>
       <h2>Assignment</h2>

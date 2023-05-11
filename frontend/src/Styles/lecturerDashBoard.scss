@@ -3,14 +3,22 @@
 
 
 .lecturerDashBoard{
-    @include lg{
+        @include lg{
         display: grid;
         grid-template-columns: 15%  85%;
+        height: 100vh;
+        max-height: 1024px;
+        position: relative;
 
-        .main-board{
+        .main-lecturer-board{
+            margin: 2rem 2rem;
+            overflow-y: auto;
+        }
+
+        .lecturer-main-board{
             width: 100%;
-            padding: 2rem;
-            height: 100vh;
+          
+         
             
         }
     }
