@@ -1,59 +1,57 @@
 @import './breakpoints';
 @import '../App.css';
 
-header {
-    @include lg {
+header{
+    @include lg{
         display: flex;
-        justify-content: space-between;
-        margin-bottom: 2rem;
+    justify-content: space-between;
+    margin-bottom: 2rem;
 
-        .left-side-of-header {
-            position: relative;
-            width: 21rem;
-
-            .searchbox {
-                img {
-                    position: absolute;
-                    left: 1rem;
-                    top: 0.25rem;
-                }
-
-                input {
-                    width: 100%;
-                    color: #9F9F9F;
-                    background-color: transparent;
-                    border: 1px solid #9F9F9F;
-                    padding: 0.5rem 0rem 0.5rem 3rem;
-                    border-radius: 8px;
-                }
+    .left-side-of-header{
+        position: relative;
+        width: 21rem;
+        .searchbox{
+            img{
+                position: absolute;
+                left: 1rem;
+                top: 0.25rem;
+            }
+            input{
+            width: 100%;
+            color: #9F9F9F;
+            background-color: transparent;
+            border: 1px solid #9F9F9F;
+            padding: 0.5rem 0rem 0.5rem 3rem;
+            border-radius: 8px;
             }
         }
+    }
 
-        .right-side-of-header {
-            display: flex;
-            gap: 2rem;
+    .right-side-of-header{
+        display: flex;
+        gap: 2rem;
 
-            button {
-                padding: 0.5rem 2rem;
-                border-radius: 8px;
-                color: #fff;
-                background-color: #170E7D;
-                border: 1px;
-                ;
-                cursor: pointer;
-
-                &:first-child {
-                    color: #9F9F9F;
-                    background-color: transparent;
-                    border: 1px solid #9F9F9F;
-
-
-
-                }
+        button{
+            padding: 0.5rem 2rem;
+            border-radius: 8px;
+            color: #fff;
+            background-color: #170E7D;
+            border:  1px ;
+            ;
+            cursor: pointer;
+            &:first-child{
+                color: #9F9F9F;
+                background-color: transparent;
+                border: 1px solid #9F9F9F;
+               
+               
+                
             }
         }
+    }
 
 
     }
-
+    
 }
+

@@ -33,7 +33,7 @@ const LoginPage = () => {
     event.preventDefault();
     try {
       const formData = { emailOrId: email, password: password };
-      const response =  await api.post("/api/auth/login", formData)
+      const response =  await api.post("/api/auth/login", formData) 
       if (response.status === StatusCodes.OK) {
         if (
           signIn({

@@ -1,29 +1,27 @@
 @import './breakpoints';
 @import '../App.css';
-
-.card {
-    @include lg {
+.card{
+    @include lg{
         width: 330px;
         height: 270px;
         border: 1px solid #DEDEDE;
         border-radius: 8px;
         margin-left: 1rem;
         margin-top: 1rem;
-
-
-        .card-body {
+        
+    
+        .card-body{
             margin: 1.5rem 1.2rem;
-
-            .date-and-image {
+    
+            .date-and-image{
                 margin: 1.3rem 0;
                 display: flex;
                 justify-content: space-between;
-                color: #FF3131;
+                color:  #FF3131;
                 font-size: 0.8rem;
                 ;
             }
-
-            .card-unique-code-container {
+            .card-unique-code-container{
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
@@ -31,50 +29,49 @@
                 padding: 0.8rem 1.2rem;
                 border-radius: 8px;
                 font-size: 1rem;
-
-                .card-unique-code-and-image {
+    
+                .card-unique-code-and-image{
                     display: flex;
                     gap: 0.7rem;
-
-                    p {
+                    p{
                         color: #3E3693;
                         font-weight: 700;
                     }
                 }
-
-
+    
+    
             }
-
+         
         }
-
-        .card-header {
+    
+        .card-header{
             display: flex;
             justify-content: center;
             background: linear-gradient(180deg, #170E7D 0%, #645EA8 100%);
             color: #fff;
             border-radius: 8px 8px 0px 0px;
-
-            h3 {
+            
+            h3{
                 padding: 0.5rem 0rem;
                 font-weight: 200;
             }
-
+            
         }
-
-        .card-body {
-            h4 {
+    
+        .card-body{
+            h4{
                 margin-bottom: 1.2rem;
                 font-weight: 500;
             }
-
-            .card-main {
-                p {
-                    color: #9F9F9F;
-                    font-size: 0.75rem;
+            .card-main{
+                p{
+                    color:#9F9F9F;
+                    font-size: 0.75rem
+                    ;
                 }
             }
-
+           
         }
     }
-
+   
 }
