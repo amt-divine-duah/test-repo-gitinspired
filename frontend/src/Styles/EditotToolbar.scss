@@ -1,0 +1,8 @@
+@import './breakpoints';
+
+#toolbar{
+    @include lg{
+        background-color: #F6F6F6;
+        padding: 0;
+    }
+}

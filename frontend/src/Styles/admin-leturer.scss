@@ -1,0 +1,10 @@
+@import './breakpoints';
+
+.admin-lecturer-board{
+    @include lg{
+       height: 80vh;
+       max-height: 100vh;
+      
+    }
+}
+

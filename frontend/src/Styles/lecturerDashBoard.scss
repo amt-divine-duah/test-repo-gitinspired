@@ -1,0 +1,25 @@
+@import './breakpoints';
+@import '../App.css';
+
+
+.lecturerDashBoard{
+        @include lg{
+        display: grid;
+        grid-template-columns: 15%  85%;
+        height: 100vh;
+        max-height: 1024px;
+        position: relative;
+
+        .main-lecturer-board{
+            margin: 2rem 2rem;
+            overflow-y: auto;
+        }
+
+        .lecturer-main-board{
+            width: 100%;
+          
+         
+            
+        }
+    }
+}
