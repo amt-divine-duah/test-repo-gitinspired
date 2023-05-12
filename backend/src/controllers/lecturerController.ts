@@ -123,7 +123,7 @@ export class LecturerController {
             id: true,
           },
         });
-        studentsInfo.push(email);
+        studentsInfo.push(email); 
       }
       const assignmentInfo = {
         title: results.title,
