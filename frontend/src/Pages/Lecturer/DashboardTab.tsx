@@ -35,7 +35,7 @@ const DashboardTab = () => {
         { output.map((item,index) => {
        
             return (
-              <AssignmentCard title={item.title} description={item.description} date={item.date} uniqueCode={item.code}/>
+              <AssignmentCard key={index} title={item.title} description={item.description} date={item.date} uniqueCode={item.code}/>
             )
           
         
