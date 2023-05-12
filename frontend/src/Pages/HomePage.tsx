@@ -12,7 +12,7 @@ const HomePage = () => {
       <Routes>
         <Route path="/student" element={<AdminStudentDashBoard/>}/>
         <Route path="/lecturer" element={<AdminLecturerDashBoard/>}/>
-        <Route path="/admin-dashboard" element={<AdminMainDashBoard/>} />
+        <Route path="/" element={<AdminMainDashBoard/>} />
       </Routes>
     </main>
   )

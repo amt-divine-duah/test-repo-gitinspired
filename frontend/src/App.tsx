@@ -12,8 +12,9 @@ const App = () => {
   return (
     <div className="app">
       {/* { <LecturerDashBoard/> } */}
+      <HomePage/>
      
-      <LecturerView/>
+      {/* <LecturerView/> */}
       
     </div>
   

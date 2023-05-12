@@ -1,5 +1,28 @@
 import "../Styles/admin-main-dashboard.scss";
+import {useState} from 'react';
 const AdminMainDashBoard = () => {
+    const [cardInfo]=useState([
+        {
+            img:'/student-icon.svg',
+            count:'178+',
+            info:'Lecturers'
+        },
+        {
+            img:'/student-icon.svg',
+            count:'20+',
+            info:'Students'
+        },
+        {
+            img:'/assignment-created-icon.svg',
+            count:'190+',
+            info:'Assignment created'
+        },
+        {
+            img:'ic-job application.svg',
+            count:'12+',
+            info:'Submissions made'
+        }
+    ])
   return (
     <div className="admin-main-dashboard-route">
       <div className="left-admin-dashboard">
@@ -20,16 +43,24 @@ const AdminMainDashBoard = () => {
           </div>
           <div className="overview">Overview</div>
             <div className="overview-content">
-              <div className="overview-cards">
-                <div className="overview-image">
-                    <img src="" alt="" />
+                {
+                    cardInfo.map((item, index)=>(
+                <div className="overview-cards" key={index}>
+                    <div>
+                    <div className="overview-image">
+                   <div><img src={item.img} alt=""/></div>
                 </div>
+                    </div>
+                
                 <div className="overview-text">
-                <h4>178+</h4>
-                <p>Lecturers</p>
+                <h4>{item.count}</h4>
+                <p>{item.info}</p>
                 </div>
                 
               </div>
+                    ))
+                }
+              
             </div>
 
          </div> 
