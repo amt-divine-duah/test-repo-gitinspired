@@ -273,6 +273,64 @@ height: 100%;
   border: 1px solid #FF3131;
 }
 
+.validation {
+  padding: 16px;
+  position: absolute;
+  background-color: #FFFFFF;
+  width: 220px;
+  height: 180px;
+  border-radius: 2px;
+  border: 1px solid #C2C8D0;
+  margin-top: 20px;
+  transition: 0.3s;
+  display: none;
+}
+
+.caution {
+  color: #2D333A;
+  font-size: 13px;
+  letter-spacing: 0.0px;
+}
+
+.validation ul {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.validation ul li {
+  list-style: none;
+  color: #858585;
+  font-size: 14px;
+  line-height: 20px;
+  font-family: Roboto;
+  letter-spacing: 0.25px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  display: flex;
+  gap: 8px;
+}
+
+.validation li::before {
+  content: url('checkmark-circle.svg');
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  padding-top: 2px;
+}
+
+.validation li.pass::before {
+  content: url('checkmark-pass.svg');
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  padding-top: 2px;
+}
+
+
+
 
 .tooltip-main {
   width: 271px;
@@ -939,7 +997,7 @@ caret-color:  #111111;
   border-radius: 8px;
   display: none;
 }
-.dropdown-visible {
+.dropdown-visible, .visible {
   display: block;
 }
 
@@ -1168,4 +1226,7 @@ text-align: left;
 .content-list {
   width: 26px;
   height: 26px;
+}
+button:hover {
+  cursor: pointer;
 }
