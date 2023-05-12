@@ -31,11 +31,11 @@ const LoginPage = () => {
                 <div className="label-box">
                   <div className="email">
                     <label htmlFor="email">
-                      <b>Email</b>
+                      <b>Email/ID</b>
                     </label>
                     <input
                       type="text"
-                      placeholder="Enter your Email"
+                      placeholder="Enter your Email or ID"
                       name="email"
                       required
                       className="email-enclosure"

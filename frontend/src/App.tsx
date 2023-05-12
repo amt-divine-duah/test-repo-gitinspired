@@ -4,6 +4,7 @@ import './App.css';
 import HomePage from "./Pages/HomePage";
 import LecturerView from "./Pages/Lecturer/LecturerView";
 import ResetPassword from "./Pages/ResetPassword";
+import LoginPage from "./Pages/LoginPage";
 
 
 
@@ -11,8 +12,7 @@ import ResetPassword from "./Pages/ResetPassword";
 const App = () => {
   return (
     <div className="app">
-    
-      
+    <LoginPage />
     </div>
   
   )
