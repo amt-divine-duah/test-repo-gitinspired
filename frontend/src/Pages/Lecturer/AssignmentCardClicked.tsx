@@ -23,14 +23,27 @@ const AssignmentCardClicked = () => {
     //  const output = assignments.filter((item) => {
     //     return item.title === 'Javascript'
     // });
+
+    
+  function handleClick() {
+    console.log("Hey");
+  }
   return (
     <LecturerMain sidebar>
       <div className="main-content">
         <div className="page-features">
           <Searchbar />
           <div className="header-right">
-            <ActionButton class={"action filter"} name={"filter by date"} />
-            <ActionButton class={"action assign"} name={"assignment +"} />
+            <ActionButton
+              class={"action filter"}
+              name={"filter by date"}
+              handleClick={handleClick}
+            />
+            <ActionButton
+              class={"action assign"}
+              name={"assignment +"}
+              handleClick={handleClick}
+            />
           </div>
         </div>
         {/* //// */}

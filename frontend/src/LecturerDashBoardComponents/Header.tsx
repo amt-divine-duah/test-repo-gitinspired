@@ -7,6 +7,10 @@ const Header = () => {
   const handleModalDisplay = () => {
     setShowCreateAssignment((prev) => !prev);
   };
+  function onCreateAssignment() {
+    console.log("assignment done");
+    setShowCreateAssignment((prev) => !prev);
+  }
   return (
     <header>
       <div className="left-side-of-header">
@@ -22,6 +26,7 @@ const Header = () => {
       {showCreateAssignment === true && (
         <LecturerCreateNewAssignmentModal
           handleShowAssignmentModal={handleModalDisplay}
+          onCreateAssignment={onCreateAssignment}
         />
       )}
     </header>

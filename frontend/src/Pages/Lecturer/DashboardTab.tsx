@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ActionButton from "../../components/Lecturer/ActionButton";
 import AssignmentCard from "../../components/Lecturer/AssignmentCard";
 import Searchbar from "../../components/Lecturer/Searchbar";
 import useData from "../../hooks/useAssignmentData";
 import LecturerCreateNewAssignmentModal from "../../LecturerDashBoardComponents/LecturerCreateNewAssignmentModal";
+import api from "../../ApiClient";
 
 Searchbar;
 const DashboardTab = () => {
@@ -22,6 +23,12 @@ const DashboardTab = () => {
     console.log("assignment done")
     setShowCreateAssignment((prev) => !prev);
   }
+
+  useEffect(() => {
+    (async () => {
+      const lecturer = await api.get("/api/admin/lecturers")
+    })()
+  }, [])
 
   return (
     <div className="main-content">
