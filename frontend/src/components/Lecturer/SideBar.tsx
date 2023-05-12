@@ -28,23 +28,26 @@ const SideBar = () => {
   };
   return (
     <nav className="side-bar">
-      <div className="logo">
-        <img src="/logo.png" alt="logo" />
+      <div>
+        <div className="logo">
+          <img src="/logo.png" alt="logo" />
+        </div>
+        <div className="pages">
+          <div className=" page dashboard active" onClick={ButtonClick}>
+            <p>Dashboard</p>
+          </div>
+          <div className="page students" onClick={ButtonClick}>
+            <p>Student</p>
+          </div>
+          <div className="page submission" onClick={ButtonClick}>
+            <p>Submission</p>
+          </div>
+          <div className="page drafts" onClick={ButtonClick}>
+            <p>Draft</p>
+          </div>
+        </div>
       </div>
-      <div className="pages">
-        <div className=" page dashboard active" onClick={ButtonClick}>
-          <p>Dashboard</p>
-        </div>
-        <div className="page students" onClick={ButtonClick}>
-          <p>Student</p>
-        </div>
-        <div className="page submission" onClick={ButtonClick}>
-          <p>Submission</p>
-        </div>
-        <div className="page drafts" onClick={ButtonClick}>
-          <p>Draft</p>
-        </div>
-      </div>
+      <div>
       <div className="avatar">
         <img src={"/user 2.png"} alt="avatar" />
         <p>prince</p>
@@ -53,6 +56,9 @@ const SideBar = () => {
         <p>Logout</p>
       </div>
       {logout === true && <SignoutModal handleLogout={handleLogout} />}
+
+      </div>
+   
     </nav>
   );
 };

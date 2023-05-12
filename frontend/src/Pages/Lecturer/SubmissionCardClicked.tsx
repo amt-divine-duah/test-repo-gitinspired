@@ -4,46 +4,34 @@ import Document from "../../components/Lecturer/Document";
 
 const SubmissionCardClicked = () => {
     const[studentList, getStudentList] = useState([{
-        name: 'Paul'
+        name: 'Abigail Amoo'
     },{
-        name: 'Paul'
+        name: 'Ati Amoo'
     },{
-        name: 'Paul'
+        name: 'Albert Car'
     },{
-        name: 'Paul'
+        name: 'Ben Cartey'
     },{
-        name: 'Paul'
+        name: 'Bernard Ghartey'
     },{
-        name: 'Paul'
+        name: 'Caleb Amoo'
     },{
-        name: 'Paul'
+        name: 'Clara Mensah'
     },{
-        name: 'Paul'
+        name: 'Cale Bamoo'
     },{
-        name: 'Paul'
+        name: 'Craig Neizer'
     },{
-        name: 'Paul'
+        name: 'Dan Amoo'
     },{
-        name: 'Paul'
+        name: 'Dennis Quartey'
     },{
-        name: 'Paul'
+        name: 'Dennise Wert'
     },{
-        name: 'Paul'
+        name: 'Emmanuella Moore'
     },{
-        name: 'Paul'
+        name: 'Ellis Justice'
     },{
-      name: 'Paul'
-  },{
-      name: 'Paul'
-  },{
-      name: 'Paul'
-  },{
-      name: 'Paul'
-  },{
-      name: 'Paul'
-  },{
-      name: 'Paul'
-  },{
       name: 'Paul'
   }])
     const[fileList, getFileList] = useState([{

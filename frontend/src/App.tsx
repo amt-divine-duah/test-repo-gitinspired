@@ -11,9 +11,7 @@ import ResetPassword from "./Pages/ResetPassword";
 const App = () => {
   return (
     <div className="app">
-   <LecturerView/>
     
-   
       
     </div>
   
