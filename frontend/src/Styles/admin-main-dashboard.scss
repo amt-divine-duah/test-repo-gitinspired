@@ -103,7 +103,26 @@
             width: 100%;
 
             .right-admin-dashboard-down{
+                width: 100%;
                 height: 50%;
+              
+
+                table{
+                    margin-top: 1rem;
+                    width: 90%;
+                    border-top: none;
+                    font-size: 0.7rem;
+                    text-align: left;
+                    border-collapse: collapse;
+
+                   tr{
+                    line-height: 1.3;
+                     td{
+                        border-bottom: none;
+                        height: 0;
+                    }
+                   }
+                }
                
             }
 

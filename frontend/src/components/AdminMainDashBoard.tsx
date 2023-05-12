@@ -83,6 +83,32 @@ const AdminMainDashBoard = () => {
 
             <div className="right-admin-dashboard-down">
                 <h6>Assignment status</h6>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Students</th>
+                            <th>Due date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr >
+                            <td>Koray Okumus</td>
+                            <td>June 24,2022</td>
+                            <td>In Progress</td>
+                        </tr>
+                        <tr>
+                            <td>Koray Okumus</td>
+                            <td>June 24,2022</td>
+                            <td>In Progress</td>
+                        </tr>
+                        <tr>
+                            <td>Koray Okumus</td>
+                            <td>June 24,2022</td>
+                            <td>In Progress</td>
+                        </tr>
+                    </tbody>
+                </table>
                
             </div>
         </div>
