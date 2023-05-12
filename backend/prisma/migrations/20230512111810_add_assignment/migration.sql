@@ -1,0 +1,17 @@
+-- DropForeignKey
+ALTER TABLE "StudentsOnAssignments" DROP CONSTRAINT "StudentsOnAssignments_studentId_fkey";
+
+-- DropForeignKey
+ALTER TABLE "assignments" DROP CONSTRAINT "assignments_lecturerId_fkey";
+
+-- AlterTable
+ALTER TABLE "StudentsOnAssignments" ALTER COLUMN "studentId" SET DATA TYPE TEXT;
+
+-- AlterTable
+ALTER TABLE "assignments" ALTER COLUMN "lecturerId" SET DATA TYPE TEXT;
+
+-- AddForeignKey
+ALTER TABLE "assignments" ADD CONSTRAINT "assignments_lecturerId_fkey" FOREIGN KEY ("lecturerId") REFERENCES "lecturers"("staffId") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "StudentsOnAssignments" ADD CONSTRAINT "StudentsOnAssignments_studentId_fkey" FOREIGN KEY ("studentId") REFERENCES "students"("studentId") ON DELETE RESTRICT ON UPDATE CASCADE;

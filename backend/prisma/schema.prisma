@@ -69,8 +69,8 @@ model Assignment {
   deadline    String
   description String
   course      String
-  lecturerId  Int
-  createdBy   Lecturer                @relation(fields: [lecturerId], references: [id])
+  lecturerId  String
+  createdBy   Lecturer                @relation(fields: [lecturerId], references: [staffId])
   uniqueCode  String?                 @unique
   isPublished Boolean
   updatedAt   DateTime?               @updatedAt
@@ -80,8 +80,8 @@ model Assignment {
 }
 
 model StudentsOnAssignments {
-  student      Student    @relation(fields: [studentId], references: [id])
-  studentId    Int
+  student      Student    @relation(fields: [studentId], references: [studentId])
+  studentId    String
   assignment   Assignment @relation(fields: [assignmentId], references: [id])
   assignmentId Int
   status       Boolean

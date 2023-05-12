@@ -9,6 +9,7 @@ import sendAssignment from "../utils/sendAssignmentUtil";
 export class LecturerController {
   async getAssignments(req: Request, res: Response, next: NextFunction) {
     const lecturer = req.body.lecturerId;
+
     const assignments = await prisma.assignment.findMany({
       where: {
         lecturerId: lecturer,
@@ -29,7 +30,7 @@ export class LecturerController {
   }
 
   async getDrafts(req: Request, res: Response, next: NextFunction) {
-    const lecturer = Number(req.body.lecturerId);
+    const lecturer = req.body.lecturerId;
     const drafts = await prisma.assignment.findMany({
       where: {
         isPublished: false,
@@ -50,7 +51,7 @@ export class LecturerController {
   }
 
   async getSubmissions(req: Request, res: Response, next: NextFunction) {
-    const lecturer = Number(req.body.lecturerId);
+    const lecturer = req.body.lecturerId;
     //get all published assignments with particular lecturer
     const assignments = await prisma.assignment.findMany({
       where: {
@@ -80,13 +81,13 @@ export class LecturerController {
   }
 
   async createAssignment(req: Request, res: Response, next: NextFunction) {
-    const students = req.body.students; //array of student ids
-    const studentIds = students.map((i) => {
+    const students = req.body.students; //array of studentIds
+    const studentIds = students.map((i: string) => {
       return {
         status: false,
         student: {
           connect: {
-            id: i,
+            studentId: i,
           },
         },
       };
@@ -114,7 +115,7 @@ export class LecturerController {
       for (let i = 0; i < students.length; i++) {
         const email = await prisma.student.findFirst({
           where: {
-            id: students[i],
+            studentId: students[i],
           },
           select: {
             email: true,
@@ -123,7 +124,7 @@ export class LecturerController {
             id: true,
           },
         });
-        studentsInfo.push(email); 
+        studentsInfo.push(email);
       }
       const assignmentInfo = {
         title: results.title,
@@ -173,7 +174,7 @@ export class LecturerController {
 
       const newStudents = [];
       //separate newly invite   d students from already invited students
-      givenStudentIds.forEach((id: number) => {
+      givenStudentIds.forEach((id: string) => {
         if (!oldIds.includes(id)) {
           newStudents.push({
             status: false,
@@ -248,7 +249,7 @@ export class LecturerController {
       for (let i = 0; i < oldIds.length; i++) {
         const student = await prisma.student.findFirst({
           where: {
-            id: oldIds[i],
+            studentId: oldIds[i],
           },
           select: {
             firstName: true,
@@ -269,7 +270,7 @@ export class LecturerController {
     const newStudents = [];
     const newIds = [];
     //seperate old stuednts from new students
-    givenStudents.forEach((id: number) => {
+    givenStudents.forEach((id: string) => {
       if (!oldIds.includes(id)) {
         newStudents.push({
           status: false,

@@ -80,7 +80,7 @@ export class AdminController {
           subject: EMAIL_ACTIVATION_SUBJECT,
           html: message,
         };
-        transporter.sendMail(mailOptions);
+        // transporter.sendMail(mailOptions);
       }
     }
     const filteredUser = _.pick(user[1], ["email"]);
@@ -109,8 +109,11 @@ export class AdminController {
     const currentDir = path.resolve(`src/uploads/students`);
     const response = await csvToDb(currentDir, "student");
 
-    return ResponseUtil.sendResponse(res, "Student information upload successful", response)
-    
+    return ResponseUtil.sendResponse(
+      res,
+      "Student information upload successful",
+      response
+    );
   }
 
   async createLecturer(req: Request, res: Response, next: NextFunction) {
@@ -169,7 +172,7 @@ export class AdminController {
           subject: EMAIL_ACTIVATION_SUBJECT,
           html: message,
         };
-        transporter.sendMail(mailOptions);
+        // transporter.sendMail(mailOptions);
       }
     }
 
@@ -200,11 +203,11 @@ export class AdminController {
 
     const response = await csvToDb(currentDir, "lecturer");
 
-     return ResponseUtil.sendResponse(
-       res,
-       "Lecturer information upload successful",
-       response
-     );
+    return ResponseUtil.sendResponse(
+      res,
+      "Lecturer information upload successful",
+      response
+    );
   }
 
   async getLecturers(req: Request, res: Response, next: NextFunction) {
