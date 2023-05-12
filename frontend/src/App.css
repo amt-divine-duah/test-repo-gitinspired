@@ -475,7 +475,9 @@ cursor: pointer;
   border-radius: 8px;
   border: 1px solid #959595;
 }
-
+.search-input {
+  padding-left: 56px
+}
 .search-input::placeholder {
   padding-left: 56px;
 }
