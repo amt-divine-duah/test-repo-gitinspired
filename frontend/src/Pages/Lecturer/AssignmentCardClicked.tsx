@@ -4,69 +4,54 @@ import TopContent from "../../components/Lecturer/TopContent";
 import BottomContent from "../../components/Lecturer/BottomContent";
 import Searchbar from "../../components/Lecturer/Searchbar";
 import useData from "../../hooks/useAssignmentData";
-import LecturerMain from "../../components/LecturerMain";
+import { SearchProvider } from "../../components/Lecturer/SearchContext";
+import useSearch from "../../hooks/useSearch";
 
 const AssignmentCardClicked = () => {
-    const keyword = useLocation();
-    const uniqueCode: string = keyword.state.name;
-     
-    const dataValue = useData();
+  const keyword = useLocation();
+  const uniqueCode: string = keyword.state.name;
 
-    
-    const assignmentData = dataValue.assignments;
+  const dataValue = useData();
 
-    const output = assignmentData.filter((item) => {
-        return item.code === uniqueCode;
-    });
+  const assignmentData = dataValue.assignments;
 
-    // const {assignments} = useData();
-    //  const output = assignments.filter((item) => {
-    //     return item.title === 'Javascript'
-    // });
+  const output = assignmentData.filter((item) => {
+    return item.code === uniqueCode;
+  });
 
-    
-  function handleClick() {
-    console.log("Hey");
-  }
+ const {search, word} =useSearch();
   return (
-    <LecturerMain sidebar>
-      <div className="main-content">
-        <div className="page-features">
+    <div className="main-content">
+      <div className="page-features">
+        <SearchProvider search={search} word={word}>
           <Searchbar />
-          <div className="header-right">
-            <ActionButton
-              class={"action filter"}
-              name={"filter by date"}
-              handleClick={handleClick}
-            />
-            <ActionButton
-              class={"action assign"}
-              name={"assignment +"}
-              handleClick={handleClick}
-            />
-          </div>
-        </div>
-        {/* //// */}
-        <div className="clicked-top">
-          <h2 className="clicked-header1">Assignment</h2>
-          {output.map((item) => {
-            return (
-              <TopContent
-                title={item.title}
-                uniqueCode={item.code}
-                date={item.date}
-                details={item.fullDetails}
-              />
-            );
-          })}
-        </div>
-        {output.map((item) => {
-          return <BottomContent invitedStudents={item.numberOfStudents} />;
-        })}
+        </SearchProvider>
 
-        {/* //// */}
+        <div className="header-right">
+          <ActionButton class={"action filter"} name={"filter by date"} />
+          <ActionButton class={"action assign"} name={"assignment +"} />
+        </div>
       </div>
-    </LecturerMain>
+      {/* //// */}
+      <div className="clicked-top">
+        <h2 className="clicked-header1">Assignment</h2>
+        {output.map((item) => {
+          return (
+            <TopContent
+              title={item.title}
+              uniqueCode={item.code}
+              date={item.date}
+              details={item.fullDetails}
+            />
+          );
+        })}
+      </div>
+      {output.map((item) => {
+        return <BottomContent invitedStudents={item.numberOfStudents} />;
+      })}
+
+      {/* //// */}
+    </div>
   );
 };
 

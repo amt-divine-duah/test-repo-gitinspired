@@ -1,74 +1,60 @@
-import { useEffect, useState } from "react";
 import ActionButton from "../../components/Lecturer/ActionButton";
 import AssignmentCard from "../../components/Lecturer/AssignmentCard";
 import Searchbar from "../../components/Lecturer/Searchbar";
 import useData from "../../hooks/useAssignmentData";
+import { SearchProvider } from "../../components/Lecturer/SearchContext";
+import useSearch from "../../hooks/useSearch";
+import { useState } from "react";
 import LecturerCreateNewAssignmentModal from "../../LecturerDashBoardComponents/LecturerCreateNewAssignmentModal";
-import api from "../../ApiClient";
 
 Searchbar;
 const DashboardTab = () => {
+  const [showCreateAssignment ,setShowCreateAssignment]= useState(false)
+    const handleModalDisplay=()=>{
+        setShowCreateAssignment(prev=>!prev)
+      }
+
+      const handleFilterButton =()=>{
+
+      }
   const {assignments} = useData();
-  const [showCreateAssignment, setShowCreateAssignment] = useState(false);
-
-  function handleClick() {
-    console.log("Hey")
-  }
-
-  function handleAssignment() {
-     setShowCreateAssignment((prev) => !prev);
-  }
-
-  function onCreateAssignment() {
-    console.log("assignment done")
-    setShowCreateAssignment((prev) => !prev);
-  }
-
-  useEffect(() => {
-    (async () => {
-      const lecturer = await api.get("/api/admin/lecturers")
-    })()
-  }, [])
-
+  const {search, word} =useSearch();
+ const output = assignments.filter((item) => {
+  return word === ""
+    ? item
+    : item.title.toLowerCase().includes(word.toLowerCase());
+})
   return (
+    <>
+    <SearchProvider search={search}  word={word}>
     <div className="main-content">
       <div className="page-features">
-        <Searchbar />
+  
+          <Searchbar />
+      
         <div className="header-right">
-          <ActionButton
-            class={"action filter"}
-            name={"filter by date"}
-            handleClick={handleClick}
-          />
-          <ActionButton
-            class={"action assign"}
-            name={"assignment +"}
-            handleClick={handleAssignment}
-          />
+          <ActionButton class={"action filter"} name={"filter by date"} handleButtonClick={handleFilterButton} />
+          <ActionButton class={"action assign"} name={"assignment +"} handleButtonClick={handleModalDisplay}/>
         </div>
       </div>
       <div>
         <h2 className="page-header">Assignment</h2>
         <div className="assignment-container">
-          {assignments.map((item, index) => {
+
+        { output.map((item,index) => {
+       
             return (
-              <AssignmentCard
-                title={item.title}
-                description={item.description}
-                date={item.date}
-                uniqueCode={item.code}
-              />
-            );
-          })}
-        </div>
+              <AssignmentCard key={index} title={item.title} description={item.description} date={item.date} uniqueCode={item.code}/>
+            )
+          
+        
+        }) }
       </div>
-      {showCreateAssignment === true && (
-        <LecturerCreateNewAssignmentModal
-          handleShowAssignmentModal={handleAssignment}
-          onCreateAssignment={onCreateAssignment}
-        />
-      )}
+      </div>
     </div>
+      </SearchProvider>
+      {showCreateAssignment===true && <LecturerCreateNewAssignmentModal handleShowAssignmentModal={handleModalDisplay} />} 
+      </>
   );
 };
 

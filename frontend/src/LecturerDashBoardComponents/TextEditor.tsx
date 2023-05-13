@@ -6,11 +6,11 @@ import EditorToolbar, { modules, formats } from "./EditorToolbar";
 const TextEditor = () => {
   const [value, setValue] = useState("");
   const editorStyle = {
-    height: "5rem",
+    height: '7rem', 
   };
   return (
     <div className="text-editor">
-      <EditorToolbar />
+      <EditorToolbar/>
       <ReactQuill
         theme="snow"
         value={value}

@@ -1,9 +1,12 @@
+
 import { Quill } from "react-quill";
-import "../Styles/EditotToolbar.scss";
+import '../Styles/EditotToolbar.scss';
+
 
 const Size = Quill.import("formats/size");
 Size.whitelist = ["extra-small", "small", "medium", "large"];
 Quill.register(Size, true);
+
 
 const Font = Quill.import("formats/font");
 Font.whitelist = [
@@ -13,21 +16,25 @@ Font.whitelist = [
   "courier-new",
   "georgia",
   "helvetica",
-  "lucida",
+  "lucida"
 ];
 Quill.register(Font, true);
+
 
 export const modules = {
   toolbar: {
     container: "#toolbar",
-    handlers: {},
+    handlers: {
+    
+    }
   },
   history: {
     delay: 500,
     maxStack: 100,
-    userOnly: true,
-  },
+    userOnly: true
+  }
 };
+
 
 export const formats = [
   "header",
@@ -48,39 +55,39 @@ export const formats = [
   "image",
   "color",
   "attachment",
-  "code-block",
+  "code-block"
 ];
+
 
 export const QuillToolbar = () => (
   <div id="toolbar">
     <span className="ql-formats">
-      <select className="ql-font" defaultValue="arial">
+    <select className="ql-font" defaultValue="arial">
         <option value="arial">Arial</option>
         <option value="comic-sans">Comic Sans</option>
         <option value="courier-new">Courier New</option>
         <option value="georgia">Georgia</option>
         <option value="helvetica">Helvetica</option>
         <option value="lucida">Lucida</option>
-      </select>
+      </select>  
     </span>
-
+  
     <span className="ql-formats">
-      <button className="ql-align" value=""></button>
-      <button className="ql-align" value="center">
-        {" "}
-      </button>
-      <button className="ql-align" value="right"></button>
-      <button className="ql-align" value="justify"></button>
+          <button className="ql-align" value=""></button>
+          <button className="ql-align" value="center"> </button>
+          <button className="ql-align" value="right"></button>
+          <button className="ql-align" value="justify"></button>
     </span>
 
     <select className="ql-size" defaultValue="medium">
-      <option value="small">small</option>
-      <option value="regular">Normal</option>
-      <option value="large">large</option>
-    </select>
+        <option value="small">small</option>
+        <option value="regular">Normal</option>
+        <option value="large">large</option>
+      </select>
 
+      
     <span className="ql-formats">
-      <button className="ql-attachment" />
+      <button className="ql-attachment"/>
       <button className="ql-link" />
       <button className="ql-image" />
       <button className="ql-video" />
@@ -101,6 +108,7 @@ export const QuillToolbar = () => (
 
     <span className="ql-formats">
       <button className="ql-formula" />
+
     </span>
     <span className="ql-formats">
       <button className="ql-bold" />
@@ -115,6 +123,8 @@ export const QuillToolbar = () => (
       <button className="ql-indent" value="-1" />
       <button className="ql-indent" value="+1" />
     </span>
+
+   
   </div>
 );
 

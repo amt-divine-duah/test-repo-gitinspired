@@ -1,16 +1,12 @@
-import { useState } from "react";
-import "../Styles/LecturerBoardHeader.scss";
+import { useState } from "react"
+import '../Styles/LecturerBoardHeader.scss';
 import LecturerCreateNewAssignmentModal from "./LecturerCreateNewAssignmentModal";
 
 const Header = () => {
-  const [showCreateAssignment, setShowCreateAssignment] = useState(false);
-  const handleModalDisplay = () => {
-    setShowCreateAssignment((prev) => !prev);
-  };
-  function onCreateAssignment() {
-    console.log("assignment done");
-    setShowCreateAssignment((prev) => !prev);
-  }
+    const [showCreateAssignment ,setShowCreateAssignment]= useState(false)
+    const handleModalDisplay=()=>{
+        setShowCreateAssignment(prev=>!prev)
+      }
   return (
     <header>
       <div className="left-side-of-header">
@@ -23,14 +19,10 @@ const Header = () => {
         <button>Filter by deadline</button>
         <button onClick={handleModalDisplay}>Assignment+</button>
       </div>
-      {showCreateAssignment === true && (
-        <LecturerCreateNewAssignmentModal
-          handleShowAssignmentModal={handleModalDisplay}
-          onCreateAssignment={onCreateAssignment}
-        />
-      )}
-    </header>
-  );
-};
+          {showCreateAssignment===true && <LecturerCreateNewAssignmentModal handleShowAssignmentModal={handleModalDisplay} />} 
+     </header>
+  )
+}
 
-export default Header;
+
+export default Header

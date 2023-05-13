@@ -1,8 +1,8 @@
 @import './breakpoints';
 @import '../App.css';
 
-.create-assignment-modal-container {
-    @include lg {
+.create-assignment-modal-container{
+    @include lg{
         position: absolute;
         width: 100%;
         height: 100%;
@@ -12,9 +12,9 @@
         display: grid;
         place-items: center;
         overflow-y: auto;
+      
 
-
-        .assignment-modal {
+        .assignment-modal{
             width: 72%;
             height: 90%;
             max-width: 1090px;
@@ -23,110 +23,108 @@
             backdrop-filter: blur(2px);
             border-radius: 16px;
 
-            .modal-content {
+            .modal-content{
                 display: grid;
                 height: 90%;
-                grid-template-columns: repeat(3, 57% 1% 40%);
+                grid-template-columns: repeat(3,57% 1% 40%);
 
-                input {
+                input{
                     width: 100%;
                     padding: 0.4rem 1rem;
                     border-radius: 8px;
                     border: 1px solid #DDDDDD;
-
-                    &::placeholder {
+                     &::placeholder{
                         color: #A8A8A899;
-                    }
+                     }
                 }
 
-                .modal-middle-line {
+                .modal-middle-line{
                     border-left: 1px solid#B9BBBE;
                     height: 90%;
                 }
+                .modal-left-side{
+                   display: flex;
+                   flex-direction: column;
+                   gap: 0.5rem;
+                   margin: 0 2rem;
+                   color:  #00000099;
+                   overflow-y: auto;
+                    
+                   h3{
+                    text-align: center;
+                    margin-bottom: 1rem;
+                   }
 
-                .modal-left-side {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 0.5rem;
-                    margin: 0 2rem;
-                    color: #00000099;
-                    overflow-y: auto;
-
-                    h3 {
-                        text-align: center;
-                        margin-bottom: 1rem;
+                   .modal-input-container{
+                    
+                    p{ 
+                        margin-left: 1rem;
+                        font-size: 0.9rem;
                     }
-
-                    .modal-input-container {
-
-                        p {
-                            margin-left: 1rem;
-                            font-size: 0.9rem;
-                        }
-
-                        line-height: 2rem;
-
-                        input {
-                            color: #00000099;
-                        }
+                    line-height: 2rem;
+                
+                           input{
+                            color:  #00000099;
+                           }
                     }
-
-
-
+                  
+                   
+                    
                 }
-
-                .modal-right-side {
+                .modal-right-side{
                     display: flex;
                     flex-direction: column;
-
-
-                    h3 {
+            
+                  
+                    h3{
                         text-align: center;
                     }
 
-                    .invite-student-container {
+                    .invite-student-container{
                         height: calc(100vh - 170px);
                         max-height: 580px;
                         overflow-y: auto;
-                        color: #797676;
-                        margin-top: 2rem;
-
-                        .invite-student-card {
+                        color: #797676;margin-top: 2rem
+                        ;
+                        .invite-student-card{
                             display: flex;
                             align-items: center;
                             gap: 2rem;
                             margin-top: 2rem;
 
-                            .user-name-and-email {
+                            .user-name-and-email{
                                 width: 60%;
-
+                               
                             }
-
-                            .circle {
+                            .user-check-box-container{
+                            
+                               margin-left: 0.9rem;
+                            }
+    
+                            .circle{
                                 width: 2vw;
                                 height: 2vw;
                                 display: flex;
                                 background-color: green;
                                 border-radius: 50%;
                                 color: #fff;
-                                justify-content: center;
-                                align-items: center;
+                               justify-content: center;
+                               align-items: center;
                             }
                         }
                     }
-
-
+                    
+                    
                 }
             }
         }
-
-        .buttons {
+        .buttons{
             display: flex;
             justify-content: space-between;
 
-            button {
+            button{
                 margin-top: 1.5rem;
-                width: 212px;
+                width:212px ;
                 height: 34px;
                 border-radius: 8px;
                 border: none;
@@ -134,8 +132,7 @@
                 font-weight: 600;
                 background-color: #5D34EC;
                 cursor: pointer;
-
-                &:nth-child(2) {
+                &:nth-child(2){
                     background-color: transparent;
                     color: #5D34EC;
                 }

@@ -3,13 +3,13 @@
 
 
 .navbar{
-    width: 100%;
-    color: aliceblue;
+  
     @include lg{
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background:var(--navBarGradient) ;
+        width: 100%;
+        color: aliceblue;
         padding: 1rem 2rem;
 
         .left-nav{
@@ -20,10 +20,8 @@
             
             a{
                 color: #fff;
-                &.active{
-                    border-bottom: 4px solid #170E7D;
-                    line-height: 2rem;
-                }
+                background-color: transparent;
+               
             }
             
         }

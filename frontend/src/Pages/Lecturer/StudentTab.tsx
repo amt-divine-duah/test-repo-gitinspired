@@ -3,34 +3,20 @@ import Searchbar from "../../components/Lecturer/Searchbar";
 import ActionButton from "../../components/Lecturer/ActionButton";
 import Table from "../../components/Table";
 import useStudents from "../../hooks/useStudentData";
-import LecturerMain from "../../components/LecturerMain";
+import useSearch from "../../hooks/useSearch";
+import { SearchProvider } from "../../components/Lecturer/SearchContext";
 const StudentTab = () => {
   const {students} = useStudents();
-  const [showCreateAssignment, setShowCreateAssignment] = useState(false);
-  
-  function handleAssignment() {
-    setShowCreateAssignment((prev) => !prev);
-  }
-   
-  function handleClick() {
-    console.log("Hey");
-  }
+  const {search, word} =useSearch();
   return (
-    <LecturerMain sidebar>
       <div className="main-content">
         <div className="page-features">
+        <SearchProvider search={search} word={word}>
           <Searchbar />
+        </SearchProvider>
           <div className="header-right">
-            <ActionButton
-              class={"action filter"}
-              name={"filter by date"}
-              handleClick={handleClick}
-            />
-            <ActionButton
-              class={"action assign"}
-              name={"assignment +"}
-              handleClick={handleAssignment}
-            />
+          <ActionButton class={"action filter"} name={"filter by date"} />
+          <ActionButton class={"action assign"} name={"assignment +"} />
           </div>
         </div>
         <div className="student-page-view">
@@ -38,10 +24,11 @@ const StudentTab = () => {
           <div className="assignment-container">
             <Table userTableName={"Student ID"} data={students} />
           </div>
-          <div>{/* pagewsitcher component */}</div>
+          <div>
+           {/* pagewsitcher component */}
+          </div>
         </div>
       </div>
-    </LecturerMain>
   );
 };
 

@@ -3,7 +3,7 @@ const AssignmentCard = (prop: {title: string, description: string, date: string,
   const navigate = useNavigate();
   const cardClicked = (event: React.MouseEvent<HTMLDivElement>) => {
     const name = event.currentTarget.getAttribute("id");
-    navigate(`/lecturer/assignmentClicked`, { state: { name: name } });
+    navigate(`/assignmentClicked`, { state: { name: name } });
   };
     return (
       <div className="card-wrapper" onClick={cardClicked} id={prop.uniqueCode}>

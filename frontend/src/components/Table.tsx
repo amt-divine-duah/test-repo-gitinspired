@@ -1,42 +1,44 @@
-import "../Styles/table.scss";
-import { UserInterface } from "../interfaces/UserInterface";
+import '../Styles/table.scss';
 
-type Prop = {
-  userTableName: string;
-  data: UserInterface[];
-};
+type Prop ={
+    userTableName:string
+    data :{
+        id:string
+        name:string
+        email:string
+    }[]
+}
 
-const Table = ({ userTableName, data }: Prop) => {
+const Table = ({userTableName, data}:Prop) => {
   return (
     <div className="main-board-table">
-      <table>
-        <thead>
-          <tr>
-            <th>{userTableName}</th>
-            <th>Name</th>
-            <th>Email</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map(
-            (item: UserInterface, index): JSX.Element => (
-              <tr key={index}>
-                {item.studentId ? (
-                  <td>{item.studentId}</td>
-                ) : (
-                  <td>{item.staffId}</td>
-                )}
-                <td>
-                  {item.lastName} {item.firstName}
-                </td>
-                <td>{item.email}</td>
-              </tr>
-            )
-          )}
-        </tbody>
-      </table>
-    </div>
-  );
-};
+              <table>
+                <thead>
+                  <tr>
+                    <th>{userTableName}</th>
+                    <th>name</th>
+                    <th>email</th>
+                  </tr>
+                </thead>
 
-export default Table;
+                <tbody>
+                  {
+                    data.map((item)=>(
+                      <tr>
+                        <td>{item.id}</td>
+                        <td>{item.name}</td>
+                        <td>{item.email}</td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+                 
+                
+                
+               
+              </table>
+            </div>
+  )
+}
+
+export default Table

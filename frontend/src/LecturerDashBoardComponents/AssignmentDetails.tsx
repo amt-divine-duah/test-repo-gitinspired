@@ -1,5 +1,9 @@
-const AssignmentDetails = () => {
-  return <div>AssignmentDetails</div>;
-};
 
-export default AssignmentDetails;
+
+const AssignmentDetails = () => {
+  return (
+    <div>AssignmentDetails</div>
+  )
+}
+
+export default AssignmentDetails
