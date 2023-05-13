@@ -19,20 +19,7 @@ import StudentAssignmentInformation from "./components/StudentDashBoard/StudentA
 const App = () => {
   return (
     <div className="app">
-      {/* <HomePage>
-      <Routes>
-        <Route path="/student" element={<AdminStudentDashBoard/>}/>
-        <Route path="/lecturer" element={<AdminLecturerDashBoard/>}/>
-        <Route path="/" element={<AdminMainDashBoard/>} />
-      </Routes>
-      </HomePage> */}
-      <MainStudentDashBoard>
-        <Routes>
-          <Route path="students-dashboard" element={<StudentsDashBoard/>}/>
-          <Route path="submission" element={<SubmissionBoard/>}/>
-        </Routes>
-      </MainStudentDashBoard>
-     
+  
     </div>
   
   )
