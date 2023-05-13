@@ -20,7 +20,7 @@ const UploadModal = ({showUploadModal}:Prop) => {
             <div className="modalFileUpload">
                 <img src="./Black and White Collection.png" alt="" />
                 <label htmlFor="files" className="uploadbtn">Upload a file</label>
-              <input id='files' type="file" />
+              <input id='files' type="file" multiple accept='.csv' />
               
                 <p>or drop a file</p>
                 <div className='upload-footer'>
