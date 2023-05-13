@@ -5,10 +5,10 @@
     "description":"random description ",
     "course": "javascript",
     "deadline": "2024-05-09",
-	"createdBy": 1,
+	"createdBy": "LEC-HSCHVB95",
     "publish": true,
-    "students": [3,4]
-}
+    "students": ["STD-RZDCJ3YL","STD-98TWUKQU"]
+}}
 
 //edit assignment - api/lecturer/edit-assignment
 {
@@ -18,7 +18,7 @@
     "deadline": "2024-05-09",
 	"assignmentId": 1,
     "publish": true,
-    "students": [3,4]
+    "students": ["STD-RZDCJ3YL","STD-98TWUKQU"]
 }
 
 //drafts - api/lecturer/drafts

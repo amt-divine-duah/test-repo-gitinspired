@@ -29,29 +29,17 @@ export async function schemaValidation(req: Request) {
         },
       },
       firstname: {
+        trim: true,
         notEmpty: {
           bail: true,
           errorMessage: "First name cannot be empty",
         },
-        isString: {
-          bail: true,
-          errorMessage: "Enter a valid first name",
-        },
-        isAlpha: {
-          errorMessage: "Enter a valid first name",
-        },
       },
       lastname: {
+        trim: true,
         notEmpty: {
           bail: true,
           errorMessage: "Last name cannot be empty",
-        },
-        isString: {
-          bail: true,
-          errorMessage: "Enter a valid last name",
-        },
-        isAlpha: {
-          errorMessage: "Enter a valid last name",
         },
       },
     },

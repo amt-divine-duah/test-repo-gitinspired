@@ -47,5 +47,9 @@ lecturerRouter.post(
   "/search-students",
   ErrorHandler.catchErrors(lecturerController.searchStudents)
 );
+lecturerRouter.get(
+  "/delete-assignment",
+  ErrorHandler.catchErrors(lecturerController.deleteAssignment)
+);
 
 export default lecturerRouter;
