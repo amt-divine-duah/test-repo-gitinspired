@@ -107,6 +107,7 @@ const AdminStudentDashBoard = () => {
         setPaginationInfo(response.data?.paginationInfo);
       } catch (error) {
         if (axios.isAxiosError(error)) {
+          console.log(error, "This is error")
           showErrorMessage("Something went wrong");
           setStudentData(null);
         }

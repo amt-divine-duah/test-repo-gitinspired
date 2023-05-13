@@ -75,7 +75,7 @@ async function createStudentAccount(user: UserInterface) {
       const token = generateAuthToken(results[1]);
       const filteredUser = _.pick(results[1], ["email"]);
       let message = studentInviteTemplate(
-        filteredUser.email,
+        studentId,
         configValues.ACCOUNT_CONFIRMATION_URL + "/" + token.accessToken,
         otp.otpCode
       );
@@ -133,7 +133,7 @@ async function createLecturerAccount(user: UserInterface) {
       const token = generateAuthToken(results[1]);
       const filteredUser = _.pick(results[1], ["email"]);
       let message = lecturerInviteTemplate(
-        filteredUser.email,
+        staffId,
         configValues.ACCOUNT_CONFIRMATION_URL + "/" + token.accessToken,
         otp.otpCode
       );

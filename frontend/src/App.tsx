@@ -14,11 +14,14 @@ import SubmissionTab from "./Pages/Lecturer/SubmissionTab";
 import DraftTab from "./Pages/Lecturer/DraftTab";
 import AssignmentCardClicked from "./Pages/Lecturer/AssignmentCardClicked";
 import SubmissionCardClicked from "./Pages/Lecturer/SubmissionCardClicked";
+import ProtectedRoute from "./components/ProtectedRoute";
+import { ROLE } from "./constants/roles";
 const App = () => {
   return (
     <AuthProvider authType={"localstorage"} authName={"_auth"}>
       <BrowserRouter>
         <ToastContainer />
+        {/* AUTHENTICATION ROUTES */}
         <Routes>
           <Route path="/" element={<Navigate to="/auth/login" />} />
           <Route path="/auth/login" element={<LoginPage />} />
@@ -34,11 +37,16 @@ const App = () => {
               </RequireAuth>
             }
           />
+          {/* END AUTHENTICATION ROUTES */}
+
+          {/* ADMIN ROUTES */}
           <Route
             path="/admin/dashboard"
             element={
               <RequireAuth loginPath="/auth/login">
-                <HomePage />
+                <ProtectedRoute roles={[ROLE.ADMIN]}>
+                  <HomePage />
+                </ProtectedRoute>
               </RequireAuth>
             }
           />
@@ -46,7 +54,9 @@ const App = () => {
             path="/admin/student"
             element={
               <RequireAuth loginPath="/auth/login">
-                <AdminStudentDashBoard />
+                <ProtectedRoute roles={[ROLE.ADMIN]}>
+                  <AdminStudentDashBoard />
+                </ProtectedRoute>
               </RequireAuth>
             }
           />
@@ -54,15 +64,22 @@ const App = () => {
             path="/admin/lecturer"
             element={
               <RequireAuth loginPath="/auth/login">
-                <AdminLecturerDashBoard />
+                <ProtectedRoute roles={[ROLE.ADMIN]}>
+                  <AdminLecturerDashBoard />
+                </ProtectedRoute>
               </RequireAuth>
             }
           />
+          {/* END ADMIN ROUTES */}
+
+          {/* LECTURER ROUTES */}
           <Route
             path="/lecturer/dashboard"
             element={
               <RequireAuth loginPath="/auth/login">
-                <LecturerView />
+                <ProtectedRoute roles={[ROLE.LECTURER]}>
+                  <LecturerView />
+                </ProtectedRoute>
               </RequireAuth>
             }
           />
@@ -70,7 +87,9 @@ const App = () => {
             path="/lecturer/students"
             element={
               <RequireAuth loginPath="/auth/login">
-                <StudentTab />
+                <ProtectedRoute roles={[ROLE.LECTURER]}>
+                  <StudentTab />
+                </ProtectedRoute>
               </RequireAuth>
             }
           />
@@ -78,7 +97,9 @@ const App = () => {
             path="/lecturer/submission"
             element={
               <RequireAuth loginPath="/auth/login">
-                <SubmissionTab />
+                <ProtectedRoute roles={[ROLE.LECTURER]}>
+                  <SubmissionTab />
+                </ProtectedRoute>
               </RequireAuth>
             }
           />
@@ -86,7 +107,9 @@ const App = () => {
             path="/lecturer/drafts"
             element={
               <RequireAuth loginPath="/auth/login">
-                <DraftTab />
+                <ProtectedRoute roles={[ROLE.LECTURER]}>
+                  <DraftTab />
+                </ProtectedRoute>
               </RequireAuth>
             }
           />
@@ -94,7 +117,9 @@ const App = () => {
             path="/lecturer/assignmentClicked"
             element={
               <RequireAuth loginPath="/auth/login">
-                <AssignmentCardClicked />
+                <ProtectedRoute roles={[ROLE.LECTURER]}>
+                  <AssignmentCardClicked />
+                </ProtectedRoute>
               </RequireAuth>
             }
           />
@@ -102,10 +127,13 @@ const App = () => {
             path="/lecturer/submissionClicked"
             element={
               <RequireAuth loginPath="/auth/login">
-                <SubmissionCardClicked />
+                <ProtectedRoute roles={[ROLE.LECTURER]}>
+                  <SubmissionCardClicked />
+                </ProtectedRoute>
               </RequireAuth>
             }
           />
+          {/* END LECTURER ROUTES */}
         </Routes>
       </BrowserRouter>
     </AuthProvider>
