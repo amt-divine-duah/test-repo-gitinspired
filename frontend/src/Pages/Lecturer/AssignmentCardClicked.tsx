@@ -33,8 +33,8 @@ const AssignmentCardClicked = () => {
         </div>
       </div>
       {/* //// */}
+      <h2 className="clicked-header1">Assignment</h2>
       <div className="clicked-top">
-        <h2 className="clicked-header1">Assignment</h2>
         {output.map((item) => {
           return (
             <TopContent

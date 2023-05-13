@@ -4,7 +4,14 @@ import './App.css';
 import HomePage from "./Pages/HomePage";
 import LecturerView from "./Pages/Lecturer/LecturerView";
 import ResetPassword from "./Pages/ResetPassword";
-import LoginPage from "./Pages/LoginPage";
+import MainStudentDashBoard from "./components/StudentDashBoard/MainStudentDashBoard";
+import { Route, Routes } from "react-router-dom";
+import AdminStudentDashBoard from "./components/AdminStudentDashBoard";
+import AdminLecturerDashBoard from "./components/AdminLecturerDashBoard";
+import AdminMainDashBoard from "./components/AdminMainDashBoard";
+import StudentsDashBoard from "./components/StudentDashBoard/StudentsDashBoard";
+import SubmissionBoard from "./components/StudentDashBoard/SubmissionBoard";
+import StudentAssignmentInformation from "./components/StudentDashBoard/StudentAssignmentInformation";
 
 
 
@@ -12,7 +19,7 @@ import LoginPage from "./Pages/LoginPage";
 const App = () => {
   return (
     <div className="app">
-
+  
     </div>
   
   )

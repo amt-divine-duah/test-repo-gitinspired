@@ -1,0 +1,10 @@
+@import './breakpoints';
+
+.studentMainBoardContainer{
+    @include lg{
+      display: flex;
+      flex-wrap: wrap;
+       background-color: green;
+    
+    }
+}

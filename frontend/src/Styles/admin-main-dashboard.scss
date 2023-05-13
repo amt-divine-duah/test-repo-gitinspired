@@ -5,9 +5,10 @@
         display: grid;
         grid-template-columns: 60%  35%;
         width: 100%;
-        height: 90%;
         max-width: 1440px;
-        max-height: 1028px;
+        max-height: 1024px;
+        height: 87%;
+        overflow-y:auto ;
 
         .left-admin-dashboard{
             display: flex;
@@ -154,16 +155,15 @@
                         height: 0.5rem;
                         border-radius: 100%;
                         background-color:rgba(149, 164, 252, 1);
-                        ;
-                        z-index: 1;
+                        
                     }
                     .blue{
                         color: rgba(138, 140, 217, 1);
-                        ;
+                        
                     }
                     .green{
                         color:  rgba(74, 167, 133, 1);
-                        ;
+                        
                     }
 
 
