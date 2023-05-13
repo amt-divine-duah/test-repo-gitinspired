@@ -1,0 +1,10 @@
+@import './breakpoints';
+
+.students-dash-board-all{
+   @include lg{
+    background-color: blue;
+    display: grid;
+    grid-template-columns: 70% 30%;
+    height: 100%;
+   }
+}

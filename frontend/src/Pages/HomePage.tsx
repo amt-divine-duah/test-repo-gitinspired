@@ -1,19 +1,28 @@
-import AdminLecturerDashBoard from "../components/AdminLecturerDashBoard";
-import AdminMainDashBoard from "../components/AdminMainDashBoard";
-import AdminStudentDashBoard from "../components/AdminStudentDashBoard";
+import { useState, PropsWithChildren } from "react";
 import NavBar from "../components/NavBar"
 import '../Styles/homePage.scss'
-import {Routes, Route} from 'react-router-dom';
 
-const HomePage = () => {
+
+
+const HomePage = ({children}:PropsWithChildren) => {
+  const [linkData]=useState([
+    {
+      route:"",
+      routeName:"Dashboard"
+    },
+    {
+      route:"student",
+      routeName:"Student"
+    },
+    {
+      route:"lecturer",
+      routeName:"Lecturer"
+    },
+  ])
   return (
     <main className="home">
-      <NavBar />
-      <Routes>
-        <Route path="/student" element={<AdminStudentDashBoard/>}/>
-        <Route path="/lecturer" element={<AdminLecturerDashBoard/>}/>
-        <Route path="/" element={<AdminMainDashBoard/>} />
-      </Routes>
+      <NavBar linkData={linkData} backgroundColor={'linear-gradient(180deg, #170E7D 0%, #15104E 100%'}/>
+      {children}
     </main>
   )
 }

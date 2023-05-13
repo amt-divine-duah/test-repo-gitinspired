@@ -1,0 +1,12 @@
+@import './breakpoints';
+
+
+.student-card{
+    @include lg{
+        width: 20rem;
+        height: 15rem;
+        background-color: #fff;
+        border-radius: 16px;
+        cursor: pointer;
+    }
+}

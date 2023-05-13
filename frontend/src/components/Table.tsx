@@ -16,20 +16,26 @@ const Table = ({userTableName, data}:Prop) => {
                 <thead>
                   <tr>
                     <th>{userTableName}</th>
-                    <th>Name</th>
-                    <th>Email</th>
+                    <th>name</th>
+                    <th>email</th>
                   </tr>
-
                 </thead>
+
                 <tbody>
-                {data.map((item: any,index): any=>(
-                  <tr key={index}>
-                    <td>{item.id}</td>
-                    <td>{item.name}</td>
-                    <td>{item.email}</td>
-                  </tr>
-                ))}
+                  {
+                    data.map((item)=>(
+                      <tr>
+                        <td>{item.id}</td>
+                        <td>{item.name}</td>
+                        <td>{item.email}</td>
+                      </tr>
+                    ))
+                  }
                 </tbody>
+                 
+                
+                
+               
               </table>
             </div>
   )

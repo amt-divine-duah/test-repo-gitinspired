@@ -11,27 +11,52 @@
         top: 0;
         display: grid;
         place-items: center;
+        overflow-y: auto;
 
         .uploadModal{
             display: grid;
             place-items: center;
             background-color: #fff;
-            width: 582px;
-            height: 615px;
+            width: 32vw;
+            height: 30rem;
             border-radius: 16px;
+            
+            .upload-header{
+                text-align: center;
+                line-height: 2.5rem;
+            }
         
+            .upload-footer{
+                text-align: center;
+            }
+           .upload-close-icon{
+                width: 100%;
+               div{
+                    margin: 0 0 0 90%;
+                    cursor: pointer;
+               }
+           }
         }
+        .second-p{
+           font-size: 0.8rem;
+     
+        } 
         .modalFileUpload{
             position: relative;
             display: grid;
             place-items: center;
-            height: 357px;
-            width: 395px;
+            height: 23vw;
+            width: 25vw;
             background-color: #FBFBFB;
             border-radius: 16px;
             box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            padding: 0 0.5rem;
             p{
-                text-align: center;
+                text-align: center;    
+                       
+            }
+            img{
+                margin-top: 1rem;
             }
             & input{
                 position: absolute;
@@ -40,11 +65,10 @@
                 width: 100%;
                 height: 100%;
                 color: transparent;
-                 
+                cursor: pointer;
                 
             }
             & input::-webkit-file-upload-button{
-                background-color:red;
                 position: absolute;
                 top:30%;
                 left: 50%;
@@ -65,6 +89,7 @@
                 border-radius: 8px;
                 background-color: #170E7D;
                 color: #fff;
+                cursor: pointer;
             }
         }
         
