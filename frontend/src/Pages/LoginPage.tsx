@@ -46,6 +46,10 @@ const LoginPage = () => {
           })
         ) {
           showSuccessMessage(`${response.data?.message}`)
+          localStorage.setItem(
+            "accessToken",
+            response.data?.data["accessToken"]
+          );
           navigate("/landing");
         }
       }

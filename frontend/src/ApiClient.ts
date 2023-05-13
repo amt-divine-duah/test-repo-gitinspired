@@ -3,8 +3,9 @@ const BASE_API_URL = import.meta.env.VITE_BASE_API_URL;
 
 const api = axios.create({
   baseURL: BASE_API_URL,
-  headers: { 
+  headers: {
     "Content-type": "application/json",
+    "Authorization": "Bearer " + localStorage.getItem("accessToken"),
   },
 });
 

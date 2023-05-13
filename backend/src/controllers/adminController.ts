@@ -80,7 +80,7 @@ export class AdminController {
           subject: EMAIL_ACTIVATION_SUBJECT,
           html: message,
         };
-        // transporter.sendMail(mailOptions);
+        transporter.sendMail(mailOptions);
       }
     }
     const filteredUser = _.pick(user[1], ["email"]);
@@ -172,7 +172,7 @@ export class AdminController {
           subject: EMAIL_ACTIVATION_SUBJECT,
           html: message,
         };
-        // transporter.sendMail(mailOptions);
+        transporter.sendMail(mailOptions);
       }
     }
 

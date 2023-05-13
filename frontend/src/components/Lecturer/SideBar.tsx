@@ -2,9 +2,11 @@ import { useState } from "react";
 import SignoutModal from "../SignoutModal";
 import "/src/App.css";
 import { useNavigate } from "react-router-dom";
+import { useAuthUser } from "react-auth-kit";
 const SideBar = () => {
   const navigate = useNavigate();
   const [logout, setLogout] = useState(false);
+  const auth = useAuthUser();
 
   const handleLogout = () => {
     setLogout((prev) => !prev);
