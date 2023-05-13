@@ -2,9 +2,10 @@
 
 .admin-student{
     @include lg{
-       height: 80vh;
-       max-height: 100vh;
-      
+       height: 82%;
+       max-height: 1024px;  
+       overflow-y: auto;
+
     }
 }
 

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import '../Styles/board.scss'
 import Table from './Table'
+import TableFooter from './TableFooter'
 
 type Prop={
   users:string,
@@ -24,22 +25,11 @@ const Board = ({users, buttonInfo,message,showAddUserModal,data,userTableName,sh
   const records =data.slice(firstIndex,lastIndex);
   const numberOfPages= Math.ceil(data.length/recordsPerPage)
   
-  const nextPage=()=>{
-   
-    if(currentPage===numberOfPages){
-      return currentPage===lastIndex
-    }
-  
-    setCurrentPage(prev=>prev+1)
-  }
 
-  const previousPage=()=>{
-   
-    if(currentPage===firstIndex){
-      return currentPage===firstIndex
-    }
-    setCurrentPage(prev=>prev-1)
-  }
+  
+
+
+
 
   return (
     <div className='main-board'>
@@ -60,7 +50,7 @@ const Board = ({users, buttonInfo,message,showAddUserModal,data,userTableName,sh
         </div>
 
        { data.length ===0 && <div className='main-board-body'>
-         <img src="./main-page-image.png" alt="" />
+        <div><img src="./main-page-image.png" alt="" /></div> 
           <p>{message}</p>
         </div>}
             {data.length>0 && <Table userTableName={userTableName} data={records} />}
@@ -69,15 +59,7 @@ const Board = ({users, buttonInfo,message,showAddUserModal,data,userTableName,sh
       </section>
 
       { data.length >0 &&
-              <div className="footer">
-              <div className="footer-left-side">
-                <p>Page {currentPage} of {numberOfPages}</p>
-              </div>
-              <div className="footer-right-side">
-                  { currentPage===1?<button  type='button' disabled onClick={previousPage}>Prev</button>:<button onClick={previousPage}>Prev</button>}
-                  {currentPage===numberOfPages  ? <button type='button' disabled onClick={nextPage}>Next</button>: <button onClick={nextPage}>Next</button>}
-              </div>
-            </div>
+              <TableFooter/>
             }
       
     </div>
