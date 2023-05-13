@@ -12,7 +12,7 @@ import LoginPage from "./Pages/LoginPage";
 const App = () => {
   return (
     <div className="app">
-
+   <LecturerView />
     </div>
   
   )
