@@ -349,4 +349,17 @@ export class LecturerController {
       result
     );
   }
+
+  async deleteAssignment(req: Request, res: Response, next: NextFunction) {
+    const assignmentId = req.body.assignmentId;
+
+    const result = await prisma.assignment.delete({
+      where: { id: assignmentId },
+    });
+    return ResponseUtil.sendResponse(
+      res,
+      `Assignment deleted successfully`,
+      result
+    );
+  }
 }

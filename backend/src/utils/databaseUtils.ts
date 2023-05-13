@@ -8,7 +8,11 @@ import validator from "validator";
 import { StatusCodes } from "http-status-codes";
 import generator from "generate-password";
 import { UserInterface } from "../interfaces/modelInterface";
-import { generateAuthToken, generateLecturerId, generateStudentId } from "./GeneralUtils";
+import {
+  generateAuthToken,
+  generateLecturerId,
+  generateStudentId,
+} from "./GeneralUtils";
 import { hash } from "bcryptjs";
 import { prisma } from "../configs/prismaConfig";
 import configValues from "../configs/config";
@@ -50,7 +54,7 @@ async function createStudentAccount(user: UserInterface) {
         studentId: studentId,
         firstName: user.firstname,
         lastName: user.lastname,
-        email: user.email
+        email: user.email,
       },
     }),
     prisma.user.create({
@@ -88,7 +92,7 @@ async function createStudentAccount(user: UserInterface) {
     }
   }
 
-  return results[0]
+  return results[0];
 }
 
 // Create Lecturer
@@ -108,7 +112,7 @@ async function createLecturerAccount(user: UserInterface) {
         staffId: staffId,
         firstName: user.firstname,
         lastName: user.lastname,
-        email: user.email
+        email: user.email,
       },
     }),
     prisma.user.create({
@@ -146,13 +150,13 @@ async function createLecturerAccount(user: UserInterface) {
     }
   }
 
-  return results[0]
+  return results[0];
 }
 
 export async function csvToDb(currentDir: string, model: string) {
   const filenames = await getCsvFiles(currentDir);
   let errors = [];
-  let results = []
+  let results = [];
 
   // Use Promise.all to wait for all the CSV files to be parsed
   await Promise.all(
@@ -176,16 +180,13 @@ export async function csvToDb(currentDir: string, model: string) {
             // Check for duplicate email
             if (existingUser || processedEmails.includes(data["email"])) {
               duplicateEmails.push(data["email"]);
-              return cb(null, false);
             }
             if (
-              !validator.isEmail(data["email"]) ||
+              !validator.isEmail(validator.trim(data["email"])) ||
               typeof data["firstname"] !== "string" ||
-              validator.isEmpty(data["firstname"]) ||
-              !validator.isAlpha(data["firstname"]) ||
+              validator.isEmpty(validator.trim(data["firstname"])) ||
               typeof data["lastname"] !== "string" ||
-              validator.isEmpty(data["lastname"]) ||
-              !validator.isAlpha(data["lastname"])
+              validator.isEmpty(validator.trim(data["lastname"]))
             ) {
               return cb(null, false);
             }
@@ -225,8 +226,7 @@ export async function csvToDb(currentDir: string, model: string) {
                 let createdUser;
                 if (model === "student") {
                   createdUser = await createStudentAccount(user);
-                }
-                else if (model === "lecturer") {
+                } else if (model === "lecturer") {
                   createdUser = await createLecturerAccount(user);
                 }
                 results.push(createdUser);

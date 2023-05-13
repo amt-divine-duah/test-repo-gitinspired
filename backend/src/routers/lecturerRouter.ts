@@ -67,5 +67,9 @@ lecturerRouter.post(
   ErrorHandler.catchErrors(LecturerMiddleware.checkLecturerStatus),
   ErrorHandler.catchErrors(lecturerController.searchStudents)
 );
+lecturerRouter.get(
+  "/delete-assignment",
+  ErrorHandler.catchErrors(lecturerController.deleteAssignment)
+);
 
 export default lecturerRouter;

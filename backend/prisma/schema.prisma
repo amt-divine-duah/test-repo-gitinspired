@@ -70,7 +70,7 @@ model Assignment {
   description String
   course      String
   lecturerId  String
-  createdBy   Lecturer                @relation(fields: [lecturerId], references: [staffId])
+  createdBy   Lecturer                @relation(fields: [lecturerId], references: [staffId], onDelete: Cascade)
   uniqueCode  String?                 @unique
   isPublished Boolean
   updatedAt   DateTime?               @updatedAt
@@ -80,9 +80,9 @@ model Assignment {
 }
 
 model StudentsOnAssignments {
-  student      Student    @relation(fields: [studentId], references: [studentId])
+  student      Student    @relation(fields: [studentId], references: [studentId], onDelete: Cascade)
   studentId    String
-  assignment   Assignment @relation(fields: [assignmentId], references: [id])
+  assignment   Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
   assignmentId Int
   status       Boolean
 
