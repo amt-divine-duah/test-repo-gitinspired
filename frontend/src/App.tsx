@@ -16,6 +16,7 @@ import AssignmentCardClicked from "./Pages/Lecturer/AssignmentCardClicked";
 import SubmissionCardClicked from "./Pages/Lecturer/SubmissionCardClicked";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { ROLE } from "./constants/roles";
+import ForbiddenPage from "./Pages/ForbiddenPage";
 const App = () => {
   return (
     <AuthProvider authType={"localstorage"} authName={"_auth"}>
@@ -134,6 +135,9 @@ const App = () => {
             }
           />
           {/* END LECTURER ROUTES */}
+
+          <Route path="/forbidden" element={<ForbiddenPage />} />
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
