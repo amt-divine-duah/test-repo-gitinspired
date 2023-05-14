@@ -5,7 +5,7 @@ import { ReasonPhrases, StatusCodes } from "http-status-codes";
 import { validateToken } from "../utils/GeneralUtils";
 import { TokenType } from "../constants/TokenType";
 
-export default class AuthMiddleware {
+export class AuthMiddleware {
   // function to authenticate users
   static async authenticate(req: Request, res: Response, next: NextFunction) {
     // Get token from headers
