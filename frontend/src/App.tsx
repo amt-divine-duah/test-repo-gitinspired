@@ -17,6 +17,7 @@ import SubmissionCardClicked from "./Pages/Lecturer/SubmissionCardClicked";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { ROLE } from "./constants/roles";
 import ForbiddenPage from "./Pages/ForbiddenPage";
+import AdminMainDashBoard from "./components/AdminMainDashBoard";
 const App = () => {
   return (
     <AuthProvider authType={"localstorage"} authName={"_auth"}>
@@ -46,7 +47,7 @@ const App = () => {
             element={
               <RequireAuth loginPath="/auth/login">
                 <ProtectedRoute roles={[ROLE.ADMIN]}>
-                  <HomePage />
+                  <AdminMainDashBoard />
                 </ProtectedRoute>
               </RequireAuth>
             }

@@ -47,5 +47,17 @@ adminRouter.get(
   ErrorHandler.catchErrors(AdminMiddleware.checkAdminStatus),
   ErrorHandler.catchErrors(adminController.getStudents)
 );
+adminRouter.get(
+  "/assignments",
+  ErrorHandler.catchErrors(AuthMiddleware.authenticate),
+  ErrorHandler.catchErrors(AdminMiddleware.checkAdminStatus),
+  ErrorHandler.catchErrors(adminController.getAssignments)
+);
+adminRouter.get(
+  "/submissions",
+  ErrorHandler.catchErrors(AuthMiddleware.authenticate),
+  ErrorHandler.catchErrors(AdminMiddleware.checkAdminStatus),
+  ErrorHandler.catchErrors(adminController.getSubmissions)
+);
 
 export default adminRouter;

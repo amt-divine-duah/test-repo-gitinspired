@@ -56,10 +56,17 @@ const LoginPage = () => {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.response?.status === StatusCodes.UNPROCESSABLE_ENTITY) {
-          setInvalidRes(null)
-          setFormErrors(error.response?.data["error"]);
-          setError(prev => !prev)
-          return
+          if (error.response?.data["error"]["password"]) {
+            setInvalidRes("Invalid credentials. Try again")
+            setFormErrors({});
+          }
+          if (error.response?.data["error"]["emailOrId"]) {
+            setInvalidRes(null);
+            setFormErrors(error.response?.data["error"]);
+            setError((prev) => !prev);
+          }
+          return;
+          
         }
         if (error.response?.status === StatusCodes.BAD_REQUEST) {
           setFormErrors({})
@@ -90,19 +97,10 @@ const LoginPage = () => {
   if (formErrors["emailOrId"]?.[0]) {
     emailTooltip?.classList.add("visible");
     emailBorder?.classList.add("error");
+    mainTooltip?.classList.remove("visible");
   } else {
     emailTooltip?.classList.remove("visible");
     emailBorder?.classList.remove("error");
-  }
-  if (formErrors["password"]?.[0]) {
-    passwordBorder?.classList.add("error");
-    emailBorder?.classList.remove("error");
-    passwordBorder?.classList.add("error");
-    mainTooltip?.classList.add("visible");
-  } else {
-    emailBorder?.classList.remove("error");
-    passwordBorder?.classList.remove("error");
-    mainTooltip?.classList.remove("visible");
   }
   if (invalidRes) {
     emailBorder?.classList.remove("error");
@@ -114,45 +112,7 @@ const LoginPage = () => {
     mainTooltip?.classList.remove("visible");
   }
 
-  function modalAppear() {
-    const modalBox = document.getElementById("validation") as HTMLElement;
-
-    modalBox.classList.add("visible");
-    setTimeout(() => {
-      modalBox.classList.remove("visible");
-    }, 500);
-  }
-  function passwordCheck() {
-    const characterlength = document.getElementById("length") as HTMLElement;
-    const lowerCase = document.getElementById("lower") as HTMLElement;
-    const upperCase = document.getElementById("upper") as HTMLElement;
-    const numeric = document.getElementById("number") as HTMLElement;
-    const specialChars = document.getElementById("specialChar") as HTMLElement;
-
-    const number = new RegExp("(?=.*[0-9])");
-    const length = new RegExp("(?=.{8,})");
-    const lower = new RegExp("(?=.*[a-z])");
-    const upper = new RegExp("(?=.*[A-Z])");
-    const specialChar = new RegExp(/[!@#$%^&*(),.?":{}|<>]/);
-
-    number.test(password)
-      ? numeric.classList.add("pass")
-      : numeric.classList.remove("pass");
-
-    lower.test(password)
-      ? lowerCase.classList.add("pass")
-      : lowerCase.classList.remove("pass");
-
-    upper.test(password)
-      ? upperCase.classList.add("pass")
-      : upperCase.classList.remove("pass");
-
-    length.test(password)
-      ? characterlength.classList.add("pass")
-      : characterlength.classList.remove("pass");
-    
-      specialChar.test(password) ? specialChars.classList.add("pass") : specialChars.classList.remove("pass")
-  }
+  
 
   return (
     <>
@@ -184,11 +144,11 @@ const LoginPage = () => {
                 <div className="label-box">
                   <div className="email">
                     <label htmlFor="email">
-                      <b>Email</b>
+                      <b>Email/ID</b>
                     </label>
                     <input
                       type="text"
-                      placeholder="Enter your Email"
+                      placeholder="Enter your Email or ID"
                       name="email"
                       required
                       className="email-enclosure"
@@ -216,30 +176,15 @@ const LoginPage = () => {
                       placeholder="Enter your Password"
                       name="psw"
                       required
-                      className={
-                        error === true
-                          ? "password-enclosure error"
-                          : "password-enclosure"
-                      }
+                      className="password-enclosure"
                       id="password"
                       onChange={(e) => {
                         setPassword(e.target.value);
                       }}
-                      onKeyUp={() => {
-                        passwordCheck();
-                        modalAppear();
-                      }}
                     />
-                    <div className="validation" id="validation">
-                      <ul>
-                        <p className="caution">You password must contain:</p>
-                        <li id="length">At least 8 Characters</li>
-                        <li id="lower">Lower case letters (a-z)</li>
-                        <li id="upper">Upper case letters (A-Z)</li>
-                        <li id="number">Numbers (0-9)</li>
-                        <li id="specialChar">Special Character</li>
-                      </ul>
-                    </div>
+                  </div>
+                  <div className="tooltip-main" id="tooltip-main">
+                    <div className="tooltip-main-content">Hello</div>
                   </div>
                 </div>
 

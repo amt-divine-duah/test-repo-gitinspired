@@ -5,6 +5,7 @@ import "../App.css";
 import { useEffect, useRef, useState } from "react";
 import { showSuccessMessage, showErrorMessage } from "../constants/messages";
 import { StatusCodes } from "http-status-codes";
+import ValidationModal from "../components/ValidationModal";
 
 interface FormErrors {
   password?: string[];
@@ -21,17 +22,69 @@ const ResetPassword = () => {
   const navigate = useNavigate();
   const { token } = useParams();
 
-  const passwordView = (number: number) => {
-    const passwordInput = document.querySelectorAll(
-      "input"
-    ) as NodeListOf<HTMLInputElement>;
+  const togglePasswordNew = () => {
+    //  const passwordInput = document.querySelectorAll("input");
+    const passwordInput = document.getElementById(
+      "new-password"
+    ) as HTMLInputElement;
+    const passwordShowButton = document.getElementById("eye1");
 
-    if (passwordInput[number].type === "password") {
-      passwordInput[number].type = "text";
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
     } else {
-      passwordInput[number].type = "password";
+      passwordInput.type = "password";
     }
   };
+
+  const togglePasswordConfirm = () => {
+    //  const passwordInput = document.querySelectorAll("input");
+    const passwordInput = document.getElementById(
+      "confirm-password"
+    ) as HTMLInputElement;
+    const passwwordShowButton = document.getElementById("eye2");
+
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+    } else {
+      passwordInput.type = "password";
+    }
+  };
+
+  function passwordCheck(password: string) {
+    const characterlength = document.getElementById("length") as HTMLElement;
+    const lowerCase = document.getElementById("lower") as HTMLElement;
+    const upperCase = document.getElementById("upper") as HTMLElement;
+    const numeric = document.getElementById("number") as HTMLElement;
+
+    const number = new RegExp("(?=.*[0-9])");
+    const length = new RegExp("(?=.{8,})");
+    const lower = new RegExp("(?=.*[a-z])");
+    const upper = new RegExp("(?=.*[A-Z])");
+
+    number.test(password)
+      ? numeric.classList.add("pass")
+      : numeric.classList.remove("pass");
+
+    lower.test(password)
+      ? lowerCase.classList.add("pass")
+      : lowerCase.classList.remove("pass");
+
+    upper.test(password)
+      ? upperCase.classList.add("pass")
+      : upperCase.classList.remove("pass");
+
+    length.test(password)
+      ? characterlength.classList.add("pass")
+      : characterlength.classList.remove("pass");
+  }
+  function modalAppear() {
+    const modalBox = document.getElementById("validation") as HTMLElement;
+
+    modalBox.classList.add("visible");
+    setTimeout(() => {
+      modalBox.classList.remove("visible");
+    }, 900);
+  }
 
   useEffect(() => {
     // TODO: Check if user is authenticated first
@@ -134,15 +187,18 @@ const ResetPassword = () => {
                       className="password-enclosure"
                       id="new-password"
                       ref={passwordRef}
+                      onKeyUp={(e) => {
+                        e.currentTarget.value.length < 9 ? modalAppear() : "";
+                        passwordCheck(e.currentTarget.value);
+                      }}
                     />
                     <img
                       src="/eye.png"
                       alt="password view toggle"
                       id="eye1"
-                      onClick={() => {
-                        passwordView(0);
-                      }}
+                      onClick={togglePasswordNew}
                     />
+                    <ValidationModal />
                   </div>
                   <div className="password">
                     <label htmlFor="psw">
@@ -161,9 +217,7 @@ const ResetPassword = () => {
                       src="/eye.png"
                       alt="password view toggle"
                       id="eye2"
-                      onClick={() => {
-                        passwordView(1);
-                      }}
+                      onClick={togglePasswordConfirm}
                     />
                   </div>
                 </div>

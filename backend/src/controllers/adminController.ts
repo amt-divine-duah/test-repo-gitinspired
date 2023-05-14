@@ -241,4 +241,24 @@ export class AdminController {
       paginationInfo
     );
   }
+
+  async getAssignments(req: Request, res: Response, next: NextFunction) {
+
+    const assignments = await prisma.assignment.findMany();
+    return ResponseUtil.sendResponse(
+      res,
+      "Assignments fetched successfully",
+      assignments
+    );
+  }
+
+  async getSubmissions(req: Request, res: Response, next: NextFunction) {
+
+    const assignments = await prisma.studentsOnAssignments.findMany();
+    return ResponseUtil.sendResponse(
+      res,
+      "Submissions fetched successfully",
+      assignments
+    );
+  }
 }

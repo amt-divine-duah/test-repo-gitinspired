@@ -460,6 +460,7 @@ gap: 8px;
 
   background: #170E7D;
   border-radius: 8px;
+  cursor: pointer;
 
   /* Inside auto layout */
 
