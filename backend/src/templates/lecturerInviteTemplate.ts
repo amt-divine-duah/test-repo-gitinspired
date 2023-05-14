@@ -39,9 +39,8 @@ export function lecturerInviteTemplate(
         <div style="width: 42rem; padding:0 4rem">Hi there!<br>
             <span>
                 We are excited to welcome you to our online platform! You have been added as a lecturer.
-                Below is your password and lecturer id. Click on the claim button to get started.
+                Below is your lecturer id. Click on the claim button to get started.
                 <ul>
-                    <li>generated password: <b>${otp}</b></li>
                     <li> staff ID is <b>${lecturerId}</b>.</li>
                 </ul>
                 Best regards,

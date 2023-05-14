@@ -38,9 +38,8 @@ export function studentInviteTemplate(
         <div style="width: 42rem; padding:0 4rem">Hi there!<br>
             <span>
                 We are excited to welcome you to our online platform! You have been added as a student.
-                Below is your password and student id. Click on the claim button to get started.
+                Below is your student id. Click on the claim button to get started.
                 <ul>
-                    <li>generated password: <b>${otp}</b></li>
                     <li> student ID is <b>${studentId}</b>.</li>
                 </ul>
                 Best regards,

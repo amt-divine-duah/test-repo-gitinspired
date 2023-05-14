@@ -180,6 +180,7 @@ export async function csvToDb(currentDir: string, model: string) {
             // Check for duplicate email
             if (existingUser || processedEmails.includes(data["email"])) {
               duplicateEmails.push(data["email"]);
+              return cb(null, false);
             }
             if (
               !validator.isEmail(validator.trim(data["email"])) ||
@@ -200,13 +201,18 @@ export async function csvToDb(currentDir: string, model: string) {
                 filename.split(/-(.+)/)[1]
               } with data ${JSON.stringify(row)} is invalid`
             );
-            const error = new Error("CsvUploadError");
-            error["statusCode"] = StatusCodes.UNPROCESSABLE_ENTITY;
-            error["details"] = `Row number ${rowNumber} in ${
-              filename.split(/-(.+)/)[1]
-            } contains invalid data`;
-            error["filename"] = filename.split(/-(.+)/)[1];
-            errors.push(error);
+            if (duplicateEmails.includes(row["email"])) {
+              logger.warn(`Skipping row ${rowNumber}`);
+            }
+            else {
+              const error = new Error("CsvUploadError");
+              error["statusCode"] = StatusCodes.UNPROCESSABLE_ENTITY;
+              error["details"] = `Row number ${rowNumber} in ${
+                filename.split(/-(.+)/)[1]
+              } contains invalid data`;
+              error["filename"] = filename.split(/-(.+)/)[1];
+              errors.push(error);
+            }
           })
           .transform((data) => {
             logger.info("Transforming data....", data);
