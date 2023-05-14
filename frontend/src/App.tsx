@@ -13,6 +13,7 @@ import StudentsDashBoard from "./components/StudentDashBoard/StudentsDashBoard";
 import SubmissionBoard from "./components/StudentDashBoard/SubmissionBoard";
 import StudentAssignmentInformation from "./components/StudentDashBoard/StudentAssignmentInformation";
 import LoginPage from "./Pages/LoginPage";
+import ForbiddenPage from "./components/ForbiddenPage";
 
 
 
@@ -34,7 +35,8 @@ const App = () => {
         </Routes>
       </MainStudentDashBoard> */}
       {/* <LoginPage/> */}
-      <LecturerView/>
+      {/* <LecturerView/> */}
+      <ForbiddenPage/>
       
      
     </div>

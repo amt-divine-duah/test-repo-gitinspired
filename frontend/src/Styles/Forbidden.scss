@@ -1,0 +1,28 @@
+@import './breakpoints';
+
+.forbidden{
+    @include lg{
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+       align-items: center;
+       justify-content: center;
+
+       h1{
+        font-size: 15rem;
+       }
+
+       button{
+        margin-top: 1rem;
+        padding: 0.5rem 2.2rem;
+        border-radius: 8px;
+        border: 1px solid blueviolet;
+     
+            &:hover{
+                background-color:#170E7D;
+                color: #fff;
+            }
+       
+       }
+    }
+}
