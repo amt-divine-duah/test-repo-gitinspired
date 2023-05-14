@@ -2,7 +2,7 @@ import { Router } from "express";
 import { AdminController } from "../controllers/adminController";
 import { ErrorHandler } from "../middlewares/ErrorHandler";
 import { FileUploader } from "../middlewares/FileUploader";
-import { AuthMiddleware } from "../../src/middlewares/AuthMiddleware";
+import AuthMiddleware from "../middlewares/AuthMiddleware";
 import { AdminMiddleware } from "../middlewares/AdminMiddleware";
 
 const adminController = new AdminController();
