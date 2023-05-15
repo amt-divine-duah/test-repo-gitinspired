@@ -12,6 +12,7 @@ import AdminMainDashBoard from "./components/AdminMainDashBoard";
 import StudentsDashBoard from "./components/StudentDashBoard/StudentsDashBoard";
 import SubmissionBoard from "./components/StudentDashBoard/SubmissionBoard";
 import StudentAssignmentInformation from "./components/StudentDashBoard/StudentAssignmentInformation";
+import LoginPage from "./Pages/LoginPage";
 
 
 
@@ -26,13 +27,14 @@ const App = () => {
         <Route path="/" element={<AdminMainDashBoard/>} />
       </Routes>
       </HomePage> */}
-      <MainStudentDashBoard>
+      {/* <MainStudentDashBoard>
         <Routes>
           <Route path="students-dashboard" element={<StudentsDashBoard/>}/>
           <Route path="submission" element={<SubmissionBoard/>}/>
         </Routes>
       </MainStudentDashBoard>
-     
+      */}
+      <LoginPage/>
     </div>
   
   )
