@@ -19,7 +19,7 @@ import StudentAssignmentInformation from "./components/StudentDashBoard/StudentA
 const App = () => {
   return (
     <div className="app">
-  
+      <LecturerView/>
     </div>
   
   )
