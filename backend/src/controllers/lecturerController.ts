@@ -54,7 +54,7 @@ export class LecturerController {
   }
 
   async getSubmissions(req: Request, res: Response, next: NextFunction) {
-    const { lecturerId } = req.params;
+    const { lecturerId } = req.params; 
     const lecturer = lecturerId;
     //get all published assignments with particular lecturer
     const assignments = await prisma.assignment.findMany({

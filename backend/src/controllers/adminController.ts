@@ -255,7 +255,11 @@ export class AdminController {
 
   async getSubmissions(req: Request, res: Response, next: NextFunction) {
 
-    const assignments = await prisma.studentsOnAssignments.findMany();
+    const assignments = await prisma.studentsOnAssignments.findMany({
+      where: {
+        status: true
+      }
+    });
     return ResponseUtil.sendResponse(
       res,
       "Submissions fetched successfully",

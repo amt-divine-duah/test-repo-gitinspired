@@ -13,7 +13,7 @@ staffId = "ADM-" + nanoid();
 (async () => {
   const admin = await prisma.user.create({
     data: {
-      email: "hethere97@gmail.com",
+      email: "admin@gmail.com",
       password: await hash(password, 12),
       loginId: staffId,
       role: "ADMIN",

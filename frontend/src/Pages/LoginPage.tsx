@@ -45,11 +45,14 @@ const LoginPage = () => {
             },
           })
         ) {
-          showSuccessMessage(`${response.data?.message}`)
+          showSuccessMessage(`${response.data?.message}`);
           localStorage.setItem(
             "accessToken",
             response.data?.data["accessToken"]
           );
+          // Update Authorization header for subsequent API calls
+          api.defaults.headers["Authorization"] =
+            "Bearer " + response.data?.data["accessToken"];
           navigate("/landing");
         }
       }
