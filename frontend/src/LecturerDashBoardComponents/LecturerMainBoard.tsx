@@ -1,7 +1,6 @@
-import { useState } from "react";
+
 import "../Styles/lecturerMainBoard.scss";
 import Card from "./Card";
-import LecturerCreateNewAssignmentModal from "./LecturerCreateNewAssignmentModal";
 
 const LecturerMainBoard = () => {
   return (
@@ -17,3 +16,4 @@ const LecturerMainBoard = () => {
 };
 
 export default LecturerMainBoard;
+

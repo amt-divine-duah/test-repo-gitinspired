@@ -18,6 +18,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { ROLE } from "./constants/roles";
 import ForbiddenPage from "./Pages/ForbiddenPage";
 import AdminMainDashBoard from "./components/AdminMainDashBoard";
+import StudentDashboardPage from "./Pages/StudentDashboardPage";
 const App = () => {
   return (
     <AuthProvider authType={"localstorage"} authName={"_auth"}>
@@ -119,9 +120,7 @@ const App = () => {
             path="/lecturer/assignmentClicked"
             element={
               <RequireAuth loginPath="/auth/login">
-                <ProtectedRoute roles={[ROLE.LECTURER]}>
-                  <AssignmentCardClicked />
-                </ProtectedRoute>
+                <AssignmentCardClicked />
               </RequireAuth>
             }
           />
@@ -136,6 +135,19 @@ const App = () => {
             }
           />
           {/* END LECTURER ROUTES */}
+
+          {/* STUDENT DASHBOARD */}
+          <Route
+            path="/student/dashboard"
+            element={
+              <RequireAuth loginPath="/auth/login">
+                <ProtectedRoute roles={[ROLE.STUDENT]}>
+                  <StudentDashboardPage />
+                </ProtectedRoute>
+              </RequireAuth>
+            }
+          />
+          {/* END STUDENT DASHBOARD */}
 
           <Route path="/forbidden" element={<ForbiddenPage />} />
           <Route path="*" element={<Navigate to="/" />} />

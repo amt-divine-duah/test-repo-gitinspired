@@ -1,11 +1,12 @@
-import MainBoard from "./LecturerMainBoard";
+import MainBoard from "./LecturerMainBoard"
+
 
 const Dashboard = () => {
   return (
     <div>
-      <MainBoard />
+      <MainBoard/>
     </div>
-  );
-};
+  )
+}
 
-export default Dashboard;
+export default Dashboard

@@ -8,11 +8,13 @@ import sendAssignment from "../utils/sendAssignmentUtil";
 
 export class LecturerController {
   async getAssignments(req: Request, res: Response, next: NextFunction) {
-    const lecturer = req.body.lecturerId;
+    const {lecturerId} = req.params
+    const lecturer = lecturerId
 
     const assignments = await prisma.assignment.findMany({
       where: {
         lecturerId: lecturer,
+        isPublished: true,
       },
       select: {
         title: true,
@@ -30,7 +32,8 @@ export class LecturerController {
   }
 
   async getDrafts(req: Request, res: Response, next: NextFunction) {
-    const lecturer = req.body.lecturerId;
+    const { lecturerId } = req.params;
+    const lecturer = lecturerId;
     const drafts = await prisma.assignment.findMany({
       where: {
         isPublished: false,
@@ -51,7 +54,8 @@ export class LecturerController {
   }
 
   async getSubmissions(req: Request, res: Response, next: NextFunction) {
-    const lecturer = req.body.lecturerId;
+    const { lecturerId } = req.params;
+    const lecturer = lecturerId;
     //get all published assignments with particular lecturer
     const assignments = await prisma.assignment.findMany({
       where: {
@@ -360,6 +364,21 @@ export class LecturerController {
       res,
       `Assignment deleted successfully`,
       result
+    );
+  }
+  async getStudents(req: Request, res: Response, next: NextFunction) {
+    const { records: students, paginationInfo } = await Paginator.paginate(
+      "student",
+      req,
+      prisma
+    );
+
+    return ResponseUtil.sendResponse(
+      res,
+      "Students fetched successfully",
+      students,
+      StatusCodes.OK,
+      paginationInfo
     );
   }
 }

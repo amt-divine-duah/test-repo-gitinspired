@@ -1,21 +1,28 @@
-import { useNavigate } from "react-router-dom"
-
-
+import { useNavigate } from "react-router-dom";
+import "../Styles/Forbidden.scss";
 const ForbiddenPage = () => {
-
-    const navigate = useNavigate()
-    function handleClick() {
-        console.log("Go Home")
-        navigate("/")
-    }
+  const navigate = useNavigate();
+  function handleClick() {
+    console.log("Go Home");
+    navigate("/");
+  }
 
   return (
-    <div>
-        <h1>Access Forbidden</h1>
-        <p>This page is forbidden</p>
-        <button onClick={handleClick}>Home</button>
+    <div className="forbidden">
+      <div className="error-code">
+        <h1>403</h1>
+      </div>
+      <div className="text">
+        <h3>Access Forbidden</h3>
+      </div>
+      <div className="redirect-text">
+        <p>click to return to the HomePage</p>
+      </div>
+      <div className="redirect-btn">
+        <button onClick={handleClick}>HomePage</button>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default ForbiddenPage
+export default ForbiddenPage;

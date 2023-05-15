@@ -1,27 +1,64 @@
 import "../Styles/lecturerCreateAssignmentModal.scss";
+import "../Styles/customDatePicker.scss";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import React, { useEffect, useState } from "react";
-import api from "../ApiClient";
+import { useEffect, useRef, useState } from "react";
 import { UserInterface } from "../interfaces/UserInterface";
-import { useAuthUser } from "react-auth-kit";
-import { showErrorMessage, showSuccessMessage } from "../constants/messages";
+import api from "../ApiClient";
 import { StatusCodes } from "http-status-codes";
+import { showErrorMessage, showSuccessMessage } from "../constants/messages";
+import { useAuthUser } from "react-auth-kit";
 
 type Prop = {
   handleShowAssignmentModal: React.MouseEventHandler;
-  onCreateAssignment: any
+  onCreateAssignment: any;
+  onDraftAssignment: any
 };
 const LecturerCreateNewAssignmentModal = ({
   handleShowAssignmentModal,
   onCreateAssignment,
+  onDraftAssignment
 }: Prop) => {
+  const [invitationInfo] = useState([
+    {
+      name: "Benstrong",
+      email: "benstrong@amalitech.org",
+    },
+    {
+      name: "Emmanuella Neizer",
+      email: "emmanuellaneizer@amalitech.org",
+    },
+    {
+      name: "Lisa-Marie Koomson",
+      email: "lisa.marie@amalitech.org",
+    },
+    {
+      name: "Francis Kay",
+      email: "francis.kay@amalitech.org",
+    },
+    {
+      name: "Clara Cartey",
+      email: "claracartey@amalitech.org",
+    },
+    {
+      name: "Abigail Barbie",
+      email: "abigailbarbie@amalitech.org",
+    },
+    {
+      name: "Joshuah Mensah",
+      email: "joshuan.mensah@amalitech.org",
+    },
+  ]);
+  const userInviteColor = ["#FFA9A9", "#A9EAFF", "#E9A9FF", "#FFA9A9"];
   const [value, setValue] = useState("");
   const [users, setUsers] = useState<UserInterface[]>();
-  const titleRef = React.useRef<HTMLInputElement>(null);
-  const deadlineRef = React.useRef<HTMLInputElement>(null);
+  const titleRef = useRef<HTMLInputElement>(null);
+  const deadlineRef = useRef<HTMLInputElement>(null);
   const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
   const auth = useAuthUser();
+  const editorStyle = {
+    height: "7rem",
+  };
 
   const handleCheckboxChange = (userId: string) => {
     setSelectedUsers((prevSelectedUsers) => {
@@ -33,9 +70,43 @@ const LecturerCreateNewAssignmentModal = ({
     });
   };
 
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleDraftSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log("How do I");
+    const description = value;
+    const title = titleRef.current ? titleRef.current.value : "";
+    const deadline = deadlineRef.current ? deadlineRef.current.value : "";
+
+    console.log(title);
+    console.log(deadline);
+    console.log("This is value", description, selectedUsers);
+
+    const formData = {
+      title: title,
+      description: description,
+      course: title,
+      deadline: deadline,
+      createdBy: auth()?.loginId,
+      publish: false,
+      students: selectedUsers,
+    };
+
+    console.log("This is forData", formData);
+    try {
+      const response = await api.post(
+        "/api/lecturer/create-assignment",
+        formData
+      );
+      if (response.status === StatusCodes.OK) {
+        showSuccessMessage("Draft assigment created");
+        onDraftAssignment(response.data?.data);
+      }
+    } catch (error) {
+      showErrorMessage("Something went wrong");
+      return;
+    }
+  }
+
+  async function handleFinalSubmit() {
     const description = value;
     const title = titleRef.current ? titleRef.current.value : "";
     const deadline = deadlineRef.current ? deadlineRef.current.value : "";
@@ -62,22 +133,24 @@ const LecturerCreateNewAssignmentModal = ({
       );
       if (response.status === StatusCodes.OK) {
         showSuccessMessage(response.data?.message);
-        onCreateAssignment();
+        console.log(response.data?.data, "I am done");
+        onCreateAssignment(response.data?.data);
       }
     } catch (error) {
       showErrorMessage("Something went wrong");
-      return
+      return;
     }
   }
 
+
   useEffect(() => {
     (async () => {
-      const response = await api.get("/api/admin/students");
+      const response = await api.get("/api/lecturer/students");
       const users = response.data?.data;
       setUsers(users);
     })();
   }, []);
-
+  console.log("This is users", users);
   return (
     <div
       className="create-assignment-modal-container"
@@ -86,7 +159,7 @@ const LecturerCreateNewAssignmentModal = ({
       <form
         className="assignment-modal"
         onClick={(e) => e.stopPropagation()}
-        onSubmit={handleSubmit}
+        onSubmit={handleDraftSubmit}
       >
         <header>
           <img src="" alt="" />
@@ -94,58 +167,81 @@ const LecturerCreateNewAssignmentModal = ({
         <div className="modal-content">
           <div className="modal-left-side">
             <h3>Create New Assignment</h3>
-            <label htmlFor="title">Title</label>
-            <div className="modal-input-container">
+
+            <div>
+              <div className="modal-input-container">
+                <p>Title</p>
+              </div>
+
               <input
                 type="text"
-                id="title"
-                placeholder="e.g.  Javascript"
+                name=""
+                id=""
+                placeholder="e.g introduction to programming"
                 ref={titleRef}
               />
-              <img src="" alt="" />
             </div>
 
-            <label htmlFor="deadline">Deadline</label>
             <div className="modal-input-container">
-              <input
-                type="date"
-                id="deadline"
-                placeholder="dd/mm/yyyy"
-                ref={deadlineRef}
-              />
-              <img src="" alt="" />
+              <p>Deadline</p>
+              <div className="customDatePicker">
+                <input
+                  type="text"
+                  id="date"
+                  ref={deadlineRef}
+                  placeholder="dd/mm/yyyy"
+                  onFocus={() => (deadlineRef.current.type = "date")}
+                />
+              </div>
             </div>
-
-            <p>Assignment Description</p>
-
+            <div className="modal-input-container">
+              <p>Assignment Description</p>
+            </div>
             <div className="test-editor">
-              <ReactQuill theme="snow" value={value} onChange={setValue} />
+              <ReactQuill
+                theme="snow"
+                value={value}
+                onChange={setValue}
+              />
             </div>
+
             <div className="buttons">
-              <button>Save and Publish</button>
-              <button>Save as draft</button>
+              <button type="button" onClick={handleFinalSubmit}>Save and Publish</button>
+              <button type="submit">Save as draft</button>
             </div>
           </div>
           <div className="modal-middle-line"></div>
           <div className="modal-right-side">
             <h3>Invite Student</h3>
-            {users?.map((user) => (
-              <div className="invite-student-card" key={user.id}>
-                <div className="circle">{user.firstName.charAt(0)}</div>
-                <div className="user-name-and-emal">
-                  <label htmlFor={user.firstName}>{user.firstName}</label>
-                  <p>{user.email}</p>
+            <div className="invite-student-container">
+              {users?.map((user, index) => (
+                <div className="invite-student-card" key={index}>
+                  <div
+                    className="circle"
+                    style={{
+                      backgroundColor:
+                        userInviteColor[index % userInviteColor.length],
+                    }}
+                  >
+                    {user.firstName.charAt(0)}
+                  </div>
+                  <div className="user-name-and-emal">
+                    <label htmlFor={user.firstName}>{user.firstName}</label>
+                    <p>{user.email}</p>
+                  </div>
+                  <div className="user-check-box-container">
+                    <input
+                      type="checkbox"
+                      id={user.studentId}
+                      checked={selectedUsers.includes(user.studentId ?? "")}
+                      onChange={() =>
+                        handleCheckboxChange(user.studentId ?? "")
+                      }
+                    />
+                  </div>
                 </div>
-                <div className="user-check-box-container">
-                  <input
-                    type="checkbox"
-                    id={user.id}
-                    checked={selectedUsers.includes(user.id ?? "")}
-                    onChange={() => handleCheckboxChange(user.id ?? "")}
-                  />
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </form>

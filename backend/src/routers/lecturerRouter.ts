@@ -11,22 +11,22 @@ const lecturerRouter = Router();
 
 lecturerRouter.get(
   "/students",
-  ErrorHandler.catchErrors(adminController.getStudents)
+  ErrorHandler.catchErrors(lecturerController.getStudents)
 );
 lecturerRouter.get(
-  "/dashboard",
+  "/dashboard/:lecturerId",
   ErrorHandler.catchErrors(AuthMiddleware.authenticate),
   ErrorHandler.catchErrors(LecturerMiddleware.checkLecturerStatus),
   ErrorHandler.catchErrors(lecturerController.getAssignments)
 );
 lecturerRouter.get(
-  "/drafts",
+  "/drafts/:lecturerId",
   ErrorHandler.catchErrors(AuthMiddleware.authenticate),
   ErrorHandler.catchErrors(LecturerMiddleware.checkLecturerStatus),
   ErrorHandler.catchErrors(lecturerController.getDrafts)
 );
 lecturerRouter.get(
-  "/submissions",
+  "/submissions/:lecturerId",
   ErrorHandler.catchErrors(AuthMiddleware.authenticate),
   ErrorHandler.catchErrors(LecturerMiddleware.checkLecturerStatus),
   ErrorHandler.catchErrors(lecturerController.getSubmissions)

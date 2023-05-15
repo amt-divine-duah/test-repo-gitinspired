@@ -1,5 +1,11 @@
-const Submission = () => {
-  return <div>Submission</div>;
-};
 
-export default Submission;
+
+const Submission = () => {
+  return (
+    <div>
+      Submission
+    </div>
+  )
+}
+
+export default Submission

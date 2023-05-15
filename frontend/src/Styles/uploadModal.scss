@@ -2,8 +2,8 @@
 @import '../App.css';
 
 
-.uploadModalContainer{
-    @include lg{
+.uploadModalContainer {
+    @include lg {
         position: absolute;
         background-color: rgba(59, 59, 64, 0.8);
         width: 100%;
@@ -11,53 +11,85 @@
         top: 0;
         display: grid;
         place-items: center;
+        overflow-y: auto;
 
-        .uploadModal{
+        .uploadModal {
             display: grid;
             place-items: center;
             background-color: #fff;
-            width: 582px;
-            height: 615px;
+            width: 32vw;
+            height: 30rem;
             border-radius: 16px;
-        
+
+            .upload-header {
+                text-align: center;
+                line-height: 2.5rem;
+            }
+
+            .upload-footer {
+                text-align: center;
+            }
+
+            .upload-close-icon {
+                width: 100%;
+
+                div {
+                    margin: 0 0 0 90%;
+                    cursor: pointer;
+                }
+            }
         }
-        .modalFileUpload{
+
+        .second-p {
+            font-size: 0.8rem;
+
+        }
+
+        .modalFileUpload {
             position: relative;
             display: grid;
             place-items: center;
-            height: 357px;
-            width: 395px;
+            height: 23vw;
+            width: 25vw;
             background-color: #FBFBFB;
             border-radius: 16px;
             box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-            p{
+            padding: 0 0.5rem;
+
+            p {
                 text-align: center;
+
             }
-            & input{
+
+            img {
+                margin-top: 1rem;
+            }
+
+            & input {
                 position: absolute;
                 top: 0;
-                left:0;
+                left: 0;
                 width: 100%;
                 height: 100%;
                 color: transparent;
                 cursor: pointer;
-                 
-                
+
             }
-            & input::-webkit-file-upload-button{
-                background-color:red;
+
+            & input::-webkit-file-upload-button {
                 position: absolute;
-                top:30%;
+                top: 30%;
                 left: 50%;
                 transform: translateX(-50%);
                 z-index: -1;
 
             }
-            #files{
-                background-color: transparent;
-             }
 
-            .uploadbtn{
+            #files {
+                background-color: transparent;
+            }
+
+            .uploadbtn {
                 width: 8rem;
                 height: 2rem;
                 display: flex;
@@ -66,8 +98,9 @@
                 border-radius: 8px;
                 background-color: #170E7D;
                 color: #fff;
+                cursor: pointer;
             }
         }
-        
+
     }
 }

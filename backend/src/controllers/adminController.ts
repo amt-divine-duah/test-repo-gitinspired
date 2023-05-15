@@ -242,6 +242,7 @@ export class AdminController {
     );
   }
 
+  
   async getAssignments(req: Request, res: Response, next: NextFunction) {
 
     const assignments = await prisma.assignment.findMany();

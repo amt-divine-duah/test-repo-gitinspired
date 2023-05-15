@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
-const AssignmentCard = (prop: {title: string, description: string, date: string, uniqueCode: string}) => {
+import { AssignmentInterface } from "../../interfaces/AssigmentInterface";
+const AssignmentCard = (prop: AssignmentInterface) => {
   const navigate = useNavigate();
   const cardClicked = (event: React.MouseEvent<HTMLDivElement>) => {
     const name = event.currentTarget.getAttribute("id");
@@ -18,7 +19,7 @@ const AssignmentCard = (prop: {title: string, description: string, date: string,
           </p>
        
         <div className="assignment-features">
-          <p>{prop.date}</p>
+          <p>{prop.deadline}</p>
           <img src="/invite.png" alt="add button" />
         </div>
         <div className="assignment-uniqueness">

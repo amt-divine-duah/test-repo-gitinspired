@@ -67,7 +67,7 @@ const AdminMainDashBoard = () => {
             <div className="left-admin-dashboard-top">
               <div className="admin-dashboard-header">
                 <div className="admin-header-text">
-                  <h1>Welcome back, Ella</h1>
+                  <h1>Welcome back, Admin</h1>
                   <p>
                     Morem ipsum dolor sit amet, consectetur adipiscing elit.
                     Nunc vulputate libero et velit interdum, ac aliquet odio
