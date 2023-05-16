@@ -3,6 +3,7 @@
 .main-board-table{
     @include lg{
         table{
+            width: 100%;
             border: none;
             border-collapse: collapse;
             text-align: left;

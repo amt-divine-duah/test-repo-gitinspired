@@ -2,6 +2,75 @@
 
 .StudentAssignmentDetails{
     @include lg{
+      width: 33%;
+      max-height: 1024px;
+      border: 0.546887px solid #B9BBBE;
+      height: calc(100vh - 5.05rem);
+      overflow-y: auto;
+
+      .assignment-details-head{
+        margin-left: 2rem;
+       
+        h1{
+          margin-top: 4rem;
+          font-weight: 400; 
+        }
+        .date{
+          display: flex;
+          justify-content: space-between;
+          margin-right: 4rem;
+          color: #FF3131;
+          font-size: 0.7rem;
+          margin-top: 1rem;
+
+        }
+
+        .not-submitted{
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-right: 4rem;
+          color: #9F9F9F;
+          font-size: 0.8rem;
+          margin-top: 1rem;
+
+          .not-submitted-with-image{
+            display: flex;
+          }
+        }
+      
+      }
+      .assignment-details-body{
+        margin: 1rem 1rem;
+        h4{
+          margin-left: 1.4rem;
+          font-weight: 400;
+        }
+        p{
+          margin-top: 1rem;
+          color: #9F9F9F;
+        }
+      }
+
+      .assignment-details-button{
+        display: flex;
+        justify-content: center;
+
+        button{
+          width: 13.25rem;
+          height: 2.125rem;
+          border-radius: 8px;
+          background-color: #5D34EC;
+          border: none;
+          color: #fff;
+          font-size: 0.8rem;
+          font-weight: 600;
+          margin-bottom: 1rem;
+      
+        }
+      }
      
     }
 }
+
+ 

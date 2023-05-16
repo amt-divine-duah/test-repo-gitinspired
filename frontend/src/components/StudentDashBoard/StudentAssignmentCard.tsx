@@ -1,11 +1,12 @@
 import '../../Styles/student-assignment-card.scss';
 
-const AssignmenCard = ({handleShowDetails,lecturerName}:any) => {
+const AssignmenCard = ({handleShowDetails,lecturerName, color}:any) => {
+  
 
   return (
     <div className='student-card' onClick={handleShowDetails}>
-        <div className="title">
-            <h4>JavaScript</h4>
+        <div className="title" style={{backgroundColor: color}}>
+            <h4>Javascript</h4>
         </div>
 
         <div className="student-card-body">
@@ -22,7 +23,7 @@ const AssignmenCard = ({handleShowDetails,lecturerName}:any) => {
                 </div>
                 <div className="student-card-footer">
                     <div className="student-card-footer-image">
-                        <img src="" alt="" />
+                        <img src="/user3.svg" alt="" />
                     </div>
                     <div className="student-card-footer-text">
                         <p>Lecturer</p>

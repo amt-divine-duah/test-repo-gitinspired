@@ -1,7 +1,8 @@
 @import './breakpoints';
 
 .main-student-dashboard-container{
-    height: 87.7%;
+    max-height: 1024px;
+
     a{
         &.active{
             border-bottom: 4px solid green;

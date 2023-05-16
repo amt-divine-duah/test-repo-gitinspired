@@ -1,7 +1,7 @@
 
 import { PropsWithChildren, useState } from 'react'
-import NavBar from '../NavBar'
-import '../../Styles/MainStudentDashBoard.scss';
+import NavBar from '../components/NavBar'
+import '../Styles/MainStudentDashBoardPage.scss';
 
 
 const MainStudentDashBoard = ({children}:PropsWithChildren) => {

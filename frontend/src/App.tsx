@@ -4,7 +4,7 @@ import './App.css';
 import HomePage from "./Pages/HomePage";
 import LecturerView from "./Pages/Lecturer/LecturerView";
 import ResetPassword from "./Pages/ResetPassword";
-import MainStudentDashBoard from "./components/StudentDashBoard/MainStudentDashBoard";
+import MainStudentDashBoard from "./Pages/MainStudentDashBoardPage";
 import { Route, Routes } from "react-router-dom";
 import AdminStudentDashBoard from "./components/AdminStudentDashBoard";
 import AdminLecturerDashBoard from "./components/AdminLecturerDashBoard";
@@ -27,14 +27,14 @@ const App = () => {
         <Route path="/" element={<AdminMainDashBoard/>} />
       </Routes>
       </HomePage> */}
-      {/* <MainStudentDashBoard>
+      <MainStudentDashBoard>
         <Routes>
           <Route path="students-dashboard" element={<StudentsDashBoard/>}/>
           <Route path="submission" element={<SubmissionBoard/>}/>
         </Routes>
       </MainStudentDashBoard>
-      */}
-      <LoginPage/>
+     
+      {/* <LoginPage/> */}
     </div>
   
   )
