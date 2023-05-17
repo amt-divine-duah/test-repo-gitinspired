@@ -1,14 +1,15 @@
 import bodyParser from "body-parser";
 import cors from "cors";
 import express, { Application, NextFunction, Request, Response } from "express";
+import { ReasonPhrases, StatusCodes } from "http-status-codes";
 import morgan from "morgan";
 import { myStream } from "./configs/winstonConfig";
-import authRouter from "./routers/authRouter";
 import { ErrorHandler } from "./middlewares/ErrorHandler";
-import { ResponseUtil } from "./utils/Response";
-import { StatusCodes, ReasonPhrases } from "http-status-codes";
 import adminRouter from "./routers/adminRouter";
+import authRouter from "./routers/authRouter";
 import lecturerRouter from "./routers/lecturerRouter";
+import studentRouter from "./routers/studentRouter";
+import { ResponseUtil } from "./utils/Response";
 
 export default function configureApp() {
   const app: Application = express();
@@ -46,6 +47,7 @@ export default function configureApp() {
   app.use("/api/auth", authRouter);
   app.use("/api/admin", adminRouter);
   app.use("/api/lecturer", lecturerRouter);
+  app.use('/api/student', studentRouter);
 
   // end routers
 
