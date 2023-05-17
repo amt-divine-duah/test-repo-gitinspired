@@ -14,16 +14,16 @@ const initializeFolder = async () => {
     try {
         const folderExists = await fs.pathExists(folderPath);
         if (folderExists) {
-            winstonConfig_1.default.warn("Folder already initialized");
+            winstonConfig_1.default.info("Folder already initialized");
         }
         else {
             fs.mkdirSync(folderPath);
             hidefile.hideSync(folderPath);
-            console.log(`Folder ${folderName} initialized`);
+            winstonConfig_1.default.info(`Folder ${folderName} initialized`);
         }
     }
     catch (error) {
-        console.log("Error initializing folder", error);
+        winstonConfig_1.default.error("Error initializing folder", error);
     }
 };
 exports.initializeFolder = initializeFolder;

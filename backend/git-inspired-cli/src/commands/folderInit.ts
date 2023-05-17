@@ -6,7 +6,7 @@ export const command: string = "init";
 export const desc: string = "Initialize a directory";
 
 export const builder: CommandBuilder = (yargs) => {
-  // Add options specific to the "add" command if needed
+  // Add options specific to the "init" command if needed
   return yargs;
 };
 
