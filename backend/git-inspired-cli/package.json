@@ -1,0 +1,25 @@
+{
+  "name": "git-inspired-cli",
+  "version": "1.0.0",
+  "main": "./bin/index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc -b",
+    "start": "ts-node src/index.ts"
+  },
+  "bin": {
+    "git-inspired-cli": "./bin/index.js"
+  },
+  "dependencies": {
+    "fs-extra": "^11.1.1",
+    "hidefile": "^3.0.0",
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.1",
+    "@types/node": "^20.1.5",
+    "@types/yargs": "^17.0.24",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
+  }
+}
