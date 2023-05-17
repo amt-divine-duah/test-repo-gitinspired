@@ -8,8 +8,8 @@ import sendAssignment from "../utils/sendAssignmentUtil";
 
 export class LecturerController {
   async getAssignments(req: Request, res: Response, next: NextFunction) {
-    const {lecturerId} = req.params
-    const lecturer = lecturerId
+    const { lecturerId } = req.params;
+    const lecturer = lecturerId;
 
     const assignments = await prisma.assignment.findMany({
       where: {
@@ -54,7 +54,7 @@ export class LecturerController {
   }
 
   async getSubmissions(req: Request, res: Response, next: NextFunction) {
-    const { lecturerId } = req.params; 
+    const { lecturerId } = req.params;
     const lecturer = lecturerId;
     //get all published assignments with particular lecturer
     const assignments = await prisma.assignment.findMany({
@@ -299,33 +299,35 @@ export class LecturerController {
       },
     });
 
-    //send email to new students only
-    const assignmentInfo = {
-      title: results.title,
-      deadline: results.deadline,
-      uniqueCode: results.uniqueCode,
-      link: `toBeImplemented`,
-    };
-    const studentListToEmail = [];
-    for (let i = 0; i < newIds.length; i++) {
-      const email = await prisma.student.findFirst({
-        where: {
-          id: newIds[i],
-        },
-        select: {
-          email: true,
-          firstName: true,
-          lastName: true,
-        },
-      });
-      studentListToEmail.push(email);
+    //if published send email to new students only
+    if (results.isPublished) {
+      const assignmentInfo = {
+        title: results.title,
+        deadline: results.deadline,
+        uniqueCode: results.uniqueCode,
+        link: `toBeImplemented`,
+      };
+      const studentListToEmail = [];
+      for (let i = 0; i < newIds.length; i++) {
+        const email = await prisma.student.findFirst({
+          where: {
+            id: newIds[i],
+          },
+          select: {
+            email: true,
+            firstName: true,
+            lastName: true,
+          },
+        });
+        studentListToEmail.push(email);
+      }
+      sendAssignment(assignmentInfo, studentListToEmail);
+      return ResponseUtil.sendResponse(
+        res,
+        "Students invites successfully",
+        results
+      );
     }
-    sendAssignment(assignmentInfo, studentListToEmail);
-    return ResponseUtil.sendResponse(
-      res,
-      "Students invites successfully",
-      results
-    );
   }
 
   async searchStudents(req: Request, res: Response, next: NextFunction) {
