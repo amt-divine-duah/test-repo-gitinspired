@@ -9,8 +9,8 @@ const builder = (yargs) => {
     return yargs;
 };
 exports.builder = builder;
-const handler = () => {
-    (0, folderInitUtil_1.initializeFolder)();
+const handler = async () => {
+    await (0, folderInitUtil_1.initializeFolder)();
 };
 exports.handler = handler;
 //# sourceMappingURL=folderInit.js.map

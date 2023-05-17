@@ -10,6 +10,6 @@ export const builder: CommandBuilder = (yargs) => {
   return yargs;
 };
 
-export const handler = () => {
-  initializeFolder();
+export const handler = async () => {
+  await initializeFolder();
 };
