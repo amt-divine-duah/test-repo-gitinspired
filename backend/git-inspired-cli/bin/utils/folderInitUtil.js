@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.initializeFolder = void 0;
 const initializeFolder = () => {
-    console.log("Don't DO this");
+    console.log("Do this");
 };
 exports.initializeFolder = initializeFolder;
 //# sourceMappingURL=folderInitUtil.js.map

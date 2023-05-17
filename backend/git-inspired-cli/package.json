@@ -1,5 +1,5 @@
 {
-  "name": "git-inspired-cli",
+  "name": "subsys",
   "version": "1.0.0",
   "main": "./bin/index.js",
   "license": "MIT",
@@ -8,7 +8,7 @@
     "start": "ts-node src/index.ts"
   },
   "bin": {
-    "git-inspired-cli": "./bin/index.js"
+    "subsys": "./bin/index.js"
   },
   "dependencies": {
     "fs-extra": "^11.1.1",

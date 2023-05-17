@@ -6,7 +6,7 @@ import * as addCommand from "./commands/folderInit";
 
 yargs(hideBin(process.argv))
   .version("1.1.0")
-  .usage("Usage: git-inspired-cli [command] [options]")
+  .usage("Usage: subsys [command] [options]")
   .commandDir("commands")
   .demandCommand(1, "Please specify a command.")
   .recommendCommands()
