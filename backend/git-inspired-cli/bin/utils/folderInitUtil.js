@@ -1,16 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.initializeFolder = void 0;
-const path = require("path");
 const fs = require("fs-extra");
-const appRoot = require("app-root-path");
 const hidefile = require("hidefile");
-const constants_1 = require("../constants/constants");
+const path = require("path");
 const winstonConfig_1 = require("../configs/winstonConfig");
+const constants_1 = require("../constants/constants");
 const initializeFolder = async () => {
-    const rootPath = appRoot.path;
     const folderName = constants_1.FOLDERNAME.NAME;
-    const folderPath = path.resolve(rootPath, folderName);
+    const folderPath = path.resolve(process.cwd(), folderName);
+    winstonConfig_1.default.info(folderPath);
     try {
         const folderExists = await fs.pathExists(folderPath);
         if (folderExists) {
