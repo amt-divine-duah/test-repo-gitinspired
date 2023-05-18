@@ -7,6 +7,7 @@ import { myStream } from "./configs/winstonConfig";
 import { ErrorHandler } from "./middlewares/ErrorHandler";
 import adminRouter from "./routers/adminRouter";
 import authRouter from "./routers/authRouter";
+import cliRouter from "./routers/cliRouter";
 import lecturerRouter from "./routers/lecturerRouter";
 import studentRouter from "./routers/studentRouter";
 import { ResponseUtil } from "./utils/Response";
@@ -48,6 +49,7 @@ export default function configureApp() {
   app.use("/api/admin", adminRouter);
   app.use("/api/lecturer", lecturerRouter);
   app.use('/api/student', studentRouter);
+  app.use('/api/cli', cliRouter);
 
   // end routers
 

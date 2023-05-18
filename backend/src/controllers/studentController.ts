@@ -6,10 +6,12 @@ import { ResponseUtil } from "../utils/Response";
 export class StudentController {
   async getAssignments(req: Request, res: Response, next: NextFunction) {
     const studentId = req["tokenPayload"]["userId"];
+
     //get assignment ids
     const assignmentIds = await prisma.studentsOnAssignments.findMany({
       where: {
         studentId: studentId,
+        status: false
       },
       select: {
         assignmentId: true,
@@ -20,13 +22,17 @@ export class StudentController {
     const assignments = await prisma.assignment.findMany({
       where: {
         id: { in: ids },
-        isPublished: true
+        isPublished: false,
       },
+      include:{
+        createdBy: true,
+      }
     });
+    
     return ResponseUtil.sendResponse(
       res,
       "List of assignments given to user",
-      assignments
+      {assignments}
     );
   }
 
