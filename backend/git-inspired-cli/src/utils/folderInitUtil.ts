@@ -1,6 +1,5 @@
 import * as path from "path"
 import * as fs from "fs-extra"
-import * as appRoot from "app-root-path"
 import * as hidefile from "hidefile"
 import { FOLDERNAME } from "../constants/constants"
 import logger from "../configs/winstonConfig"
@@ -8,9 +7,8 @@ import logger from "../configs/winstonConfig"
 
 export const initializeFolder = async () => {
 
-    const rootPath = appRoot.path
     const folderName = FOLDERNAME.NAME
-    const folderPath = path.resolve(rootPath, folderName)
+    const folderPath = path.resolve(process.cwd(), folderName);
 
     try {   
         const folderExists = await fs.pathExists(folderPath)

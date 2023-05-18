@@ -5,7 +5,7 @@ const folderInitUtil_1 = require("../utils/folderInitUtil");
 exports.command = "init";
 exports.desc = "Initialize a directory";
 const builder = (yargs) => {
-    // Add options specific to the "add" command if needed
+    // Add options specific to the "init" command if needed
     return yargs;
 };
 exports.builder = builder;
