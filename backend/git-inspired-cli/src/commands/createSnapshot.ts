@@ -30,7 +30,6 @@ export const handler = async (argv) => {
     const snapshotName = response["name"];
 
     // Use the snapshotName for further processing
-    console.log("Snapshot name:", snapshotName);
     await createSnapShot(slugify(snapshotName));
   } else {
     // The name is provided as a command-line argument

@@ -12,12 +12,12 @@ export const compareDirectories = async (
   const initDirectoryFiles = await fg("**", {
     cwd: initDirectory,
     dot: true,
-    ignore: ["node_modules/**"],
+    ignore: ["node_modules/**", ".config"],
   });
   const currentDirectoryFiles = await fg("**", {
     cwd: currentDirectory,
     dot: true,
-    ignore: ["node_modules/**", ".subsys/**"],
+    ignore: ["node_modules/**", ".subsys/**", ".config"],
   });
 
 

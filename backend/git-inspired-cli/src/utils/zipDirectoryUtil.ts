@@ -12,7 +12,7 @@ export const zipDirectoryUtil = async (snapshotName, snapshotPath) => {
 
   outputZip.on("close", () => {
     logger.info(
-      `Snapshot '${snapshotName}' has been zipped and saved to '${zipFilePath}'.`
+      `Snapshot '${snapshotName}' has been zipped.`
     );
   });
 

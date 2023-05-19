@@ -15,10 +15,15 @@ const createSnapShot = async (snapshotName) => {
     const initDirectory = path.resolve(process.cwd(), ".subsys");
     const currentDirectory = process.cwd();
     const response = await (0, getSubFolder_1.getSubFolder)(initDirectory);
+    // Check if init directory has been created
+    if (!fs.existsSync(initDirectory)) {
+        winstonConfig_1.default.warn(`Please initialize a directory using "subsys init" command`);
+        return;
+    }
     const currentDirectoryFiles = await fg("**", {
         cwd: currentDirectory,
         dot: true,
-        ignore: ["node_modules/**", ".subsys/**"],
+        ignore: ["node_modules/**", ".subsys/**", ".config"],
     });
     if (response && response.length > 0) {
         const isSameFiles = await (0, compareDirectories_1.compareDirectories)(path.resolve(response[0]), currentDirectory);
@@ -53,6 +58,7 @@ const createSnapShot = async (snapshotName) => {
             }
             catch (error) {
                 winstonConfig_1.default.error("Directory copy failed:", error);
+                return;
             }
         }
     }
@@ -81,14 +87,10 @@ const createSnapShot = async (snapshotName) => {
         }
         catch (error) {
             winstonConfig_1.default.error("Directory copy failed %j", error);
+            return;
         }
     }
     return;
 };
 exports.createSnapShot = createSnapShot;
-const createSnapshotFile = () => {
-    // Perform snapshot creation logic here using the file path
-    // For example, copy the file to the snapshot directory
-    winstonConfig_1.default.info("Snapshot");
-};
 //# sourceMappingURL=createSnapShotUtil.js.map

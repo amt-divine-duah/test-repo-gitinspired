@@ -12,7 +12,7 @@ const zipDirectoryUtil = async (snapshotName, snapshotPath) => {
     const outputZip = fs.createWriteStream(zipFilePath);
     const archive = archiver("zip", { zlib: { level: 9 } });
     outputZip.on("close", () => {
-        winstonConfig_1.default.info(`Snapshot '${snapshotName}' has been zipped and saved to '${zipFilePath}'.`);
+        winstonConfig_1.default.info(`Snapshot '${snapshotName}' has been zipped.`);
     });
     archive.pipe(outputZip);
     archive.directory(snapshotPath, snapshotName);
