@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.handler = exports.builder = exports.desc = exports.command = void 0;
 const enquirer_1 = require("enquirer");
 const configQuestions_1 = require("../prompts/configQuestions");
-const configDir_1 = require("../utils/configDir");
+const configDirectory_1 = require("../utils/configDirectory");
 exports.command = "config";
 exports.desc = "Configure the repository to an existing assignment";
 const builder = (yargs) => {
@@ -36,10 +36,10 @@ const handler = async (argv) => {
     const { uniqueCode, studentId, i } = argv;
     if (i && (!uniqueCode || !studentId)) {
         const response = await (0, enquirer_1.prompt)(configQuestions_1.configQuestions);
-        (0, configDir_1.configDirectory)(response);
+        (0, configDirectory_1.configDirectory)(response);
     }
     else if (uniqueCode && studentId) {
-        (0, configDir_1.configDirectory)({ uniqueCode, studentId });
+        (0, configDirectory_1.configDirectory)({ uniqueCode, studentId });
     }
 };
 exports.handler = handler;

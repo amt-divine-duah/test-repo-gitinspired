@@ -95,4 +95,5 @@ model Submissions {
   snapshotName String                @unique
   relationId   Int
   relation     StudentsOnAssignments @relation(fields: [relationId], references: [id], onDelete: Cascade)
+  sent         Boolean
 }
