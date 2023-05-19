@@ -80,11 +80,19 @@ model Assignment {
 }
 
 model StudentsOnAssignments {
-  student      Student    @relation(fields: [studentId], references: [studentId], onDelete: Cascade)
+  id           Int           @id @default(autoincrement())
+  student      Student       @relation(fields: [studentId], references: [studentId], onDelete: Cascade)
   studentId    String
-  assignment   Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  assignment   Assignment    @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
   assignmentId Int
   status       Boolean
+  Submissions  Submissions[]
 
   @@unique([studentId, assignmentId])
+}
+
+model Submissions {
+  snapshotName String                @unique
+  relationId   Int
+  relation     StudentsOnAssignments @relation(fields: [relationId], references: [id], onDelete: Cascade)
 }
