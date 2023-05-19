@@ -1,7 +1,7 @@
 import { Arguments, argv, CommandBuilder } from "yargs";
 import { prompt } from "enquirer";
 import { configQuestions } from "../prompts/configQuestions";
-import { configDirectory } from "../utils/configDir";
+import { configDirectory } from "../utils/configDirectory";
 
 type Options = {
   uniqueCode: string;
