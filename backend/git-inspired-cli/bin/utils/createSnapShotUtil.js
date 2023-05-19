@@ -21,7 +21,7 @@ const createSnapShot = async (snapshotName) => {
         ignore: ["node_modules/**", ".subsys/**"],
     });
     if (response && response.length > 0) {
-        const isSameFiles = await (0, compareDirectories_1.compareDirectories)(path.resolve(response[0]), currentDirectory, uniqueSnapShotName);
+        const isSameFiles = await (0, compareDirectories_1.compareDirectories)(path.resolve(response[0]), currentDirectory);
         if (isSameFiles) {
             console.log("Do nothing");
         }

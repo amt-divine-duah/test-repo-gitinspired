@@ -6,7 +6,7 @@ const fs = require("fs-extra");
 const path = require("path");
 const ignore_1 = require("ignore");
 const fastEqual = require("fast-deep-equal");
-const compareDirectories = async (initDirectory, currentDirectory, snapshotName) => {
+const compareDirectories = async (initDirectory, currentDirectory) => {
     const initDirectoryFiles = await fg("**", {
         cwd: initDirectory,
         dot: true,

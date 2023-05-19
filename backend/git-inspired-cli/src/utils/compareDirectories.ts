@@ -8,7 +8,6 @@ import * as fastEqual from "fast-deep-equal";
 export const compareDirectories = async (
   initDirectory: string,
   currentDirectory: string,
-  snapshotName: string
 ) => {
   const initDirectoryFiles = await fg("**", {
     cwd: initDirectory,

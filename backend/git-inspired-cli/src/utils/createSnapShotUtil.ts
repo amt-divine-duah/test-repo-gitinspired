@@ -22,8 +22,7 @@ export const createSnapShot = async (snapshotName: string) => {
   if (response && response.length > 0) {
      const isSameFiles = await compareDirectories(
        path.resolve(response[0]),
-       currentDirectory,
-       uniqueSnapShotName
+       currentDirectory
      );
      if (isSameFiles) {
       console.log("Do nothing")
