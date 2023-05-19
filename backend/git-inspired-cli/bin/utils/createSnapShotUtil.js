@@ -15,6 +15,11 @@ const createSnapShot = async (snapshotName) => {
     const initDirectory = path.resolve(process.cwd(), ".subsys");
     const currentDirectory = process.cwd();
     const response = await (0, getSubFolder_1.getSubFolder)(initDirectory);
+    // Check if init directory has been created
+    if (!fs.existsSync(initDirectory)) {
+        winstonConfig_1.default.warn(`Please initialize a directory using "subsys init" command`);
+        return;
+    }
     const currentDirectoryFiles = await fg("**", {
         cwd: currentDirectory,
         dot: true,
@@ -53,6 +58,7 @@ const createSnapShot = async (snapshotName) => {
             }
             catch (error) {
                 winstonConfig_1.default.error("Directory copy failed:", error);
+                return;
             }
         }
     }
@@ -81,6 +87,7 @@ const createSnapShot = async (snapshotName) => {
         }
         catch (error) {
             winstonConfig_1.default.error("Directory copy failed %j", error);
+            return;
         }
     }
     return;

@@ -13,6 +13,13 @@ export const createSnapShot = async (snapshotName: string) => {
   const initDirectory = path.resolve(process.cwd(), ".subsys");
   const currentDirectory = process.cwd()
   const response = await getSubFolder(initDirectory);
+
+  // Check if init directory has been created
+  if (!fs.existsSync(initDirectory)) {
+    logger.warn(`Please initialize a directory using "subsys init" command`);
+    return
+  }
+
   const currentDirectoryFiles = await fg("**", {
     cwd: currentDirectory,
     dot: true,
@@ -62,6 +69,7 @@ export const createSnapShot = async (snapshotName: string) => {
         await zipDirectoryUtil(uniqueSnapShotName, snapshotPath);
       } catch (error) {
         logger.error("Directory copy failed:", error);
+        return
       }
 
      }
@@ -95,6 +103,7 @@ export const createSnapShot = async (snapshotName: string) => {
       await zipDirectoryUtil(uniqueSnapShotName, snapshotPath);
     } catch (error) {
       logger.error("Directory copy failed %j", error);
+      return
     }
   }
   return;

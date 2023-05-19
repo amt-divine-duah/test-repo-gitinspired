@@ -27,7 +27,6 @@ const handler = async (argv) => {
         // Retrieve the name from the user's response
         const snapshotName = response["name"];
         // Use the snapshotName for further processing
-        console.log("Snapshot name:", snapshotName);
         await (0, createSnapShotUtil_1.createSnapShot)((0, slugify_1.default)(snapshotName));
     }
     else {
