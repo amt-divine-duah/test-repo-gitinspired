@@ -4,6 +4,7 @@ exports.zipDirectoryUtil = void 0;
 const archiver = require("archiver");
 const fs = require("fs-extra");
 const path = require("path");
+const winstonConfig_1 = require("../configs/winstonConfig");
 const zipDirectoryUtil = async (snapshotName, snapshotPath) => {
     // Create a zip file of the snapshot directory
     const zipFileName = `${snapshotName}.zip`;
@@ -11,7 +12,7 @@ const zipDirectoryUtil = async (snapshotName, snapshotPath) => {
     const outputZip = fs.createWriteStream(zipFilePath);
     const archive = archiver("zip", { zlib: { level: 9 } });
     outputZip.on("close", () => {
-        console.log(`Snapshot '${snapshotName}' has been zipped and saved to '${zipFilePath}'.`);
+        winstonConfig_1.default.info(`Snapshot '${snapshotName}' has been zipped and saved to '${zipFilePath}'.`);
     });
     archive.pipe(outputZip);
     archive.directory(snapshotPath, snapshotName);

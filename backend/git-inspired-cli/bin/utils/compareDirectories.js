@@ -26,11 +26,8 @@ const compareDirectories = async (initDirectory, currentDirectory, snapshotName)
         ig.add(ignoreFileContent);
     }
     const filteredCurrentDirFiles = currentDirectoryFiles.filter(ig.createFilter());
-    console.log(filteredCurrentDirFiles, "I filtered the array");
-    console.log(initDirectoryFiles, "I have init directory files");
     //  Check for changes in files
     if (!fastEqual(initDirectoryFiles.sort(), filteredCurrentDirFiles.sort())) {
-        console.log("These are different");
         return false;
     }
     for (const file of initDirectoryFiles) {
@@ -38,35 +35,11 @@ const compareDirectories = async (initDirectory, currentDirectory, snapshotName)
         const currentDirectoryPath = path.join(currentDirectory, file);
         const content1 = await fs.readFile(initDirectoryPath, "utf-8");
         const content2 = await fs.readFile(currentDirectoryPath, "utf-8");
-        console.log("doing this", initDirectoryPath, currentDirectoryPath);
         if (content1 !== content2) {
-            console.log("Files have been changed");
             return false;
         }
     }
-    console.log("Files contain the same data");
     return true;
-    // if (!initDirectoryFiles.length) {
-    //   const snapshotPath = path.resolve(process.cwd(), ".subsys", snapshotName);
-    //   // copy current directory into the subsys folder
-    //   try {
-    //     // Create the snapshot directory if it doesn't exist
-    //     await fs.ensureDir(snapshotPath);
-    //     // Copy the files from current directory to snapshot directory
-    //     for (const file of currentDirFiles) {
-    //       if (!ig.ignores(file)) {
-    //         const sourceFile = path.join(currentDir, file);
-    //         const targetFile = path.join(snapshotPath, file);
-    //         await fs.copy(sourceFile, targetFile);
-    //       }
-    //     }
-    //     console.log(`Directory contents copied to '${snapshotPath}'.`);
-    //     //   Zip the contents
-    //     await zipDirectoryUtil(snapshotName, snapshotPath);
-    //   } catch (error) {
-    //     console.error("Directory copy failed:", error);
-    //   }
-    // }
 };
 exports.compareDirectories = compareDirectories;
 //# sourceMappingURL=compareDirectories.js.map
