@@ -1,5 +1,8 @@
+import slugify from "slugify";
 import { createSnapShot } from "../utils/createSnapShotUtil";
 import { CommandBuilder } from "yargs";
+import { prompt } from "enquirer"
+import { snapshotQuestion } from "../prompts/snapshotPrompt";
 
 export const command: string = "snap";
 export const desc: string = "Create assigment snapshot";
@@ -17,7 +20,20 @@ export const builder: CommandBuilder = (yargs) => {
 
 };
 
-export const handler = async () => {
-    
-  await createSnapShot();
+export const handler = async (argv) => {
+    const {name} = argv
+     if (!name) {
+    // Prompt the user for the name if it's not provided
+    const response = await prompt(snapshotQuestion);
+
+    // Retrieve the name from the user's response
+    const snapshotName = response["name"];
+
+    // Use the snapshotName for further processing
+    console.log("Snapshot name:", snapshotName);
+    await createSnapShot(slugify(snapshotName));
+  } else {
+    // The name is provided as a command-line argument
+    await createSnapShot(slugify(name));
+  }
 };

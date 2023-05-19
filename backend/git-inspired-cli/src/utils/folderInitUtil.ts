@@ -1,13 +1,14 @@
-import * as fs from "fs-extra";
-import * as hidefile from "hidefile";
-import * as path from "path";
-import logger from "../configs/winstonConfig";
-import { FOLDERNAME } from "../constants/constants";
+import * as path from "path"
+import * as fs from "fs-extra"
+import * as hidefile from "hidefile"
+import { FOLDERNAME } from "../constants/constants"
+import logger from "../configs/winstonConfig"
+
 
 export const initializeFolder = async () => {
-  const folderName = FOLDERNAME.NAME;
-  const folderPath = path.resolve(process.cwd(), folderName);
-  logger.info(folderPath);
+
+    const folderName = FOLDERNAME.NAME
+    const folderPath = path.resolve(process.cwd(), folderName);
 
   try {
     const folderExists = await fs.pathExists(folderPath);
