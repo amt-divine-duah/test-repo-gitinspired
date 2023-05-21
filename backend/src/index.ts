@@ -13,7 +13,7 @@ prisma.$connect().then(() => {
 })
 
 const app = configureApp()
-// task.start();
+task.start();
 app.listen(PORT, () => {
     logger.info(`Server is running on ${PORT}`)
 })

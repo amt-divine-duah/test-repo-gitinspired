@@ -6,34 +6,45 @@ import generateEmail from '../templates/lecturerNotification';
 
 export async function getEmailList() {
   //returns an array of submissions with different lecturers
-  const newList = await prisma.lecturer.findMany({
-    include: {
-      Assignment: {
-        include: {
-          students: {
-            where: {
-              sent: false,
-              status: false,
-            },
-            include: {
-              student: {
-                select: {
-                  firstName: true,
-                  lastName: true,
+  const newList = await prisma.$transaction([
+    prisma.lecturer.findMany({
+      include: {
+        Assignment: {
+          include: {
+            students: {
+              where: {
+                sent: false,
+                status: true,
+              },
+              include: {
+                student: {
+                  select: {
+                    firstName: true,
+                    lastName: true,
+                  },
                 },
               },
             },
           },
         },
       },
-    },
-  });
+    }),
+    prisma.studentsOnAssignments.updateMany({
+      where: {
+        sent: false,
+        status: true,
+      },
+      data: {
+        sent: true,
+      },
+    }),
+  ]);
   // type EmailList = typeof newList;
 
-  //transform list, sort by lecturer
   // console.log(newList[0].Assignment[0].students);
   return newList;
 }
+
 export async function sendEmailToLecturer(lecturer) {
   const email = lecturer.email;
   const message = generateEmail(lecturer);
