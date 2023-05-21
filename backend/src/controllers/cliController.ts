@@ -23,7 +23,7 @@ export class CliController {
       },
     });
     const isValidStudent = await compare(student.password, password);
-    logger.info(isValidStudent)
+    logger.info(isValidStudent);
     if (!student || isValidStudent) {
       return ResponseUtil.sendError(
         res,
@@ -70,7 +70,8 @@ export class CliController {
     //create array of snaps to be stored in submissions table
     const entries = snapName.map((snap: string) => {
       return {
-        snapshotName: snap
+        snapshotName: snap,
+        sent: false,
       };
     });
     //store in submissions table
@@ -88,7 +89,7 @@ export class CliController {
         },
       },
     });
-    
+
     if (relation) {
       return ResponseUtil.sendResponse(
         res,
@@ -97,4 +98,8 @@ export class CliController {
       );
     }
   }
+
+  async sendMail(req: Request, res: Response, next: NextFunction){
+    //query database for all status equal true
+  };
 }
