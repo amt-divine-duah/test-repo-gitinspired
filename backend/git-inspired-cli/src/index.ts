@@ -11,4 +11,8 @@ yargs(hideBin(process.argv))
   .recommendCommands()
   .strict()
   .showHelpOnFail(true)
-  .help().argv;
+  .help()
+  .option("h", {
+    alias: "help",
+    describe: "Show help for the specified command",
+  }).argv;
