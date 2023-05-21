@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { AdminController } from "../controllers/adminController";
 import { LecturerController } from "../controllers/lecturerController";
-import { ErrorHandler } from "../middlewares/ErrorHandler";
 import { AuthMiddleware } from "../middlewares/AuthMiddleware";
+import { ErrorHandler } from "../middlewares/ErrorHandler";
 import { LecturerMiddleware } from "../middlewares/LecturerMiddleware";
 
 const adminController = new AdminController();

@@ -3,10 +3,10 @@ import logger from '../configs/winstonConfig';
 export default function generateEmail(info): string {
   const { Assignment, firstName, lastName } = info;
   let rows = '';
-    logger.info(info)
+    // logger.info(info)
   Assignment.forEach((item) => {
     const { title, deadline, uniqueCode, students } = item;
-    logger.info(item);
+    // logger.info(item);
     students.forEach((stud) => {
       const {  student, studentId } = stud;
       
