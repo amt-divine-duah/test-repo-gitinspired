@@ -6,7 +6,7 @@ export const task = cron.schedule('* * * * *', async () => {
   if (list.length) {
     list.forEach(async (lecturer)=>{
         // console.log('I have mail');
-        // await sendEmailToLecturer(lecturer);
+        await sendEmailToLecturer(lecturer);
         // console.log('email sent');
     })
   }
