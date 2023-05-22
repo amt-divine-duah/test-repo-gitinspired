@@ -4,10 +4,18 @@ exports.configDirectory = void 0;
 const fs = require("fs-extra");
 const constants_1 = require("../constants/constants");
 const hidefile = require("hidefile");
+const path = require("path");
 const configDirectory = async (response) => {
-    const file = constants_1.FILENAME.CONFIG;
+    const file = path.resolve(process.cwd(), constants_1.FILENAME.CONFIG);
     try {
-        fs.writeFileSync(file, JSON.stringify(response));
+        if (!fs.existsSync(file)) {
+            fs.writeFileSync(file, JSON.stringify(response));
+        }
+        else {
+            fs.unlinkSync(file);
+            fs.writeFileSync(file, JSON.stringify(response));
+        }
+        fs.chmodSync(file, 0o666);
         hidefile.hideSync(file);
         console.log(`Folder configured successully on ${response.uniqueCode}`);
     }

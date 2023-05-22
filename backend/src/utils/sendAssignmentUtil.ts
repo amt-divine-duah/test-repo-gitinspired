@@ -11,7 +11,7 @@ import { assignmentInviteTemplate } from "../templates/assignmentInviteTemplate"
 export default async function sendAssignment(
   assignmentInfo: {
     title: any;
-    deadline?: string;
+    deadline?: Date;
     uniqueCode?: string;
     link?: string;
   },
