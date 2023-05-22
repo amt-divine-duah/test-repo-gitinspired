@@ -11,4 +11,5 @@ export interface configInterface {
   MAILER_HOST?: string;
   MAILER_PORT?: string;
   ACCOUNT_CONFIRMATION_URL: string;
+  ASSIGNMENT_INVITE_URL: string;
 }
