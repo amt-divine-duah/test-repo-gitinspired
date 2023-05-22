@@ -33,6 +33,7 @@ export class CliController {
       );
     }
     //check for assignment
+    const deadline = Date.now();
     const assignment = await prisma.assignment.findFirstOrThrow({
       where: {
         uniqueCode: uniqueCode,
@@ -50,6 +51,15 @@ export class CliController {
       return ResponseUtil.sendError(
         res,
         'Invalid assignment code. Please reconfigure',
+        StatusCodes.BAD_REQUEST,
+        ReasonPhrases.BAD_REQUEST
+      );
+    }
+    
+    if(Date.parse(assignment.deadline)>=deadline){
+      return ResponseUtil.sendError(
+        res,
+        'Can no longer submit after deadline',
         StatusCodes.BAD_REQUEST,
         ReasonPhrases.BAD_REQUEST
       );

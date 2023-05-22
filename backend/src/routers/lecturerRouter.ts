@@ -1,74 +1,80 @@
-import { Router } from "express";
-import { AdminController } from "../controllers/adminController";
-import { LecturerController } from "../controllers/lecturerController";
-import { AuthMiddleware } from "../middlewares/AuthMiddleware";
-import { ErrorHandler } from "../middlewares/ErrorHandler";
-import { LecturerMiddleware } from "../middlewares/LecturerMiddleware";
+import { Router } from 'express';
+import { AdminController } from '../controllers/adminController';
+import { LecturerController } from '../controllers/lecturerController';
+import { AuthMiddleware } from '../middlewares/AuthMiddleware';
+import { ErrorHandler } from '../middlewares/ErrorHandler';
+import { LecturerMiddleware } from '../middlewares/LecturerMiddleware';
 
 const adminController = new AdminController();
 const lecturerController = new LecturerController();
 const lecturerRouter = Router();
 
 lecturerRouter.get(
-  "/students",
+  '/students',
   ErrorHandler.catchErrors(lecturerController.getStudents)
 );
 lecturerRouter.get(
-  "/dashboard/:lecturerId",
+  '/dashboard/:lecturerId',
   ErrorHandler.catchErrors(AuthMiddleware.authenticate),
   ErrorHandler.catchErrors(LecturerMiddleware.checkLecturerStatus),
   ErrorHandler.catchErrors(lecturerController.getAssignments)
 );
 lecturerRouter.get(
-  "/drafts/:lecturerId",
+  '/drafts/:lecturerId',
   ErrorHandler.catchErrors(AuthMiddleware.authenticate),
   ErrorHandler.catchErrors(LecturerMiddleware.checkLecturerStatus),
   ErrorHandler.catchErrors(lecturerController.getDrafts)
 );
 lecturerRouter.get(
-  "/submissions/:lecturerId",
+  '/submissions/:lecturerId',
   ErrorHandler.catchErrors(AuthMiddleware.authenticate),
   ErrorHandler.catchErrors(LecturerMiddleware.checkLecturerStatus),
   ErrorHandler.catchErrors(lecturerController.getSubmissions)
 );
+lecturerRouter.get(
+  '/submissions/:lecturerId/:studentId',
+  ErrorHandler.catchErrors(AuthMiddleware.authenticate),
+  ErrorHandler.catchErrors(LecturerMiddleware.checkLecturerStatus),
+  ErrorHandler.catchErrors(lecturerController.getStudentSubmission)
+);
 lecturerRouter.post(
-  "/create-assignment",
+  '/create-assignment',
   ErrorHandler.catchErrors(AuthMiddleware.authenticate),
   ErrorHandler.catchErrors(LecturerMiddleware.checkLecturerStatus),
   ErrorHandler.catchErrors(lecturerController.createAssignment)
 );
 lecturerRouter.get(
-  "/edit-assignment",
+  '/edit-assignment',
   ErrorHandler.catchErrors(AuthMiddleware.authenticate),
   ErrorHandler.catchErrors(LecturerMiddleware.checkLecturerStatus),
   ErrorHandler.catchErrors(lecturerController.editAssignment)
 );
 lecturerRouter.post(
-  "/edit-assignment",
+  '/edit-assignment',
   ErrorHandler.catchErrors(AuthMiddleware.authenticate),
   ErrorHandler.catchErrors(LecturerMiddleware.checkLecturerStatus),
   ErrorHandler.catchErrors(lecturerController.editAssignment)
 );
 lecturerRouter.get(
-  "/invite-students",
+  '/invite-students',
   ErrorHandler.catchErrors(AuthMiddleware.authenticate),
   ErrorHandler.catchErrors(LecturerMiddleware.checkLecturerStatus),
   ErrorHandler.catchErrors(lecturerController.inviteStudents)
 );
 lecturerRouter.post(
-  "/invite-students",
+  '/invite-students',
   ErrorHandler.catchErrors(AuthMiddleware.authenticate),
   ErrorHandler.catchErrors(LecturerMiddleware.checkLecturerStatus),
   ErrorHandler.catchErrors(lecturerController.inviteStudents)
 );
 lecturerRouter.post(
-  "/search-students",
+  '/search-students',
   ErrorHandler.catchErrors(AuthMiddleware.authenticate),
   ErrorHandler.catchErrors(LecturerMiddleware.checkLecturerStatus),
   ErrorHandler.catchErrors(lecturerController.searchStudents)
 );
 lecturerRouter.get(
-  "/delete-assignment",
+  '/delete-assignment',
   ErrorHandler.catchErrors(lecturerController.deleteAssignment)
 );
 
