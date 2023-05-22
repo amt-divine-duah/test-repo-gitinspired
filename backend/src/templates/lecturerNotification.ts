@@ -65,7 +65,7 @@ export default function generateEmail(info): string {
   
   <p>One or more students have made submissions for the following assignments:</p>
   
-  <table>
+  <table style="text-align: center">
     <thead>
       <tr>
         <th>Name</th>

@@ -1,17 +1,13 @@
-import { NextFunction, Request, Response } from 'express';
-import { prisma } from '../configs/prismaConfig';
-import {
-  loginSchemaValidation,
-  resetPasswordSchemaValidation,
-} from '../dtos/authDTO';
-import { ReasonPhrases, StatusCodes } from 'http-status-codes';
-import { ResponseUtil } from '../utils/Response';
 import { compare } from 'bcryptjs';
-import { generateAuthToken, validateToken } from '../utils/GeneralUtils';
-import _ from 'lodash';
-import hasher from '../utils/hashPassword';
+import { NextFunction, Request, Response } from 'express';
+import { ReasonPhrases, StatusCodes } from 'http-status-codes';
+import transporter from '../configs/nodemailerConfig';
+import { prisma } from '../configs/prismaConfig';
 import logger from '../configs/winstonConfig';
-import { TokenType } from '../constants/TokenType';
+import { SUBMISSION_NOTIFICATION } from '../constants/messages';
+import { mailOptionsInterface } from '../interfaces/mailOptionsInterface';
+import { successSubmissionTemplate } from '../templates/successSubmission';
+import { ResponseUtil } from '../utils/Response';
 
 export class CliController {
   async submit(req: Request, res: Response, next: NextFunction) {
@@ -22,8 +18,8 @@ export class CliController {
         loginId: studentId,
       },
     });
-    const isValidStudent = await compare(password, student.password);
-    logger.info(isValidStudent);
+    const isValidStudent = await compare(student.password, password);
+    // logger.info(isValidStudent);
     if (!student || !isValidStudent) {
       return ResponseUtil.sendError(
         res,
@@ -33,7 +29,7 @@ export class CliController {
       );
     }
     //check for assignment
-    const deadline = Date.now();
+    const deadline = new Date;
     const assignment = await prisma.assignment.findFirstOrThrow({
       where: {
         uniqueCode: uniqueCode,
@@ -56,7 +52,7 @@ export class CliController {
       );
     }
     
-    if(Date.parse(assignment.deadline)>=deadline){
+    if (deadline > assignment.deadline) {
       return ResponseUtil.sendError(
         res,
         'Can no longer submit after deadline',
@@ -74,7 +70,6 @@ export class CliController {
         ReasonPhrases.BAD_REQUEST
       );
     }
-
     //make entry into student-assignment model, set status to true
 
     //create array of snaps to be stored in submissions table
@@ -100,6 +95,22 @@ export class CliController {
     });
 
     if (relation) {
+      //send mail to student and response to cli
+      const studentNames = await prisma.student.findFirst({
+        where:{
+          email: student.email
+        },
+        select:{
+          firstName: true,
+          lastName: true
+        }
+      })
+      const mailOptions: mailOptionsInterface = {
+        to: student.email,
+        subject: SUBMISSION_NOTIFICATION,
+        html: successSubmissionTemplate(assignment,studentNames),
+      };
+      await transporter.sendMail(mailOptions);
       return ResponseUtil.sendResponse(
         res,
         'Validation and submission successful',
@@ -107,8 +118,4 @@ export class CliController {
       );
     }
   }
-
-  async sendMail(req: Request, res: Response, next: NextFunction){
-    //query database for all status equal true
-  };
 }

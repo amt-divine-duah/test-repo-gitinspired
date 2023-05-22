@@ -32,6 +32,12 @@ lecturerRouter.get(
   ErrorHandler.catchErrors(lecturerController.getSubmissions)
 );
 lecturerRouter.get(
+  '/submissions/assignment/:assignmentId',
+  // ErrorHandler.catchErrors(AuthMiddleware.authenticate),
+  // ErrorHandler.catchErrors(LecturerMiddleware.checkLecturerStatus),
+  ErrorHandler.catchErrors(lecturerController.getAssignmentSubmissions)
+);
+lecturerRouter.get(
   '/submissions/:lecturerId/:studentId',
   ErrorHandler.catchErrors(AuthMiddleware.authenticate),
   ErrorHandler.catchErrors(LecturerMiddleware.checkLecturerStatus),

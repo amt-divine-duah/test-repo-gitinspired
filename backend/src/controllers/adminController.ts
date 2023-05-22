@@ -1,27 +1,27 @@
-import { NextFunction, Request, Response } from "express";
-import { ResponseUtil } from "../utils/Response";
-import logger from "../configs/winstonConfig";
+import { NextFunction, Request, Response } from 'express';
+import { ResponseUtil } from '../utils/Response';
+import logger from '../configs/winstonConfig';
 import {
   generateAuthToken,
   generateLecturerId,
   generateStudentId,
   validateToken,
-} from "../utils/GeneralUtils";
-import { schemaValidation } from "../dtos/adminDTO";
-import generator from "generate-password";
-import { prisma } from "../configs/prismaConfig";
-import { hash } from "bcryptjs";
-import _ from "lodash";
-import { ReasonPhrases, StatusCodes } from "http-status-codes";
-import { csvToDb } from "../utils/databaseUtils";
-import path from "path";
-import { mailOptionsInterface } from "../interfaces/mailOptionsInterface";
-import { EMAIL_ACTIVATION_SUBJECT } from "../constants/messages";
-import transporter from "../configs/nodemailerConfig";
-import configValues from "../configs/config";
-import { studentInviteTemplate } from "../templates/studentInviteTemplate";
-import { lecturerInviteTemplate } from "../templates/lecturerInviteTemplate";
-import { Paginator } from "../utils/Paginator";
+} from '../utils/GeneralUtils';
+import { schemaValidation } from '../dtos/adminDTO';
+import generator from 'generate-password';
+import { prisma } from '../configs/prismaConfig';
+import { hash } from 'bcryptjs';
+import _ from 'lodash';
+import { ReasonPhrases, StatusCodes } from 'http-status-codes';
+import { csvToDb } from '../utils/databaseUtils';
+import path from 'path';
+import { mailOptionsInterface } from '../interfaces/mailOptionsInterface';
+import { EMAIL_ACTIVATION_SUBJECT } from '../constants/messages';
+import transporter from '../configs/nodemailerConfig';
+import configValues from '../configs/config';
+import { studentInviteTemplate } from '../templates/studentInviteTemplate';
+import { lecturerInviteTemplate } from '../templates/lecturerInviteTemplate';
+import { Paginator } from '../utils/Paginator';
 
 export class AdminController {
   async createStudent(req: Request, res: Response, next: NextFunction) {
@@ -30,7 +30,7 @@ export class AdminController {
     // perform validations
     await schemaValidation(req);
 
-    logger.info("%j", studentData);
+    logger.info('%j', studentData);
     const tempPassword = generator.generate({
       length: 8,
       numbers: true,
@@ -53,7 +53,7 @@ export class AdminController {
         data: {
           loginId: studentId,
           email: studentData.email,
-          role: "STUDENT",
+          role: 'STUDENT',
           password: await hash(tempPassword, 12),
         },
       }),
@@ -69,10 +69,10 @@ export class AdminController {
       // If otp was created, send email with verification link
       if (otp) {
         const token = generateAuthToken(user[1]);
-        const filteredUser = _.pick(user[1], ["email"]);
+        const filteredUser = _.pick(user[1], ['email']);
         let message = studentInviteTemplate(
           studentId,
-          configValues.ACCOUNT_CONFIRMATION_URL + "/" + token.accessToken,
+          configValues.ACCOUNT_CONFIRMATION_URL + '/' + token.accessToken,
           otp.otpCode
         );
         const mailOptions: mailOptionsInterface = {
@@ -83,7 +83,7 @@ export class AdminController {
         transporter.sendMail(mailOptions);
       }
     }
-    const filteredUser = _.pick(user[1], ["email"]);
+    const filteredUser = _.pick(user[1], ['email']);
     const response = {
       ...user[0],
       ...filteredUser,
@@ -91,7 +91,7 @@ export class AdminController {
 
     return ResponseUtil.sendResponse(
       res,
-      "Student created successfully",
+      'Student created successfully',
       response
     );
   }
@@ -100,18 +100,18 @@ export class AdminController {
     if (!req.files || !req.files.length) {
       return ResponseUtil.sendError(
         res,
-        "File cannot be empty",
+        'File cannot be empty',
         StatusCodes.UNPROCESSABLE_ENTITY,
         ReasonPhrases.UNPROCESSABLE_ENTITY
       );
     }
 
     const currentDir = path.resolve(`src/uploads/students`);
-    const response = await csvToDb(currentDir, "student");
+    const response = await csvToDb(currentDir, 'student');
 
     return ResponseUtil.sendResponse(
       res,
-      "Student information upload successful",
+      'Student information upload successful',
       response
     );
   }
@@ -144,7 +144,7 @@ export class AdminController {
         data: {
           loginId: lecturerId,
           email: lecturerData.email,
-          role: "LECTURER",
+          role: 'LECTURER',
           password: await hash(tempPassword, 12),
         },
       }),
@@ -161,10 +161,10 @@ export class AdminController {
       if (otp) {
         // If otp was created, send email with verification link
         const token = generateAuthToken(user[1]);
-        const filteredUser = _.pick(user[1], ["email"]);
+        const filteredUser = _.pick(user[1], ['email']);
         let message = lecturerInviteTemplate(
           lecturerId,
-          configValues.ACCOUNT_CONFIRMATION_URL + "/" + token.accessToken,
+          configValues.ACCOUNT_CONFIRMATION_URL + '/' + token.accessToken,
           otp.otpCode
         );
         const mailOptions: mailOptionsInterface = {
@@ -176,7 +176,7 @@ export class AdminController {
       }
     }
 
-    const filteredUser = _.pick(user[1], ["email"]);
+    const filteredUser = _.pick(user[1], ['email']);
     const response = {
       ...user[0],
       ...filteredUser,
@@ -184,7 +184,7 @@ export class AdminController {
 
     return ResponseUtil.sendResponse(
       res,
-      "Lecturer created successfully",
+      'Lecturer created successfully',
       response
     );
   }
@@ -193,7 +193,7 @@ export class AdminController {
     if (!req.files || !req.files.length) {
       return ResponseUtil.sendError(
         res,
-        "File cannot be empty",
+        'File cannot be empty',
         StatusCodes.UNPROCESSABLE_ENTITY,
         ReasonPhrases.UNPROCESSABLE_ENTITY
       );
@@ -201,68 +201,43 @@ export class AdminController {
 
     const currentDir = path.resolve(`src/uploads/lecturers`);
 
-    const response = await csvToDb(currentDir, "lecturer");
+    const response = await csvToDb(currentDir, 'lecturer');
 
     return ResponseUtil.sendResponse(
       res,
-      "Lecturer information upload successful",
+      'Lecturer information upload successful',
       response
     );
   }
 
   async getLecturers(req: Request, res: Response, next: NextFunction) {
-    const { records: lecturers, paginationInfo } = await Paginator.paginate(
-      "lecturer",
-      req,
-      prisma
-    );
-
-    return ResponseUtil.sendResponse(
-      res,
-      "Lecturers fetched successfully",
-      lecturers,
-      StatusCodes.OK,
-      paginationInfo
-    );
+    const lecturers = await prisma.lecturer.findMany();
+    return ResponseUtil.sendResponse(res, 'List of Lecturers', lecturers);
   }
 
   async getStudents(req: Request, res: Response, next: NextFunction) {
-    const { records: students, paginationInfo } = await Paginator.paginate(
-      "student",
-      req,
-      prisma
-    );
-
-    return ResponseUtil.sendResponse(
-      res,
-      "Students fetched successfully",
-      students,
-      StatusCodes.OK,
-      paginationInfo
-    );
+    const students = await prisma.student.findMany();
+    return ResponseUtil.sendResponse(res, 'List of Students', students);
   }
 
-  
   async getAssignments(req: Request, res: Response, next: NextFunction) {
-
     const assignments = await prisma.assignment.findMany();
     return ResponseUtil.sendResponse(
       res,
-      "Assignments fetched successfully",
+      'Assignments fetched successfully',
       assignments
     );
   }
 
   async getSubmissions(req: Request, res: Response, next: NextFunction) {
-
     const assignments = await prisma.studentsOnAssignments.findMany({
       where: {
-        status: true
-      }
+        status: true,
+      },
     });
     return ResponseUtil.sendResponse(
       res,
-      "Submissions fetched successfully",
+      'Submissions fetched successfully',
       assignments
     );
   }

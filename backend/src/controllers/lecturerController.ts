@@ -84,8 +84,42 @@ export class LecturerController {
     return ResponseUtil.sendResponse(res, 'assignment list', result);
   }
 
-  async getAssignmentSubmissions(req: Request, res: Response, next: NextFunction) {
-    const lecturerId = req['tokenPayload']['userId']
+  async getAssignmentSubmissions(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    const lecturerId = req['tokenPayload']['userId'];
+    // const {lecturerId} = req.params;
+    const { assignmentId } = req.params;
+    //get assignment, include related students who have submitted
+    const assignment = await prisma.assignment.findFirstOrThrow({
+      where: {
+        id: Number(assignmentId),
+        createdBy: lecturerId,
+      },
+      include: {
+        students: {
+          where: {
+            status: true,
+          },
+          include: {
+            student: {
+              select: {
+                firstName: true,
+                lastName: true,
+              },
+            },
+            Submissions: {
+              select: {
+                snapshotName: true,
+              },
+            },
+          },
+        },
+      },
+    });
+    return ResponseUtil.sendResponse(res, 'Assignment submissions', assignment);
   }
 
   async getStudentSubmission(req: Request, res: Response, next: NextFunction) {
@@ -94,6 +128,8 @@ export class LecturerController {
 
   async createAssignment(req: Request, res: Response, next: NextFunction) {
     const students = req.body.students; //array of studentIds
+    const [year, month, day] = req.body.deadline.split('-');
+    const deadline = new Date(year, month - 1, day);
     const studentIds = students.map((i: string) => {
       return {
         status: false,
@@ -109,7 +145,7 @@ export class LecturerController {
         title: req.body.title,
         description: req.body.description,
         course: req.body.course,
-        deadline: req.body.deadline,
+        deadline: deadline,
         isPublished: req.body.publish,
         uniqueCode: await generateUniqueCode(),
         createdBy: {
@@ -184,6 +220,9 @@ export class LecturerController {
       //get newly invited students without already invited students
       const givenStudentIds = req.body.students;
 
+      const [year, month, day] = req.body.deadline.split('-');
+      const deadline = new Date(year, month - 1, day);
+
       const newStudents = [];
       //separate newly invite   d students from already invited students
       givenStudentIds.forEach((id: string) => {
@@ -206,7 +245,7 @@ export class LecturerController {
           title: req.body.title,
           description: req.body.description,
           course: req.body.course,
-          deadline: req.body.deadline,
+          deadline: deadline,
           isPublished: req.body.publish,
           students: {
             create: newStudents,
@@ -377,18 +416,28 @@ export class LecturerController {
     );
   }
   async getStudents(req: Request, res: Response, next: NextFunction) {
-    const { records: students, paginationInfo } = await Paginator.paginate(
-      'student',
-      req,
-      prisma
-    );
+    const students = await prisma.user.findMany({
+      where: {
+        isActive: true,
+        role: 'STUDENT',
+      },
+      select: {
+        loginId: true,
+      },
+    });
+    const studentIds = students.map((student) => student.loginId);
+    const results = await prisma.student.findMany({
+      where:{
+        studentId:{
+          in: studentIds
+        }
+      }
+    })
 
     return ResponseUtil.sendResponse(
       res,
       'Students fetched successfully',
-      students,
-      StatusCodes.OK,
-      paginationInfo
+      results
     );
   }
 }

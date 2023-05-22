@@ -66,7 +66,7 @@ model Otp {
 model Assignment {
   id          Int                     @id @default(autoincrement())
   title       String
-  deadline    String
+  deadline    DateTime
   description String
   course      String
   lecturerId  String

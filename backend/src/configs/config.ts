@@ -14,6 +14,7 @@ const mainConfig: configInterface = {
   MAILER_HOST: process.env.MAILER_HOST,
   MAILER_PORT: process.env.MAILER_PORT,
   ACCOUNT_CONFIRMATION_URL: process.env.ACCOUNT_CONFIRMATION_URL,
+  ASSIGNMENT_INVITE_URL: process.env.ASSIGNMENT_INVITE_URL
 };
 
 const developmentConfig: configInterface = {
