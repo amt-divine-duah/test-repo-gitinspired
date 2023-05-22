@@ -1,13 +1,15 @@
 import cron from 'node-cron';
 import { getEmailList, sendEmailToLecturer } from './constructEmail';
 
-export const task = cron.schedule('* * * * *', async () => {
+export const task = cron.schedule('0 * * * *', async () => {
   const list = await getEmailList();
-  if (list.length) {
-    list.forEach(async (lecturer)=>{
-        // console.log('I have mail');
+  list.forEach(async (lecturer) => {
+    const { Assignment } = lecturer;
+    for (let i = 0; i < Assignment.length; i++) {
+      if (Assignment[i].students.length) {
         await sendEmailToLecturer(lecturer);
-        // console.log('email sent');
-    })
-  }
+        break;
+      } else console.log('not sent');
+    }
+  });
 });

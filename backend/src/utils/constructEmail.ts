@@ -42,7 +42,7 @@ export async function getEmailList() {
   // type EmailList = typeof newList;
 
   // console.log(newList[0].Assignment[0].students);
-  return newList;
+  return newList[0];
 }
 
 export async function sendEmailToLecturer(lecturer) {
