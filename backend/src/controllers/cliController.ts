@@ -71,7 +71,6 @@ export class CliController {
     const entries = snapName.map((snap: string) => {
       return {
         snapshotName: snap,
-        sent: false,
       };
     });
     //store in submissions table
