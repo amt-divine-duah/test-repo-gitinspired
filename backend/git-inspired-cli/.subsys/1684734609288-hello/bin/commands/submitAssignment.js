@@ -34,7 +34,7 @@ const handler = async (argv) => {
     let snapshotfiles;
     if (!snapshot) {
         console.log("I have to submit all assignments");
-        snapshotfiles = await (0, submitAllSnapshots_1.submitAllSnapshots)();
+        (0, submitAllSnapshots_1.submitAllSnapshots)();
     }
     else {
         console.log("Submit the specific snapshot");
@@ -45,12 +45,8 @@ const handler = async (argv) => {
     // Get the config details
     const configDetails = fs.readFileSync(path.resolve(process.cwd(), ".config"), "utf-8");
     const configObject = JSON.parse(configDetails);
-    const formData = Object.assign(Object.assign(Object.assign({}, response), configObject), { snapName: snapshotfiles });
+    const formData = Object.assign(Object.assign({}, response), configObject);
     console.log(formData, "I have form details");
-    // const spinner = ora({
-    //   text: "Loading...",
-    //   spinner: "dots2", // Change the spinner type to "dots2"
-    // }).start();
     try {
         const results = await axios_1.default.post("http://localhost:3001/api/cli/submit-snap", formData);
         console.log(results, "I have results");

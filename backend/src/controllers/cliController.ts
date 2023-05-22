@@ -22,9 +22,9 @@ export class CliController {
         loginId: studentId,
       },
     });
-    const isValidStudent = await compare(student.password, password);
+    const isValidStudent = await compare(password, student.password);
     logger.info(isValidStudent);
-    if (!student || isValidStudent) {
+    if (!student || !isValidStudent) {
       return ResponseUtil.sendError(
         res,
         'Invalid config credentials. Please reconfigure',

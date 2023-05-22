@@ -7,7 +7,6 @@ import { CommandBuilder } from "yargs";
 import { prompt } from "enquirer";
 import { submitAssignmentPrompt } from "../prompts/submitAssignmentPrompt";
 import axios from "axios"
-import ora from "ora";
 
 export const command: string = "submit";
 export const desc: string = "Submit Assignment";
@@ -36,7 +35,7 @@ export const handler = async (argv) => {
   let snapshotfiles;
   if (!snapshot) {
     console.log("I have to submit all assignments");
-    snapshotfiles = await submitAllSnapshots();
+    submitAllSnapshots();
   } else {
     console.log("Submit the specific snapshot");
     submitSpecificSnapshot(snapshot);
@@ -47,13 +46,8 @@ export const handler = async (argv) => {
   // Get the config details
   const configDetails = fs.readFileSync(path.resolve(process.cwd(), ".config"), "utf-8")
   const configObject = JSON.parse(configDetails)
-  const formData = {...response, ...configObject, snapName: snapshotfiles}
+  const formData = {...response, ...configObject}
   console.log(formData, "I have form details");
-  // const spinner = ora({
-  //   text: "Loading...",
-  //   spinner: "dots2", // Change the spinner type to "dots2"
-  // }).start();123456
-  
   try {
     const results = await axios.post(
       "http://localhost:3001/api/cli/submit-snap", formData

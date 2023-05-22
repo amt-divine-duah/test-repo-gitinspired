@@ -74,7 +74,7 @@ export class ErrorHandler {
     }
 
     // any other error
-    console.log("error", err)
+    console.log("error I have any other error", err)
     return ResponseUtil.sendError(
       res,
       "Something went wrong",

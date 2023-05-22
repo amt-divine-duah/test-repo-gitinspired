@@ -11,8 +11,7 @@ const submitAllSnapshots = async () => {
         deep: 0,
         ignore: ["node_modules/**", ".subsys/**", ".config"],
     });
-    // console.log("I have to submit all snapshots", snapshotFiles)
-    return snapshotFiles;
+    console.log("I have to submit all snapshots", snapshotFiles);
 };
 exports.submitAllSnapshots = submitAllSnapshots;
 //# sourceMappingURL=submitAllSnapshots.js.map
