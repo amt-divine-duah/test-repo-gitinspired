@@ -16,7 +16,7 @@ export default function generateEmail(info): string {
       <td>${studentId}</td>
       <td>${title}</td>
       <td>${deadline}</td>
-      <td>${uniqueCode}</td>
+      <td><a href="#">${uniqueCode}</a></td>
       </tr>
       `;
     });

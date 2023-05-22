@@ -33,6 +33,7 @@ export class CliController {
       );
     }
     //check for assignment
+    const deadline = Date.now();
     const assignment = await prisma.assignment.findFirstOrThrow({
       where: {
         uniqueCode: uniqueCode,
@@ -54,6 +55,15 @@ export class CliController {
         ReasonPhrases.BAD_REQUEST
       );
     }
+    
+    if(Date.parse(assignment.deadline)>=deadline){
+      return ResponseUtil.sendError(
+        res,
+        'Can no longer submit after deadline',
+        StatusCodes.BAD_REQUEST,
+        ReasonPhrases.BAD_REQUEST
+      );
+    }
     //check if student is invited
     const students = assignment.students.map((id) => id.studentId);
     if (!students.includes(studentId)) {
@@ -71,7 +81,6 @@ export class CliController {
     const entries = snapName.map((snap: string) => {
       return {
         snapshotName: snap,
-        sent: false,
       };
     });
     //store in submissions table

@@ -1,10 +1,10 @@
-import { NextFunction, Request, Response } from "express";
-import { ResponseUtil } from "../utils/Response";
-import { Paginator } from "../utils/Paginator";
-import { prisma } from "../configs/prismaConfig";
-import { StatusCodes } from "http-status-codes";
-import { generateUniqueCode } from "../utils/GeneralUtils";
-import sendAssignment from "../utils/sendAssignmentUtil";
+import { NextFunction, Request, Response } from 'express';
+import { ResponseUtil } from '../utils/Response';
+import { Paginator } from '../utils/Paginator';
+import { prisma } from '../configs/prismaConfig';
+import { StatusCodes } from 'http-status-codes';
+import { generateUniqueCode } from '../utils/GeneralUtils';
+import sendAssignment from '../utils/sendAssignmentUtil';
 
 export class LecturerController {
   async getAssignments(req: Request, res: Response, next: NextFunction) {
@@ -26,7 +26,7 @@ export class LecturerController {
     });
     return ResponseUtil.sendResponse(
       res,
-      "assignment list for lecturer",
+      'assignment list for lecturer',
       assignments
     );
   }
@@ -50,7 +50,7 @@ export class LecturerController {
         },
       },
     });
-    return ResponseUtil.sendResponse(res, "drafts list for lecturer", drafts);
+    return ResponseUtil.sendResponse(res, 'drafts list for lecturer', drafts);
   }
 
   async getSubmissions(req: Request, res: Response, next: NextFunction) {
@@ -81,7 +81,15 @@ export class LecturerController {
       result.push({ ...work, submissions: subs });
     }
 
-    return ResponseUtil.sendResponse(res, "assignment list", result);
+    return ResponseUtil.sendResponse(res, 'assignment list', result);
+  }
+
+  async getAssignmentSubmissions(req: Request, res: Response, next: NextFunction) {
+    const lecturerId = req['tokenPayload']['userId']
+  }
+
+  async getStudentSubmission(req: Request, res: Response, next: NextFunction) {
+    const { lecturerId, studentId } = req.params;
   }
 
   async createAssignment(req: Request, res: Response, next: NextFunction) {
@@ -141,7 +149,7 @@ export class LecturerController {
 
     return ResponseUtil.sendResponse(
       res,
-      "assignment created successfully",
+      'assignment created successfully',
       results
     );
   }
@@ -164,15 +172,15 @@ export class LecturerController {
         id: id,
       },
     });
-    if (req.method === "GET") {
+    if (req.method === 'GET') {
       //must return information on the saved assignment and invited students
-      return ResponseUtil.sendResponse(res, "students on assignment", {
+      return ResponseUtil.sendResponse(res, 'students on assignment', {
         assignment: assignment,
         students: oldStudents,
       });
     }
 
-    if (req.method === "POST") {
+    if (req.method === 'POST') {
       //get newly invited students without already invited students
       const givenStudentIds = req.body.students;
 
@@ -229,7 +237,7 @@ export class LecturerController {
         }
         sendAssignment(assignmentInfo, studentsInfo);
       }
-      return ResponseUtil.sendResponse(res, "assignment list", newStudents);
+      return ResponseUtil.sendResponse(res, 'assignment list', newStudents);
     }
   }
 
@@ -248,7 +256,7 @@ export class LecturerController {
     });
     const oldIds = oldStudentsIds.map((stud) => stud.studentId);
 
-    if (req.method === "GET") {
+    if (req.method === 'GET') {
       const getOldStudents = [];
       for (let i = 0; i < oldIds.length; i++) {
         const student = await prisma.student.findFirst({
@@ -266,7 +274,7 @@ export class LecturerController {
       }
       return ResponseUtil.sendResponse(
         res,
-        "List of invited students",
+        'List of invited students',
         getOldStudents
       );
     }
@@ -324,7 +332,7 @@ export class LecturerController {
       sendAssignment(assignmentInfo, studentListToEmail);
       return ResponseUtil.sendResponse(
         res,
-        "Students invites successfully",
+        'Students invites successfully',
         results
       );
     }
@@ -370,14 +378,14 @@ export class LecturerController {
   }
   async getStudents(req: Request, res: Response, next: NextFunction) {
     const { records: students, paginationInfo } = await Paginator.paginate(
-      "student",
+      'student',
       req,
       prisma
     );
 
     return ResponseUtil.sendResponse(
       res,
-      "Students fetched successfully",
+      'Students fetched successfully',
       students,
       StatusCodes.OK,
       paginationInfo
