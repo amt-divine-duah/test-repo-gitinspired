@@ -64,7 +64,6 @@ export const handler = async (argv) => {
         return
       }
       else {
-        console.log(error, "This is another")
         logger.error(error.response?.data["message"]);
         return
       }

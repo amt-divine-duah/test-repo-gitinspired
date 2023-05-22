@@ -51,7 +51,6 @@ const handler = async (argv) => {
     console.log(formData, "I have form details");
     try {
         const results = await axios_1.default.post("http://localhost:3001/api/cli/submit-snap", formData);
-        console.log(results, "I have results");
     }
     catch (error) {
         if (axios_1.default.isAxiosError(error)) {
@@ -60,7 +59,6 @@ const handler = async (argv) => {
                 return;
             }
             else {
-                console.log(error, "This is another");
                 winstonConfig_1.default.error((_b = error.response) === null || _b === void 0 ? void 0 : _b.data["message"]);
                 return;
             }
