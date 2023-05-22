@@ -7,6 +7,7 @@ import { CommandBuilder } from "yargs";
 import { prompt } from "enquirer";
 import { submitAssignmentPrompt } from "../prompts/submitAssignmentPrompt";
 import axios from "axios"
+import ora from "ora";
 
 export const command: string = "submit";
 export const desc: string = "Submit Assignment";
@@ -35,7 +36,7 @@ export const handler = async (argv) => {
   let snapshotfiles;
   if (!snapshot) {
     console.log("I have to submit all assignments");
-    submitAllSnapshots();
+    snapshotfiles = await submitAllSnapshots();
   } else {
     console.log("Submit the specific snapshot");
     submitSpecificSnapshot(snapshot);
@@ -46,31 +47,32 @@ export const handler = async (argv) => {
   // Get the config details
   const configDetails = fs.readFileSync(path.resolve(process.cwd(), ".config"), "utf-8")
   const configObject = JSON.parse(configDetails)
-  const formData = {...response, ...configObject}
+  const formData = {...response, ...configObject, snapName: snapshotfiles}
   console.log(formData, "I have form details");
-  try {
-    const results = await axios.post(
-      "http://localhost:3001/api/cli/submit-snap", formData
-    );
-    console.log(results, "I have results")
+
+  // try {
+  //   const results = await axios.post(
+  //     "http://localhost:3001/api/cli/submit-snap", formData
+  //   );
+  //   console.log(results, "I have results")
     
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      if (error.response?.status === 404) {
-        logger.error("Invalid credentials")
-        return
-      }
-      else {
-        console.log(error, "This is another")
-        logger.error(error.response?.data["message"]);
-        return
-      }
-    }
-    else {
-      console.log(error)
-      logger.error("Something went wrong. Try again")
-      return
-    }
-  }
+  // } catch (error) {
+  //   if (axios.isAxiosError(error)) {
+  //     if (error.response?.status === 404) {
+  //       logger.error("Invalid credentials")
+  //       return
+  //     }
+  //     else {
+  //       console.log(error, "This is another")
+  //       logger.error(error.response?.data["message"]);
+  //       return
+  //     }
+  //   }
+  //   else {
+  //     console.log(error)
+  //     logger.error("Something went wrong. Try again")
+  //     return
+  //   }
+  // }
   
 }

@@ -9,7 +9,7 @@ import { zipDirectoryUtil } from "./zipDirectoryUtil";
 
 export const createSnapShot = async (snapshotName: string) => {
   const timestamp = Date.now();
-  const uniqueSnapShotName = `${timestamp}-${snapshotName}`;
+  const uniqueSnapShotName = `${timestamp}-${snapshotName}`; 
   const initDirectory = path.resolve(process.cwd(), ".subsys");
   const currentDirectory = process.cwd()
   const response = await getSubFolder(initDirectory);

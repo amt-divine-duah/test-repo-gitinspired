@@ -35,11 +35,13 @@ export const handler = async (argv) => {
   const { snapshot } = argv;
   let snapshotfiles;
   if (!snapshot) {
-    console.log("I have to submit all assignments");
     snapshotfiles = await submitAllSnapshots();
   } else {
-    console.log("Submit the specific snapshot");
-    submitSpecificSnapshot(snapshot);
+    snapshotfiles = await submitSpecificSnapshot(snapshot);
+    if (snapshotfiles.length === 0) {
+      logger.info("Snapshot name not found. Please check the name and try again")
+      return
+    }
   }
 
   const response = await prompt(submitAssignmentPrompt)
@@ -49,16 +51,11 @@ export const handler = async (argv) => {
   const configObject = JSON.parse(configDetails)
   const formData = {...response, ...configObject, snapName: snapshotfiles}
   console.log(formData, "I have form details");
-  // const spinner = ora({
-  //   text: "Loading...",
-  //   spinner: "dots2", // Change the spinner type to "dots2"
-  // }).start();123456
-  
+
   try {
     const results = await axios.post(
       "http://localhost:3001/api/cli/submit-snap", formData
     );
-    console.log(results, "I have results")
     
   } catch (error) {
     if (axios.isAxiosError(error)) {

@@ -33,12 +33,14 @@ const handler = async (argv) => {
     const { snapshot } = argv;
     let snapshotfiles;
     if (!snapshot) {
-        console.log("I have to submit all assignments");
         snapshotfiles = await (0, submitAllSnapshots_1.submitAllSnapshots)();
     }
     else {
-        console.log("Submit the specific snapshot");
-        (0, submitSpecificSnapshot_1.submitSpecificSnapshot)(snapshot);
+        snapshotfiles = await (0, submitSpecificSnapshot_1.submitSpecificSnapshot)(snapshot);
+        if (snapshotfiles.length === 0) {
+            winstonConfig_1.default.info("Snapshot name not found. Please check the name and try again");
+            return;
+        }
     }
     const response = await (0, enquirer_1.prompt)(submitAssignmentPrompt_1.submitAssignmentPrompt);
     console.log(response, "This is response");
@@ -47,10 +49,6 @@ const handler = async (argv) => {
     const configObject = JSON.parse(configDetails);
     const formData = Object.assign(Object.assign(Object.assign({}, response), configObject), { snapName: snapshotfiles });
     console.log(formData, "I have form details");
-    // const spinner = ora({
-    //   text: "Loading...",
-    //   spinner: "dots2", // Change the spinner type to "dots2"
-    // }).start();
     try {
         const results = await axios_1.default.post("http://localhost:3001/api/cli/submit-snap", formData);
         console.log(results, "I have results");

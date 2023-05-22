@@ -1,9 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.submitAllSnapshots = void 0;
-const fg = require("fast-glob");
+exports.submitSpecificSnapshot = void 0;
 const path = require("path");
-const submitAllSnapshots = async () => {
+const fg = require("fast-glob");
+const submitSpecificSnapshot = async (snapshot) => {
+    console.log("I submit specific snapshot here", snapshot);
     const snapshotFiles = await fg("*.zip", {
         cwd: path.resolve(process.cwd(), ".subsys"),
         dot: true,
@@ -11,7 +12,7 @@ const submitAllSnapshots = async () => {
         deep: 0,
         ignore: ["node_modules/**", ".subsys/**", ".config"],
     });
-    console.log("I have to submit all snapshots", snapshotFiles);
+    console.log(snapshotFiles);
 };
-exports.submitAllSnapshots = submitAllSnapshots;
-//# sourceMappingURL=submitAllSnapshots.js.map
+exports.submitSpecificSnapshot = submitSpecificSnapshot;
+//# sourceMappingURL=submitSpecificSnapshot.js.map
