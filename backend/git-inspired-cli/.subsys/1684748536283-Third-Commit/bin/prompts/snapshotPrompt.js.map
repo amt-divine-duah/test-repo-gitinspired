@@ -1,1 +1,0 @@
-{"version":3,"file":"snapshotPrompt.js","sourceRoot":"","sources":["../../src/prompts/snapshotPrompt.ts"],"names":[],"mappings":";;;AAAa,QAAA,gBAAgB,GAAG;IAC9B,IAAI,EAAE,OAAO;IACb,IAAI,EAAE,MAAM;IACZ,OAAO,EAAE,gCAAgC;IACzC,QAAQ,EAAE,CAAC,KAAK,EAAE,EAAE;QAClB,IAAI,KAAK,CAAC,IAAI,EAAE,CAAC,MAAM,KAAK,CAAC,EAAE;YAC7B,OAAO,8BAA8B,CAAC;SACvC;QACD,OAAO,IAAI,CAAC;IACd,CAAC;CACF,CAAC"}
