@@ -5,6 +5,7 @@ import { prisma } from '../configs/prismaConfig';
 import { StatusCodes } from 'http-status-codes';
 import { generateUniqueCode } from '../utils/GeneralUtils';
 import sendAssignment from '../utils/sendAssignmentUtil';
+import configValues from '../configs/config';
 
 export class LecturerController {
   async getAssignments(req: Request, res: Response, next: NextFunction) {
@@ -90,13 +91,18 @@ export class LecturerController {
     next: NextFunction
   ) {
     const lecturerId = req['tokenPayload']['userId'];
-    // const {lecturerId} = req.params;
+    const lecturer = await prisma.lecturer.findFirst({
+      where: {
+        staffId: lecturerId
+      }
+    })
+    // const { lecturerId } = req.params;
     const { assignmentId } = req.params;
     //get assignment, include related students who have submitted
     const assignment = await prisma.assignment.findFirstOrThrow({
       where: {
         id: Number(assignmentId),
-        createdBy: lecturerId,
+        createdBy: lecturer,
       },
       include: {
         students: {
@@ -120,10 +126,6 @@ export class LecturerController {
       },
     });
     return ResponseUtil.sendResponse(res, 'Assignment submissions', assignment);
-  }
-
-  async getStudentSubmission(req: Request, res: Response, next: NextFunction) {
-    const { lecturerId, studentId } = req.params;
   }
 
   async createAssignment(req: Request, res: Response, next: NextFunction) {
@@ -178,7 +180,7 @@ export class LecturerController {
         title: results.title,
         deadline: results.deadline,
         uniqueCode: results.uniqueCode,
-        link: `toBeImplemented`,
+        link: configValues.ASSIGNMENT_INVITE_URL + results.id,
       };
       sendAssignment(assignmentInfo, studentsInfo);
     }
@@ -427,12 +429,12 @@ export class LecturerController {
     });
     const studentIds = students.map((student) => student.loginId);
     const results = await prisma.student.findMany({
-      where:{
-        studentId:{
-          in: studentIds
-        }
-      }
-    })
+      where: {
+        studentId: {
+          in: studentIds,
+        },
+      },
+    });
 
     return ResponseUtil.sendResponse(
       res,
