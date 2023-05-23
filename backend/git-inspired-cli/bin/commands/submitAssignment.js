@@ -9,6 +9,7 @@ const submitSpecificSnapshot_1 = require("../utils/submitSpecificSnapshot");
 const enquirer_1 = require("enquirer");
 const submitAssignmentPrompt_1 = require("../prompts/submitAssignmentPrompt");
 const axios_1 = require("axios");
+const uploadFileToCloud_1 = require("../utils/uploadFileToCloud");
 exports.command = "submit";
 exports.desc = "Submit Assignment";
 const builder = (yargs) => {
@@ -34,23 +35,40 @@ const handler = async (argv) => {
     let snapshotfiles;
     if (!snapshot) {
         snapshotfiles = await (0, submitAllSnapshots_1.submitAllSnapshots)();
+        if (snapshotfiles.length === 0) {
+            winstonConfig_1.default.info("there is nothing to submit. please add files and try again.");
+            return;
+        }
     }
     else {
         snapshotfiles = await (0, submitSpecificSnapshot_1.submitSpecificSnapshot)(snapshot);
         if (snapshotfiles.length === 0) {
-            winstonConfig_1.default.info("Snapshot name not found. Please check the name and try again");
+            winstonConfig_1.default.info("Snapshot name not found. Please check the name and try again.");
             return;
         }
     }
     const response = await (0, enquirer_1.prompt)(submitAssignmentPrompt_1.submitAssignmentPrompt);
-    console.log(response, "This is response");
     // Get the config details
     const configDetails = fs.readFileSync(path.resolve(process.cwd(), ".config"), "utf-8");
     const configObject = JSON.parse(configDetails);
     const formData = Object.assign(Object.assign(Object.assign({}, response), configObject), { snapName: snapshotfiles });
-    console.log(formData, "I have form details");
     try {
         const results = await axios_1.default.post("http://localhost:3001/api/cli/submit-snap", formData);
+        if (results.status === 200) {
+            // Upload the zip files to Dropbox
+            const dropboxAccessToken = "sl.Be6LNtrMctPKpWoL6ajISdPtaTzbIBxwTTI5gPflMacPsexsBcgdFTxPpEBKw9hj8ivuO1u0cAh-lTyDvcT4A8fpO1o7r5CWsZ3YMzW401yJRQUqbrEwgzbrSOrtLnXqFL-qTpcB";
+            const destinationFolderPath = "/git-inspired/";
+            for (const file of snapshotfiles) {
+                const filePath = path.resolve(process.cwd(), ".subsys", file);
+                const destinationPath = destinationFolderPath + path.basename(filePath);
+                // await uploadFileToDropbox(
+                //   dropboxAccessToken,
+                //   filePath,
+                //   destinationPath
+                // );
+                await (0, uploadFileToCloud_1.uploadFileToCloud)(filePath, file);
+            }
+        }
     }
     catch (error) {
         if (axios_1.default.isAxiosError(error)) {
