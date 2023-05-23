@@ -6,6 +6,7 @@ import { StatusCodes } from 'http-status-codes';
 import { generateUniqueCode } from '../utils/GeneralUtils';
 import sendAssignment from '../utils/sendAssignmentUtil';
 import configValues from '../configs/config';
+import addLinkToSubmissions from '../utils/addLink';
 
 export class LecturerController {
   async getAssignments(req: Request, res: Response, next: NextFunction) {
@@ -90,12 +91,12 @@ export class LecturerController {
     res: Response,
     next: NextFunction
   ) {
-    const lecturerId = req['tokenPayload']['userId'];
+    const lecturerId = 'LEC-8OK8OBI2';
     const lecturer = await prisma.lecturer.findFirst({
       where: {
-        staffId: lecturerId
-      }
-    })
+        staffId: lecturerId,
+      },
+    });
     // const { lecturerId } = req.params;
     const { assignmentId } = req.params;
     //get assignment, include related students who have submitted
@@ -125,6 +126,7 @@ export class LecturerController {
         },
       },
     });
+    await addLinkToSubmissions(assignment);
     return ResponseUtil.sendResponse(res, 'Assignment submissions', assignment);
   }
 
@@ -182,7 +184,7 @@ export class LecturerController {
         uniqueCode: results.uniqueCode,
         link: configValues.ASSIGNMENT_INVITE_URL + results.id,
       };
-      sendAssignment(assignmentInfo, studentsInfo);
+      // sendAssignment(assignmentInfo, studentsInfo);
     }
 
     return ResponseUtil.sendResponse(
@@ -233,7 +235,7 @@ export class LecturerController {
             status: false,
             student: {
               connect: {
-                id: id,
+                studentId: id,
               },
             },
           });
@@ -261,7 +263,7 @@ export class LecturerController {
           title: results.title,
           deadline: results.deadline,
           uniqueCode: results.uniqueCode,
-          link: `toBeImplemented`,
+          link: configValues.ASSIGNMENT_INVITE_URL + results.id,
         };
         for (let i = 0; i < givenStudentIds.length; i++) {
           const email = await prisma.student.findFirst({

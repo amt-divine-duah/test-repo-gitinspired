@@ -6,15 +6,16 @@ dotenv.config();
 
 const mainConfig: configInterface = {
   APP_PORT: Number(process.env.APP_PORT) || 3001,
-  NODE_ENV: process.env.NODE_ENV || "development",
-  SECRET_KEY: process.env.SECRET_KEY || "my-secret",
-  JWT_TOKEN_EXPIRATION: process.env.JWT_TOKEN_EXPIRATION || "1h",
+  NODE_ENV: process.env.NODE_ENV || 'development',
+  SECRET_KEY: process.env.SECRET_KEY || 'my-secret',
+  JWT_TOKEN_EXPIRATION: process.env.JWT_TOKEN_EXPIRATION || '1h',
   MAILER_ADD: process.env.MAILER_ADD,
   MAILER_PASS: process.env.MAILER_PASS,
   MAILER_HOST: process.env.MAILER_HOST,
   MAILER_PORT: process.env.MAILER_PORT,
   ACCOUNT_CONFIRMATION_URL: process.env.ACCOUNT_CONFIRMATION_URL,
-  ASSIGNMENT_INVITE_URL: process.env.ASSIGNMENT_INVITE_URL
+  ASSIGNMENT_INVITE_URL: process.env.ASSIGNMENT_INVITE_URL,
+  LECTURER_NOTIFICATION_SUB_LINK: process.env.LECTURER_NOTIFICATION_SUB_LINK
 };
 
 const developmentConfig: configInterface = {

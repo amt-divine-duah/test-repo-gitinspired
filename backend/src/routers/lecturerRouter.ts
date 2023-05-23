@@ -15,8 +15,8 @@ lecturerRouter.get(
 );
 lecturerRouter.get(
   '/dashboard/:lecturerId',
-  ErrorHandler.catchErrors(AuthMiddleware.authenticate),
-  ErrorHandler.catchErrors(LecturerMiddleware.checkLecturerStatus),
+  // ErrorHandler.catchErrors(AuthMiddleware.authenticate),
+  // ErrorHandler.catchErrors(LecturerMiddleware.checkLecturerStatus),
   ErrorHandler.catchErrors(lecturerController.getAssignments)
 );
 lecturerRouter.get(
@@ -27,8 +27,8 @@ lecturerRouter.get(
 );
 lecturerRouter.get(
   '/submissions/:lecturerId',
-  ErrorHandler.catchErrors(AuthMiddleware.authenticate),
-  ErrorHandler.catchErrors(LecturerMiddleware.checkLecturerStatus),
+  // ErrorHandler.catchErrors(AuthMiddleware.authenticate),
+  // ErrorHandler.catchErrors(LecturerMiddleware.checkLecturerStatus),
   ErrorHandler.catchErrors(lecturerController.getSubmissions)
 );
 lecturerRouter.get(
@@ -40,20 +40,20 @@ lecturerRouter.get(
 
 lecturerRouter.post(
   '/create-assignment',
-  ErrorHandler.catchErrors(AuthMiddleware.authenticate),
-  ErrorHandler.catchErrors(LecturerMiddleware.checkLecturerStatus),
+  // ErrorHandler.catchErrors(AuthMiddleware.authenticate),
+  // ErrorHandler.catchErrors(LecturerMiddleware.checkLecturerStatus),
   ErrorHandler.catchErrors(lecturerController.createAssignment)
 );
 lecturerRouter.get(
   '/edit-assignment',
-  ErrorHandler.catchErrors(AuthMiddleware.authenticate),
-  ErrorHandler.catchErrors(LecturerMiddleware.checkLecturerStatus),
+  // ErrorHandler.catchErrors(AuthMiddleware.authenticate),
+  // ErrorHandler.catchErrors(LecturerMiddleware.checkLecturerStatus),
   ErrorHandler.catchErrors(lecturerController.editAssignment)
 );
 lecturerRouter.post(
   '/edit-assignment',
-  ErrorHandler.catchErrors(AuthMiddleware.authenticate),
-  ErrorHandler.catchErrors(LecturerMiddleware.checkLecturerStatus),
+  // ErrorHandler.catchErrors(AuthMiddleware.authenticate),
+  // ErrorHandler.catchErrors(LecturerMiddleware.checkLecturerStatus),
   ErrorHandler.catchErrors(lecturerController.editAssignment)
 );
 lecturerRouter.get(

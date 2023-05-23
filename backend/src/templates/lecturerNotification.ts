@@ -1,3 +1,4 @@
+import configValues from '../configs/config';
 import logger from '../configs/winstonConfig';
 
 export default function generateEmail(info): string {
@@ -16,7 +17,7 @@ export default function generateEmail(info): string {
       <td>${studentId}</td>
       <td>${title}</td>
       <td>${deadline}</td>
-      <td><a href="#">${uniqueCode}</a></td>
+      <td><a href="${configValues.LECTURER_NOTIFICATION_SUB_LINK + Assignment.id}">${uniqueCode}</a></td>
       </tr>
       `;
     });

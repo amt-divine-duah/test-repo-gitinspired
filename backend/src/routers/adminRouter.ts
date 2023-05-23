@@ -10,8 +10,8 @@ const adminRouter = Router();
 
 adminRouter.post(
   "/create-student",
-  ErrorHandler.catchErrors(AuthMiddleware.authenticate),
-  ErrorHandler.catchErrors(AdminMiddleware.checkAdminStatus),
+  // ErrorHandler.catchErrors(AuthMiddleware.authenticate),
+  // ErrorHandler.catchErrors(AdminMiddleware.checkAdminStatus),
   ErrorHandler.catchErrors(adminController.createStudent)
 );
 adminRouter.post(

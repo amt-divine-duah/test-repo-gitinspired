@@ -12,4 +12,5 @@ export interface configInterface {
   MAILER_PORT?: string;
   ACCOUNT_CONFIRMATION_URL: string;
   ASSIGNMENT_INVITE_URL: string;
+  LECTURER_NOTIFICATION_SUB_LINK: string;
 }
