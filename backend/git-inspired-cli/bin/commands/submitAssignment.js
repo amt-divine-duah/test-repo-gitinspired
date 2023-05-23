@@ -9,7 +9,7 @@ const submitSpecificSnapshot_1 = require("../utils/submitSpecificSnapshot");
 const enquirer_1 = require("enquirer");
 const submitAssignmentPrompt_1 = require("../prompts/submitAssignmentPrompt");
 const axios_1 = require("axios");
-const uploadFileToDropbox_1 = require("../utils/uploadFileToDropbox");
+const uploadFileToCloud_1 = require("../utils/uploadFileToCloud");
 exports.command = "submit";
 exports.desc = "Submit Assignment";
 const builder = (yargs) => {
@@ -56,12 +56,17 @@ const handler = async (argv) => {
         const results = await axios_1.default.post("http://localhost:3001/api/cli/submit-snap", formData);
         if (results.status === 200) {
             // Upload the zip files to Dropbox
-            const dropboxAccessToken = "sl.Be1ccRmPYyZRonSgZXSw8q38WsPMHx_BN7knZlwV36AKe6vMELdoTGHahz5QZZtIssjdTXG7bqztqjaxfnq2yLJc_R87xb_iyWeS6S_FmZ4TM1LUZ6StLxIQndCxBpxc-VlmKTVX";
+            const dropboxAccessToken = "sl.Be6LNtrMctPKpWoL6ajISdPtaTzbIBxwTTI5gPflMacPsexsBcgdFTxPpEBKw9hj8ivuO1u0cAh-lTyDvcT4A8fpO1o7r5CWsZ3YMzW401yJRQUqbrEwgzbrSOrtLnXqFL-qTpcB";
             const destinationFolderPath = "/git-inspired/";
             for (const file of snapshotfiles) {
                 const filePath = path.resolve(process.cwd(), ".subsys", file);
                 const destinationPath = destinationFolderPath + path.basename(filePath);
-                await (0, uploadFileToDropbox_1.uploadFileToDropbox)(dropboxAccessToken, filePath, destinationPath);
+                // await uploadFileToDropbox(
+                //   dropboxAccessToken,
+                //   filePath,
+                //   destinationPath
+                // );
+                await (0, uploadFileToCloud_1.uploadFileToCloud)(filePath, file);
             }
         }
     }

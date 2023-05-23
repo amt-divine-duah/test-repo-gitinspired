@@ -7,8 +7,7 @@ import { CommandBuilder } from "yargs";
 import { prompt } from "enquirer";
 import { submitAssignmentPrompt } from "../prompts/submitAssignmentPrompt";
 import axios from "axios";
-import ora from "ora";
-import { uploadFileToDropbox } from "../utils/uploadFileToDropbox";
+import { uploadFileToCloud, uploadFileToDropbox } from "../utils/uploadFileToCloud";
 
 export const command: string = "submit";
 export const desc: string = "Submit Assignment";
@@ -62,6 +61,7 @@ export const handler = async (argv) => {
   );
   const configObject = JSON.parse(configDetails);
   const formData = { ...response, ...configObject, snapName: snapshotfiles };
+  
   try {
     const results = await axios.post(
       "http://localhost:3001/api/cli/submit-snap",
@@ -69,19 +69,21 @@ export const handler = async (argv) => {
     );
 
     if (results.status === 200) {
-      // Upload the zip files to Dropbox
-      const dropboxAccessToken =
-        "sl.Be1ccRmPYyZRonSgZXSw8q38WsPMHx_BN7knZlwV36AKe6vMELdoTGHahz5QZZtIssjdTXG7bqztqjaxfnq2yLJc_R87xb_iyWeS6S_FmZ4TM1LUZ6StLxIQndCxBpxc-VlmKTVX";
-      const destinationFolderPath = "/git-inspired/";
+      // // Upload the zip files to Dropbox
+      // const dropboxAccessToken =
+      //   "sl.Be6LNtrMctPKpWoL6ajISdPtaTzbIBxwTTI5gPflMacPsexsBcgdFTxPpEBKw9hj8ivuO1u0cAh-lTyDvcT4A8fpO1o7r5CWsZ3YMzW401yJRQUqbrEwgzbrSOrtLnXqFL-qTpcB";
+      // const destinationFolderPath = "/git-inspired/";
 
       for (const file of snapshotfiles) {
         const filePath = path.resolve(process.cwd(), ".subsys", file);
-        const destinationPath = destinationFolderPath + path.basename(filePath);
-        await uploadFileToDropbox(
-          dropboxAccessToken,
-          filePath,
-          destinationPath
-        );
+        // const destinationPath = destinationFolderPath + path.basename(filePath);
+        // await uploadFileToDropbox(
+        //   dropboxAccessToken,
+        //   filePath,
+        //   destinationPath
+        // );
+        await uploadFileToCloud(filePath, file);
+        logger.info("Assignment submitted sucessfully")
       }
     }
   } catch (error) {

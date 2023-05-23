@@ -19,21 +19,17 @@ const uploadFileToDropbox = async (accessToken, filePath, destinationPath) => {
     }
 };
 exports.uploadFileToDropbox = uploadFileToDropbox;
-const uploadFileToCloud = async (owner, repo, releaseId, filePath, fileName, accessToken) => {
+const uploadFileToCloud = async (filePath, fileName) => {
     const fileContent = fs.readFileSync(filePath);
     try {
-        console.log("Hey");
         const b2 = new B2({
             applicationKeyId: "005ff24cc418b510000000001",
             applicationKey: "K005g671gMA3oFiLPf4LHiVSkkhBk24",
         });
-        const auth = await b2.authorize();
-        console.log("Is this auth", auth);
+        await b2.authorize();
         const response = await b2.getUploadUrl({
             bucketId: "ff0f42344c4c4471888b0511",
-            // ...common arguments (optional)
         });
-        // console.log("This is response", response)
         const fileUploadRes = await b2.uploadFile({
             uploadUrl: response.data.uploadUrl,
             uploadAuthToken: response.data.authorizationToken,
@@ -41,11 +37,10 @@ const uploadFileToCloud = async (owner, repo, releaseId, filePath, fileName, acc
             data: fileContent,
             onUploadProgress: null,
         });
-        console.log("This is file upload response", fileUploadRes);
     }
     catch (error) {
-        console.log(error);
+        winstonConfig_1.default.error("Something went wrong");
     }
 };
 exports.uploadFileToCloud = uploadFileToCloud;
-//# sourceMappingURL=uploadFileToDropbox.js.map
+//# sourceMappingURL=uploadFileToCloud.js.map

@@ -11,9 +11,11 @@
     "subsys": "./bin/index.js"
   },
   "dependencies": {
+    "@octokit/rest": "^19.0.11",
     "app-root-path": "^3.1.0",
     "archiver": "^5.3.1",
     "axios": "^1.4.0",
+    "backblaze-b2": "^1.7.0",
     "chokidar": "^3.5.3",
     "cli-spinners": "^2.9.0",
     "dropbox": "^10.34.0",
@@ -31,6 +33,7 @@
   },
   "devDependencies": {
     "@types/archiver": "^5.3.2",
+    "@types/backblaze-b2": "^1.5.2",
     "@types/fs-extra": "^11.0.1",
     "@types/hidefile": "^3.0.0",
     "@types/node": "^20.1.5",
