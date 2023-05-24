@@ -48,6 +48,10 @@ const handler = async (argv) => {
         }
     }
     const response = await (0, enquirer_1.prompt)(submitAssignmentPrompt_1.submitAssignmentPrompt);
+    if (!fs.existsSync(path.resolve(process.cwd(), ".config"))) {
+        winstonConfig_1.default.warn(`Assignment has not been configured. Please run "subsys config -i" to configure`);
+        return;
+    }
     // Get the config details
     const configDetails = fs.readFileSync(path.resolve(process.cwd(), ".config"), "utf-8");
     const configObject = JSON.parse(configDetails);
@@ -55,18 +59,20 @@ const handler = async (argv) => {
     try {
         const results = await axios_1.default.post("http://localhost:3001/api/cli/submit-snap", formData);
         if (results.status === 200) {
-            // Upload the zip files to Dropbox
-            const dropboxAccessToken = "sl.Be6LNtrMctPKpWoL6ajISdPtaTzbIBxwTTI5gPflMacPsexsBcgdFTxPpEBKw9hj8ivuO1u0cAh-lTyDvcT4A8fpO1o7r5CWsZ3YMzW401yJRQUqbrEwgzbrSOrtLnXqFL-qTpcB";
-            const destinationFolderPath = "/git-inspired/";
+            // // Upload the zip files to Dropbox
+            // const dropboxAccessToken =
+            //   "sl.Be6LNtrMctPKpWoL6ajISdPtaTzbIBxwTTI5gPflMacPsexsBcgdFTxPpEBKw9hj8ivuO1u0cAh-lTyDvcT4A8fpO1o7r5CWsZ3YMzW401yJRQUqbrEwgzbrSOrtLnXqFL-qTpcB";
+            // const destinationFolderPath = "/git-inspired/";
             for (const file of snapshotfiles) {
                 const filePath = path.resolve(process.cwd(), ".subsys", file);
-                const destinationPath = destinationFolderPath + path.basename(filePath);
+                // const destinationPath = destinationFolderPath + path.basename(filePath);
                 // await uploadFileToDropbox(
                 //   dropboxAccessToken,
                 //   filePath,
                 //   destinationPath
                 // );
                 await (0, uploadFileToCloud_1.uploadFileToCloud)(filePath, file);
+                winstonConfig_1.default.info("Assignment submitted sucessfully");
             }
         }
     }

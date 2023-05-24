@@ -30,7 +30,7 @@ const uploadFileToCloud = async (filePath, fileName) => {
         const response = await b2.getUploadUrl({
             bucketId: "ff0f42344c4c4471888b0511",
         });
-        const fileUploadRes = await b2.uploadFile({
+        await b2.uploadFile({
             uploadUrl: response.data.uploadUrl,
             uploadAuthToken: response.data.authorizationToken,
             fileName: fileName,

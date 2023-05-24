@@ -5,6 +5,7 @@ const slugify_1 = require("slugify");
 const createSnapShotUtil_1 = require("../utils/createSnapShotUtil");
 const enquirer_1 = require("enquirer");
 const snapshotPrompt_1 = require("../prompts/snapshotPrompt");
+const winstonConfig_1 = require("../configs/winstonConfig");
 exports.command = "snap";
 exports.desc = "Create assigment snapshot";
 const builder = (yargs) => {
@@ -27,11 +28,29 @@ const handler = async (argv) => {
         // Retrieve the name from the user's response
         const snapshotName = response["name"];
         // Use the snapshotName for further processing
-        await (0, createSnapShotUtil_1.createSnapShot)((0, slugify_1.default)(snapshotName));
+        const slug = (0, slugify_1.default)(snapshotName, {
+            lower: true
+        });
+        if (slug === snapshotName) {
+            await (0, createSnapShotUtil_1.createSnapShot)(slug);
+        }
+        else {
+            winstonConfig_1.default.warn("Snapshot name must be a slug");
+            return;
+        }
     }
+    // Name is provided as a command line argument
     else {
-        // The name is provided as a command-line argument
-        await (0, createSnapShotUtil_1.createSnapShot)((0, slugify_1.default)(name));
+        const slug = (0, slugify_1.default)(name, {
+            lower: true
+        });
+        if (slug === name) {
+            await (0, createSnapShotUtil_1.createSnapShot)(slug);
+        }
+        else {
+            winstonConfig_1.default.warn("Snapshot name must be a slug");
+            return;
+        }
     }
 };
 exports.handler = handler;

@@ -3,6 +3,7 @@ import { createSnapShot } from "../utils/createSnapShotUtil";
 import { CommandBuilder } from "yargs";
 import { prompt } from "enquirer"
 import { snapshotQuestion } from "../prompts/snapshotPrompt";
+import logger from "../configs/winstonConfig";
 
 export const command: string = "snap";
 export const desc: string = "Create assigment snapshot";
@@ -30,9 +31,28 @@ export const handler = async (argv) => {
     const snapshotName = response["name"];
 
     // Use the snapshotName for further processing
-    await createSnapShot(slugify(snapshotName));
-  } else {
-    // The name is provided as a command-line argument
-    await createSnapShot(slugify(name));
+    const slug = slugify(snapshotName, {
+      lower: true
+    })
+    if (slug === snapshotName) {
+      await createSnapShot(slug);
+    }
+    else {
+      logger.warn("Snapshot name must be a slug")
+      return
+    }
+  } 
+  // Name is provided as a command line argument
+  else {
+    const slug = slugify(name, { 
+      lower: true
+    });
+    if (slug === name) {
+      await createSnapShot(slug);
+    }
+    else {
+      logger.warn("Snapshot name must be a slug");
+      return;
+    }
   }
 };

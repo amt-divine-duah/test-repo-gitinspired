@@ -54,6 +54,12 @@ export const handler = async (argv) => {
   }
 
   const response = await prompt(submitAssignmentPrompt);
+  if (!fs.existsSync(path.resolve(process.cwd(), ".config"))) {
+    logger.warn(
+      `Assignment has not been configured. Please run "subsys config -i" to configure`
+    );
+    return;
+  }
   // Get the config details
   const configDetails = fs.readFileSync(
     path.resolve(process.cwd(), ".config"),
