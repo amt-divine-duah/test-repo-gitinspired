@@ -1,22 +1,40 @@
-import SubmissionCard from "../../components/Lecturer/SubmissionCard";
-import useData from "../../hooks/useAssignmentData";
-
+import { useContext } from "react";
+import Actionbar from "../../components/lecturer_dashboard/Actionbar";
+import LecturerView from "../../components/lecturer_dashboard/LecturerView";
+import { SearchContext } from "../../components/lecturer_dashboard/SearchContext";
+import SubmissionCard from "../../components/lecturer_dashboard/SubmissionCard";
+import useSubmissions from "../../hooks/useSubmissions";
 
 const SubmissionTab = () => {
-    const{ assignments }= useData();
+  const { submissions } = useSubmissions();
+  const data = useContext(SearchContext);
+  const word = data.word;
 
-    
+  const output = Array.isArray(submissions) && submissions.filter((item) => {
+    return word === '' ? item : item.title.toLowerCase().includes(word.toLowerCase());
+  });
+
   return (
-    <div className="submission-dashboard">
-      <div className="submission-container">
-      { assignments.map((item,index) => {
-          return (
-            <SubmissionCard width={349} height={165} title={item.title} numberOfSubmissions={item.numberOfStudents}/>
-          )
-        }) }
- 
+    <LecturerView sidebar>
+      <div className="'main-content">
+        <div className='top-content'>
+          <Actionbar />
+        </div>
+        <div className='wrapper submission-card'>
+        {Array.isArray(output) &&
+          output.map((item, index) => {
+            return (
+              <SubmissionCard
+                title={item.title}
+                numberOfSubmissions={item.submissions}
+                key={index}
+                id={item.id}
+              />
+            );
+          })}
+        </div>
       </div>
-    </div>
+    </LecturerView>
   );
 };
 

@@ -1,91 +1,47 @@
-import { useState, useEffect } from "react";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useAuthUser } from 'react-auth-kit';
+import api from '../ApiClient';
+import { AssignmentCardType } from '../components/lecturer_dashboard/LecturerCustomTypes';
+import { showErrorMessage } from '../constants/messages';
 
-const useData = () => {
-  const [assignments, setAssignments] = useState([
-    {
-      title: "Javascript",
-      description:
-        "Your task is to develop a web application using JavaScript that provides a user-friendly interface for tracking and managing tasks. ",
-      date: "1st May",
-      numberOfStudents: 7,
-      code: '51143',
-      fullDetails:
-        "Your task is to develop a web application using JavaScript that provides a user-friendly interface for tracking and managing tasks.Build a web application using React that allows users to browse and search a collection of items.Develop a TypeScript program that reads input data from a JSON file and outputs the data to the console.",
-      students: [
-        {
-          name: "John",
-          status: "invited",
-        },
-        {
-          name: "Richard",
-          status: "invited",
-        },
-        {
-          name: "Emily",
-          status: "",
-        },
-        {
-          name: "Justin",
-          status: "invited",
-        },
-        {
-          name: "Lucas",
-          status: "invited",
-        },
-        {
-          name: "Paul",
-          status: "invited",
-        },
-        {
-          name: "Annita",
-          status: "invited",
-        },
-      ],
-    },{
-        title: "React",
-        description:
-          "Your task is to develop a web application using JavaScript that provides a user-friendly interface for tracking and managing tasks. ",
-        date: "1st May",
-        numberOfStudents: 3,
-        code: '51153',
-        fullDetails:
-          "Your task is to develop a web application using JavaScript that provides a user-friendly interface for tracking and managing tasks.Build a web application using React that allows users to browse and search a collection of items.Develop a TypeScript program that reads input data from a JSON file and outputs the data to the console.",
-        students: [
-          {
-            name: "John",
-            status: "invited",
-          },
-          {
-            name: "Richard",
-            status: "invited",
-          },
-          {
-            name: "Emily",
-            status: "",
-          }
-        ]
-      },{
-        title: "Typescript",
-        description:
-          "Your task is to develop a web application using JavaScript that provides a user-friendly interface for tracking and managing tasks. ",
-        date: "1st May",
-        numberOfStudents: 1,
-        code: '51163',
-        fullDetails:
-          "Your task is to develop a web application using JavaScript that provides a user-friendly interface for tracking and managing tasks.Build a web application using React that allows users to browse and search a collection of items.Develop a TypeScript program that reads input data from a JSON file and outputs the data to the console.",
-        students: [
-          {
-            name: "John",
-            status: "invited",
-          }
-          
-        ]
+const useAssignmentData = () => {
+  const [assignments, setAssignments] = useState<boolean | undefined | null | AssignmentCardType[]>(
+    false,
+  );
+  const [sortKey, setSortKey] = useState<string | null>(null);
+  const auth = useAuthUser();
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const assignments = await api.get(`/api/lecturer/dashboard/${auth()?.loginId}`);
+        if (assignments.data?.data.length === 0) {
+          setAssignments(null);
+          return;
+        } else {
+          setAssignments(assignments.data?.data);
+          return;
+        }
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          showErrorMessage('Something went wrong');
+          setAssignments(undefined);
+          return;
+        } else {
+          setAssignments(undefined);
+          showErrorMessage('Something went wrong');
+          return;
+        }
       }
-    
-  ]);
-  
-  
-  return { assignments };
+    })();
+  }, [auth()?.loginId]);
+  const sort = (e: React.MouseEvent<HTMLLIElement>) => {
+    const key: string = e.currentTarget.id.toLowerCase();
+
+    setSortKey(key);
+  };
+  return { sort, sortKey, assignments };
 };
 
-export default useData;
+export default useAssignmentData;

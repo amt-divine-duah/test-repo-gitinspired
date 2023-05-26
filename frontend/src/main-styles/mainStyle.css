@@ -1,0 +1,907 @@
+@import '../App.css';
+@import '../App.css';
+@import '../App.css';
+.navbar {
+  width: 100%;
+  color: aliceblue;
+}
+@media (min-width: 1020px) {
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--navBarGradient);
+    padding: 1rem 2rem;
+  }
+  .navbar .left-nav {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+  }
+  .navbar .left-nav a {
+    color: #fff;
+  }
+  .navbar .left-nav a.active {
+    border-bottom: 4px solid #170e7d;
+    line-height: 2rem;
+  }
+  .navbar .right-nav {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  .navbar .right-nav .logout {
+    border: solid 1px;
+    text-align: center;
+    font-size: 1rem;
+    width: 6.5rem;
+    height: 2.3rem;
+    border-radius: 10px;
+    background-color: transparent;
+    color: #fff;
+    cursor: pointer;
+  }
+}
+
+@media (min-width: 1020px) {
+  .admin-dash-board {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+  }
+}
+
+@media (min-width: 1020px) {
+  .main-board {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    margin: 2rem 13rem;
+    overflow-y: auto;
+  }
+  .main-board .admin-board {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .main-board .admin-board .main-board-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .main-board .admin-board .main-board-header h1 {
+    color: #31394e;
+    font-size: 1.8rem;
+  }
+  .main-board .admin-board .main-board-header .main-board-btn {
+    display: flex;
+    gap: 1rem;
+    color: #fff;
+    background-color: var(--deepBlue);
+    border: solid 1px;
+    padding: 0.5rem 2rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    align-items: center;
+  }
+  .main-board .admin-board .main-board-header .main-board-header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .main-board .admin-board .main-board-header .main-board-header-right .upload-btn {
+    display: flex;
+    color: var(--deepBlue);
+    font-weight: 600;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+  }
+  .main-board .admin-board .main-board-body {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
+.main-board .footer {
+  display: flex;
+  margin-top: 2rem;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.main-board .footer .footer-right-side {
+  display: flex;
+  gap: 1rem;
+}
+.main-board .footer .footer-right-side button {
+  border-radius: 8px;
+  text-align: center;
+  padding: 0.4rem 0.5rem;
+  border: none;
+  box-shadow: 0px 2px 10px -2px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+.main-board .footer .footer-right-side button:nth-child(2) {
+  background-color: #fff;
+}
+
+.main-board-table table {
+  margin-top: 3rem;
+  border-collapse: collapse;
+  width: 100%;
+  color: #797676;
+  text-align: left;
+}
+.main-board-table table th:nth-child(3),
+.main-board-table table td:nth-child(3) {
+  text-align: center;
+}
+.main-board-table thead tr {
+  border-bottom: 2px solid #b9bbbe;
+}
+.main-board-table tbody tr {
+  border-bottom: 1px solid #b9bbbe;
+}
+.main-board-table thead th {
+  padding: 0.3rem 0;
+  padding-left: 2em;
+  font-size: 1.3em;
+}
+.main-board-table tbody td {
+  padding: 0.6rem 0;
+  padding-left: 2.7rem;
+  font-size: 1rem;
+}
+.main-board-table th:first-child,
+.main-board-table td:first-child {
+  width: 40%;
+}
+
+.container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(59, 59, 64, 0.8);
+  display: grid;
+  place-items: center;
+}
+.container .createUserModal {
+  width: 36.625rem;
+  height: 30.125rem;
+  background: #fff;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.container .createUserModal h2 {
+  width: 18.5rem;
+  margin-bottom: 1rem;
+}
+.container .createUserModal p {
+  margin-bottom: 3rem;
+}
+.container .createUserModal .create-user-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.container .createUserModal .create-user-form button {
+  background-color: var(--deepBlue);
+  color: #fff;
+  padding: 0.5rem 1.4rem;
+  border: 1px;
+  border-radius: 10px;
+  margin-top: 2rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.container .createUserModal .modal-input {
+  display: flex;
+  width: 30.375rem;
+  flex-direction: column;
+  gap: 1rem;
+}
+.container .createUserModal .modal-input input {
+  border-radius: 5px;
+  border: 1px solid green;
+  padding: 0.5rem 2rem;
+}
+
+@media (min-width: 1020px) {
+  .admin-lecturer-board {
+    height: calc(100vh - 7.04rem);
+    max-height: 100vh;
+  }
+}
+
+@media (min-width: 1020px) {
+  .admin-student {
+    height: calc(100vh - 7.04rem);
+    max-height: 100vh;
+  }
+}
+
+@media (min-width: 1020px) {
+  .uploadModalContainer {
+    position: absolute;
+    background-color: rgba(59, 59, 64, 0.8);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    display: grid;
+    place-items: center;
+  }
+  .uploadModalContainer .uploadModal {
+    display: grid;
+    place-items: center;
+    background-color: #fff;
+    width: 26vw;
+    height: 30vw;
+    border-radius: 16px;
+  }
+  .uploadModalContainer .uploadModal .upload-header {
+    text-align: center;
+    line-height: 2.5rem;
+    font-size: 1.5rem;
+  }
+  .uploadModalContainer .uploadModal .header-p {
+    font-size: 1vw;
+  }
+  .uploadModalContainer .uploadModal .upload-footer {
+    text-align: center;
+  }
+  .uploadModalContainer .uploadModal .upload-close-icon {
+    width: 100%;
+  }
+  .uploadModalContainer .uploadModal .upload-close-icon div {
+    margin: 0 0 0 90%;
+    cursor: pointer;
+  }
+  .uploadModalContainer .second-p {
+    font-size: 0.7vw;
+  }
+  .uploadModalContainer .modalFileUpload {
+    position: relative;
+    display: grid;
+    place-items: center;
+    height: 18vw;
+    width: 19vw;
+    background-color: #fbfbfb;
+    border-radius: 16px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 0.2rem 0.5rem;
+  }
+  .uploadModalContainer .modalFileUpload p {
+    text-align: center;
+  }
+  .uploadModalContainer .modalFileUpload img {
+    margin-top: 1rem;
+  }
+  .uploadModalContainer .modalFileUpload input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: transparent;
+    cursor: pointer;
+  }
+  .uploadModalContainer .modalFileUpload input::-webkit-file-upload-button {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: -1;
+  }
+  .uploadModalContainer .modalFileUpload #files {
+    background-color: transparent;
+  }
+  .uploadModalContainer .modalFileUpload .uploadbtn {
+    width: 8rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    background-color: #170e7d;
+    color: #fff;
+    cursor: pointer;
+  }
+}
+
+@media (min-width: 1020px) {
+  .container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(59, 59, 64, 0.8);
+    display: grid;
+    place-items: center;
+    z-index: 1;
+  }
+  .container .signOutModal {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 2rem 3rem;
+    width: 493px;
+    height: 273px;
+    border-radius: 16px;
+    background-color: #fff;
+    box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.25);
+    color: black;
+    line-height: 5rem;
+  }
+  .container .signOutModal h3 {
+    font-weight: 400;
+  }
+  .container .signOutModal p {
+    line-height: 1.5;
+  }
+  .container .signOutModal p .logoutBoldText {
+    font-weight: 600;
+  }
+  .container .signOutModal .logout-btns {
+    display: flex;
+    align-self: flex-end;
+    gap: 2rem;
+    padding-right: 2rem;
+    padding-top: 2rem;
+  }
+  .container .signOutModal .logout-btns button {
+    padding: 0.5rem 20px;
+    border: 1px solid;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .container .signOutModal .logout-btns button:first-child {
+    background-color: transparent;
+  }
+  .container .signOutModal .logout-btns button:nth-child(2) {
+    background-color: #170e7d;
+    border: 1px solid;
+    color: #fff;
+  }
+}
+
+@media (min-width: 1020px) {
+  .table-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  .table-footer .footer-right-side {
+    display: flex;
+    gap: 1rem;
+  }
+  .table-footer .footer-right-side button {
+    border-radius: 8px;
+    text-align: center;
+    padding: 0.4rem 0.5rem;
+    border: none;
+    box-shadow: 0px 2px 10px -2px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+  }
+  .table-footer .footer-right-side button:nth-child(2) {
+    background-color: #fff;
+  }
+}
+
+@media (min-width: 1020px) {
+  .admin-main-dashboard-route {
+    display: grid;
+    grid-template-columns: 60% 35%;
+    width: 100%;
+    max-width: 1440px;
+    max-height: 1024px;
+    height: 87%;
+    overflow-y: auto;
+  }
+  .admin-main-dashboard-route .left-admin-dashboard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0 2rem;
+  }
+  .admin-main-dashboard-route .left-admin-dashboard .overview {
+    margin-bottom: 1rem;
+    color: #9f9f9f;
+  }
+  .admin-main-dashboard-route .left-admin-dashboard .overview-content {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .admin-main-dashboard-route .left-admin-dashboard .overview-content .overview-cards {
+    height: 5rem;
+    background-color: #f7f9fb;
+    width: 100%;
+    padding-left: 0.5rem;
+    gap: 0.7rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+  }
+  .admin-main-dashboard-route .left-admin-dashboard .overview-content .overview-cards p {
+    color: #788b9a;
+    font-size: 0.8rem;
+  }
+  .admin-main-dashboard-route .left-admin-dashboard .overview-content .overview-cards .overview-image {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    background-color: #e5e3fe;
+  }
+  .admin-main-dashboard-route .left-admin-dashboard .admin-dashboard-header {
+    display: flex;
+    align-items: center;
+    background: url("/Rectangle 82.svg");
+    background-position: bottom;
+    background-size: 80vw 28vh;
+    background-repeat: no-repeat;
+  }
+  .admin-main-dashboard-route .left-admin-dashboard .admin-dashboard-header .admin-header-text {
+    margin-top: 4rem;
+    padding-left: 0.4rem;
+    padding-bottom: 1rem;
+    align-items: center;
+    width: 100rem;
+    border-radius: 8px;
+  }
+  .admin-main-dashboard-route .left-admin-dashboard .admin-dashboard-header .admin-header-text h1 {
+    color: #31394e;
+    font-weight: 400;
+    font-size: 2.4vw;
+  }
+  .admin-main-dashboard-route .left-admin-dashboard .admin-dashboard-header .admin-header-text p {
+    color: #788b9a;
+    line-height: 1.3vw;
+    font-size: 0.9vw;
+    margin-bottom: 0.1vw;
+  }
+  .admin-main-dashboard-route .left-admin-dashboard .left-admin-dashboard-down .students-progress {
+    color: #9f9f9f;
+    margin-bottom: 1.5rem;
+  }
+  .admin-main-dashboard-route .left-admin-dashboard .left-admin-dashboard-down .student-progress-graph {
+    width: 90%;
+  }
+  .admin-main-dashboard-route .left-admin-dashboard .left-admin-dashboard-down .student-progress-graph img {
+    width: 100%;
+  }
+  .admin-main-dashboard-route .right-admin-dashboard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 2rem 1rem 1rem 2rem;
+    width: 100%;
+  }
+  .admin-main-dashboard-route .right-admin-dashboard .right-admin-dashboard-top h4 {
+    margin-bottom: 1rem;
+  }
+  .admin-main-dashboard-route .right-admin-dashboard .right-admin-dashboard-top .notification-card-info p {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.9rem;
+  }
+  .admin-main-dashboard-route .right-admin-dashboard .right-admin-dashboard-top .notification-card-info p img {
+    width: 1.5rem;
+  }
+  .admin-main-dashboard-route .right-admin-dashboard .right-admin-dashboard-top .notification-card-info p:nth-child(2) {
+    color: rgba(0, 0, 0, 0.4);
+    padding-left: 2.4rem;
+  }
+  .admin-main-dashboard-route .right-admin-dashboard .right-admin-dashboard-down {
+    width: 95%;
+    height: 50%;
+    background: rgb(247, 249, 251);
+    border-radius: 8px;
+  }
+  .admin-main-dashboard-route .right-admin-dashboard .right-admin-dashboard-down h4 {
+    margin-top: 1rem;
+    margin-left: 1rem;
+    font-weight: 600;
+  }
+  .admin-main-dashboard-route .right-admin-dashboard .right-admin-dashboard-down table {
+    margin-left: 1rem;
+    margin-top: 1rem;
+    width: 90%;
+    border-top: none;
+    font-size: 0.8rem;
+    text-align: left;
+    border-collapse: collapse;
+  }
+  .admin-main-dashboard-route .right-admin-dashboard .right-admin-dashboard-down table .completed {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 100%;
+    background-color: rgb(161, 227, 203);
+  }
+  .admin-main-dashboard-route .right-admin-dashboard .right-admin-dashboard-down table .in-progress {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 100%;
+    background-color: rgb(149, 164, 252);
+  }
+  .admin-main-dashboard-route .right-admin-dashboard .right-admin-dashboard-down table .blue {
+    color: rgb(138, 140, 217);
+  }
+  .admin-main-dashboard-route .right-admin-dashboard .right-admin-dashboard-down table .green {
+    color: rgb(74, 167, 133);
+  }
+  .admin-main-dashboard-route .right-admin-dashboard .right-admin-dashboard-down table tr {
+    line-height: 1.6;
+  }
+  .admin-main-dashboard-route .right-admin-dashboard .right-admin-dashboard-down table tr th {
+    color: rgba(0, 0, 0, 0.4);
+    font-weight: 200;
+  }
+  .admin-main-dashboard-route .right-admin-dashboard .right-admin-dashboard-down table tr td {
+    border-bottom: none;
+    height: 0;
+    color: #1c1c1c;
+  }
+  .admin-main-dashboard-route .right-admin-dashboard .right-admin-dashboard-down table tr td:nth-child(3) {
+    margin-top: 0.58rem;
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+  }
+}
+
+@media (min-width: 1020px) {
+  .landingPage {
+    display: grid;
+    place-items: center;
+    height: 100vh;
+  }
+}
+
+@media (min-width: 1020px) {
+  .forbidden {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    place-items: center;
+    margin-top: 8.5rem;
+  }
+  .forbidden h1 {
+    font-size: 15rem;
+  }
+  .forbidden button {
+    margin-top: 1rem;
+    padding: 0.5rem 2.2rem;
+    border-radius: 8px;
+    border: 1px solid blueviolet;
+    cursor: pointer;
+  }
+  .forbidden button:hover {
+    background-color: #170e7d;
+    color: #fff;
+  }
+}
+
+@media (min-width: 1020px) {
+  .studentDashBoardPage {
+    height: 100vh;
+  }
+  .studentDashBoardPage .empty-student-board {
+    height: calc(100vh - 10rem);
+  }
+  .studentDashBoardPage .empty-student-board h1 {
+    color: #31394e;
+    font-weight: 600;
+    width: -moz-fit-content;
+    width: fit-content;
+    margin-top: 3rem;
+    margin-left: 2rem;
+  }
+  .studentDashBoardPage .empty-student-board .empty-student-board-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100% - 5.04rem);
+  }
+  .studentDashBoardPage .empty-student-board .empty-student-board-body h2 {
+    color: #9f9f9f;
+    font-weight: 400;
+  }
+  .studentDashBoardPage .empty-student-board .empty-student-board-body .empty-body-image {
+    width: 25vw;
+    height: auto;
+  }
+  .studentDashBoardPage .empty-student-board .empty-student-board-body .empty-body-image img {
+    width: 100%;
+  }
+}
+
+.students-dashboard-header {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  margin-right: 10vw;
+  margin-left: 1.5vw;
+}
+.students-dashboard-header .student-filter {
+  align-self: flex-end;
+}
+
+@media (min-width: 1020px) {
+  .student-submission {
+    height: 100vh;
+  }
+}
+
+@media (min-width: 1020px) {
+  .custom-dropdown {
+    width: 13rem;
+    max-width: 700px;
+    position: relative;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    text-align: center;
+  }
+  .custom-dropdown .custom-dropdown-selection {
+    display: flex;
+    align-items: center;
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    cursor: pointer;
+    justify-content: center;
+    height: 2rem;
+  }
+  .custom-dropdown .custom-dropdown-selection .createAssignmentTitlePlaceholder {
+    color: rgb(170, 168, 168);
+    width: 100%;
+    padding: 0.5rem 0rem;
+  }
+  .custom-dropdown .items-holder {
+    border: radius 8px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    top: 100%;
+    width: 100%;
+    height: 5vw;
+    padding: 0.1rem 0;
+    max-height: 15rem;
+    margin-top: 0.3rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    border: 2px solid rgb(159, 159, 159);
+    color: rgb(159, 159, 159);
+  }
+}
+@media (min-width: 1020px) and (min-width: 1440px) {
+  .custom-dropdown .items-holder {
+    height: 4rem;
+  }
+}
+@media (min-width: 1020px) {
+  .custom-dropdown .items-holder .dropdown-item {
+    padding: 0.2rem 0.2rem;
+    cursor: pointer;
+  }
+}
+
+@media (min-width: 1020px) {
+  .student-dashboard-table table {
+    margin-top: 3rem;
+    width: calc(100% - 20vw);
+    margin-left: 10rem;
+    border-collapse: collapse;
+  }
+  .student-dashboard-table table thead th {
+    background-color: rgb(168, 163, 223);
+    height: 4.5rem;
+    font-size: 1.4rem;
+    color: #fff;
+  }
+  .student-dashboard-table table tbody {
+    text-align: center;
+  }
+  .student-dashboard-table table tbody tr {
+    height: 5rem;
+    cursor: pointer;
+  }
+  .student-dashboard-table table tbody tr .description {
+    width: 25rem;
+  }
+  .student-dashboard-table table tbody tr .details-status {
+    color: #767676;
+    background-color: #b7efc0;
+    padding: 0.2rem 0.4rem;
+  }
+}
+
+.students-assignment-details-wrapper {
+  margin: 2rem 8.5rem;
+}
+@media (min-width: 1020px) {
+  .students-assignment-details-wrapper .assignment-details-header {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(168, 163, 223);
+    align-items: center;
+    height: 5rem;
+    padding: 0 1.5rem;
+    color: #fff;
+  }
+  .students-assignment-details-wrapper .assignment-details-header .assignment-header-left {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  .students-assignment-details-wrapper .assignment-details-header .assignment-header-left h1 {
+    font-weight: 400;
+  }
+  .students-assignment-details-wrapper .assignment-details-header .assignment-header-left .not-submitted-with-image {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .students-assignment-details-wrapper .assignment-details-header .assignment-header-right {
+    display: flex;
+    gap: 2rem;
+  }
+  .students-assignment-details-wrapper .assignment-details-body {
+    padding: 0rem 1.5rem;
+    padding-top: 2.5rem;
+  }
+  .students-assignment-details-wrapper .assignment-details-body h3 {
+    margin-bottom: 1rem;
+  }
+  .students-assignment-details-wrapper .assignment-details-body .assignment-main-details {
+    overflow-y: auto;
+    height: 18.5rem;
+    max-height: 100%;
+    padding: 0.5rem 0;
+  }
+  .students-assignment-details-wrapper .assignment-details-body .assignment-main-details p {
+    color: rgb(118, 118, 118);
+  }
+}
+
+@media (min-width: 1020px) {
+  .create-assignment-modal-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(59, 59, 64, 0.8);
+    display: grid;
+    place-items: center;
+    overflow-y: auto;
+  }
+  .create-assignment-modal-container .add-assignment-modal {
+    width: 30%;
+    height: 60%;
+    background-color: #fff;
+  }
+  .create-assignment-modal-container .assignment-modal {
+    width: 72%;
+    height: 90%;
+    max-width: 1090px;
+    max-height: 726px;
+    background-color: #fff;
+    -webkit-backdrop-filter: blur(2px);
+            backdrop-filter: blur(2px);
+    border-radius: 16px;
+  }
+  .create-assignment-modal-container .assignment-modal .modal-content {
+    display: grid;
+    height: 90%;
+    grid-template-columns: repeat(3, 57% 1% 40%);
+  }
+  .create-assignment-modal-container .assignment-modal .modal-content input {
+    width: 100%;
+    padding: 0.4rem 1rem;
+    border-radius: 8px;
+    border: 1px solid #dddddd;
+  }
+  .create-assignment-modal-container .assignment-modal .modal-content input::-moz-placeholder {
+    color: rgba(168, 168, 168, 0.6);
+  }
+  .create-assignment-modal-container .assignment-modal .modal-content input::placeholder {
+    color: rgba(168, 168, 168, 0.6);
+  }
+  .create-assignment-modal-container .assignment-modal .modal-content .modal-middle-line {
+    border-left: 1px solid #B9BBBE;
+    height: 90%;
+  }
+  .create-assignment-modal-container .assignment-modal .modal-content .modal-left-side {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 0 2rem;
+    color: rgba(0, 0, 0, 0.6);
+    overflow-y: auto;
+  }
+  .create-assignment-modal-container .assignment-modal .modal-content .modal-left-side h3 {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  .create-assignment-modal-container .assignment-modal .modal-content .modal-left-side .modal-input-container {
+    line-height: 2rem;
+  }
+  .create-assignment-modal-container .assignment-modal .modal-content .modal-left-side .modal-input-container p {
+    margin-left: 1rem;
+    font-size: 0.9rem;
+  }
+  .create-assignment-modal-container .assignment-modal .modal-content .modal-left-side .modal-input-container input {
+    color: rgba(0, 0, 0, 0.6);
+  }
+  .create-assignment-modal-container .assignment-modal .modal-content .modal-right-side {
+    display: flex;
+    flex-direction: column;
+  }
+  .create-assignment-modal-container .assignment-modal .modal-content .modal-right-side h3 {
+    text-align: center;
+  }
+  .create-assignment-modal-container .assignment-modal .modal-content .modal-right-side .invite-student-container {
+    height: calc(100vh - 170px);
+    max-height: 580px;
+    overflow-y: auto;
+    color: #797676;
+    margin-top: 2rem;
+  }
+  .create-assignment-modal-container .assignment-modal .modal-content .modal-right-side .invite-student-container .invite-student-card {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  .create-assignment-modal-container .assignment-modal .modal-content .modal-right-side .invite-student-container .invite-student-card .user-name-and-email {
+    width: 67%;
+  }
+  .create-assignment-modal-container .assignment-modal .modal-content .modal-right-side .invite-student-container .invite-student-card .circle {
+    width: 2vw;
+    height: 2vw;
+    display: flex;
+    background-color: green;
+    border-radius: 50%;
+    color: #fff;
+    justify-content: center;
+    align-items: center;
+  }
+  .create-assignment-modal-container .buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+  .create-assignment-modal-container .buttons button {
+    margin-top: 5rem;
+    width: 212px;
+    height: 34px;
+    border-radius: 8px;
+    border: none;
+    color: #fff;
+    font-weight: 600;
+    background-color: #5d34ec;
+    cursor: pointer;
+  }
+  .create-assignment-modal-container .buttons button:nth-child(2) {
+    background-color: transparent;
+    color: #5d34ec;
+  }
+}/*# sourceMappingURL=mainStyle.css.map */

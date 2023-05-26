@@ -1,0 +1,7 @@
+@import './breakpoints';
+
+.student-submission {
+  @include lg {
+    height: 100vh;
+  }
+}

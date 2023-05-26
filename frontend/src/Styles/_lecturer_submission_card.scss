@@ -1,0 +1,54 @@
+.submission-card-wrapper {
+  width: 21.5em;
+  height: 9rem;
+  background: #ffffff;
+  border: 0.1rem solid #dedede;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  place-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.card-wrapper,
+.submission-card-wrapper:hover {
+  cursor: pointer;
+}
+
+.folder-image {
+  width: 5.3rem;
+  height: 5.3rem;
+}
+
+.folder-image > img {
+  width: 4.6rem;
+  height: 4.6rem;
+}
+
+.submission-inscription {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 0.8rem;
+}
+
+.submission-title {
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 1.75rem;
+  text-transform: uppercase;
+  color: #31394e;
+}
+
+.number-submissions {
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.1875rem;
+  color: #1a9e27;
+}

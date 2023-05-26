@@ -1,0 +1,39 @@
+@import './breakpoints';
+
+.student-dashboard-table {
+  @include lg {
+    table {
+      margin-top: 3rem;
+      width: calc(100% - 20vw);
+      margin-left: 10rem;
+      border-collapse: collapse;
+
+      thead {
+        th {
+          background-color: rgba(168, 163, 223, 1);
+          height: 4.5rem;
+          font-size: 1.4rem;
+          color: #fff;
+        }
+      }
+      tbody {
+        text-align: center;
+
+        tr {
+          height: 5rem;
+          cursor: pointer;
+
+          .description {
+            width: 25rem;
+          }
+
+          .details-status {
+            color: #767676;
+            background-color: #b7efc0;
+            padding: 0.2rem 0.4rem;
+          }
+        }
+      }
+    }
+  }
+}

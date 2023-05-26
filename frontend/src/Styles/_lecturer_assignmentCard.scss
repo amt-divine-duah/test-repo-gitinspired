@@ -1,0 +1,146 @@
+.card-wrapper {
+  width: 21.5rem;
+  height: 17.3rem;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid #dedede;
+  border-radius: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.card-wrapper:hover {
+  border: 1px solid #5d34ec;
+  box-shadow: 0px 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
+}
+
+.card-title {
+  display: flex;
+  background: linear-gradient(180deg, #170e7d 0%, #645ea8 100%);
+  border-radius: 0.5rem 0.5rem 0 0;
+  color: #ffffff;
+  height: 2.75rem;
+  justify-content: center;
+  align-items: center;
+}
+
+h2 {
+  margin: 0;
+}
+
+.assignment-description {
+  padding: 1.5rem 0.875rem;
+}
+
+.assignment-description > p:nth-child(1) {
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.1875rem;
+  color: #31394e;
+  width: 5.625rem;
+  height: 1.1875rem;
+  padding: 0;
+  margin-bottom: 0.6125rem;
+}
+
+.assignment-description > p:nth-child(2) {
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 0.875rem;
+  width: 19.4375rem;
+  height: 2.625rem;
+  color: #9f9f9f;
+  margin-bottom: 1.5rem;
+  margin-left: 0.312rem;
+  margin-right: 0.312rem;
+}
+
+.assignment-features {
+  display: flex;
+  height: 1.5rem;
+  place-items: center;
+}
+
+.assignment-features > p {
+  width: 5.125rem;
+  height: 0.875rem;
+
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 0.875rem;
+
+  color: #ff3131;
+}
+
+.assignment-features > img {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-left: auto;
+}
+
+.assignment-uniqueness {
+  display: flex;
+  height: 2.75rem;
+  width: 100%;
+  background: #f7f9fb;
+  border-radius: 0.5rem;
+  place-items: center;
+  justify-content: space-between;
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.1875rem;
+  margin-top: 1.125rem;
+  color: #31394e;
+}
+.assignment-uniqueness > p {
+  margin-left: 1rem;
+}
+.assignment-code {
+  display: flex;
+  gap: 0.75rem;
+  width: fit-content;
+  padding: 0;
+  margin: 0;
+  background: #f7f9fb;
+  border-radius: 0.5rem;
+  height: inherit;
+  align-items: center;
+}
+.assignment-code > p {
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  color: #3e3693;
+}
+
+.assignment-code > img {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 0.75rem;
+}
+
+.assignment-code > p:nth-child(1) {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.18rem;
+  color: #31394e;
+}
+
+.assignment-code > p:nth-child(2) {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.18rem;
+  color: #5c34ec;
+}

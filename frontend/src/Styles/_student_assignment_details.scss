@@ -1,0 +1,54 @@
+@import './breakpoints';
+
+.students-assignment-details-wrapper {
+  margin: 2rem 8.5rem;
+  @include lg {
+    .assignment-details-header {
+      display: flex;
+      justify-content: space-between;
+      background-color: rgba(168, 163, 223, 1);
+      align-items: center;
+      height: 5rem;
+      padding: 0 1.5rem;
+      color: #fff;
+
+      .assignment-header-left {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+
+        h1 {
+          font-weight: 400;
+        }
+
+        .not-submitted-with-image {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+      }
+      .assignment-header-right {
+        display: flex;
+        gap: 2rem;
+      }
+    }
+    .assignment-details-body {
+      padding: 0rem 1.5rem;
+      padding-top: 2.5rem;
+
+      h3 {
+        margin-bottom: 1rem;
+      }
+      .assignment-main-details {
+        overflow-y: auto;
+        height: 18.5rem;
+        max-height: 100%;
+        padding: 0.5rem 0;
+
+        p {
+          color: rgba(118, 118, 118, 1);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,133 @@
+.lecturer-view {
+  display: grid;
+  grid-template-columns: 15% 85%;
+  height: 100vh;
+}
+.main-content {
+  width: 100%;
+}
+.top-content > h2 {
+  font-size: 2rem;
+  margin-left: 2.5rem;
+  margin-bottom: 1.3rem;
+}
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 1.8rem;
+  height: calc(100vh - 13.1rem);
+  overflow-y: auto;
+  max-height: 1024px;
+  padding: 0 0 1.8rem 3rem;
+  scroll-behavior: smooth;
+}
+.submission-card {
+  margin-top: 7rem;
+}
+.draft-container {
+  margin-top: 3.5rem;
+}
+.submission-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 1.8rem;
+
+  height: calc(100vh - 12.1rem);
+  overflow-y: auto;
+  max-height: 1024px;
+  padding: 0 0 1.8rem 3rem;
+  scroll-behavior: smooth;
+}
+.submissionClicked-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  height: 100%;
+  width: 100%;
+}
+.submission-details-container {
+  display: flex;
+  height: calc(100% - 10rem);
+  width: calc(100% - 2rem);
+  border: 1px solid #dedede;
+  box-shadow: 0px 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
+  border-radius: 0.5rem;
+}
+.name-list {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  justify-items: center;
+  align-items: center;
+  gap: 8px;
+  padding: 1.375rem 0 1.375rem 0;
+  width: 17rem;
+}
+
+.name-list > p {
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.2rem;
+  color: #31394e;
+  text-align: center;
+  height: 3.2rem;
+  width: max-content;
+  padding: 0.875rem 0.375rem;
+}
+
+.name-list > p:hover {
+  background: #f2f2f2;
+  border-radius: 0.5rem;
+  text-align: center;
+  cursor: pointer;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+.submission-documents {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 17rem);
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+.document-features {
+  display: flex;
+  justify-content: right;
+  gap: 2rem;
+  margin-right: 2rem;
+  margin-bottom: 0.75rem;
+  margin-top: 1rem;
+}
+.dropdown {
+  position: absolute;
+  background: #19291a;
+  border-radius: 8px;
+  height: fit-content;
+  padding: 0.625rem 1.3125rem 0.625rem 1.3125rem;
+  color: #ffffff;
+  margin-top: 0.5rem;
+  display: none;
+}
+
+.dropdown > ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.dropdown > ul > li {
+  list-style: none;
+}
+.clicked-top {
+  width: 90%;
+  border: 1px solid #dedede;
+  border-radius: 0.5rem;
+}
+.active {
+  background: #130c68;
+}

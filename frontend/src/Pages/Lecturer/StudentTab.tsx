@@ -1,34 +1,62 @@
-import { useState } from "react";
-import Searchbar from "../../components/Lecturer/Searchbar";
-import ActionButton from "../../components/Lecturer/ActionButton";
-import Table from "../../components/Table";
-import useStudents from "../../hooks/useStudentData";
-import useSearch from "../../hooks/useSearch";
-import { SearchProvider } from "../../components/Lecturer/SearchContext";
+import { CircularProgress } from '@mui/joy';
+import { useEffect, useState } from 'react';
+import Table from '../../components/Table';
+import Actionbar from '../../components/lecturer_dashboard/Actionbar';
+import LecturerView from '../../components/lecturer_dashboard/LecturerView';
+import { UserInterface } from '../../customTypesAndInterface/AdminCustomTypes';
+import { useAppDispatch, useAppSelector } from '../../hooks/useTypedSelector';
+import { fetchLecturersStudent } from '../../store/features/LecturersStudentDataSlice';
+
 const StudentTab = () => {
-  const {students} = useStudents();
-  const {search, word} =useSearch();
-  return (
-      <div className="main-content">
-        <div className="page-features">
-        <SearchProvider search={search} word={word}>
-          <Searchbar />
-        </SearchProvider>
-          <div className="header-right">
-          <ActionButton class={"action filter"} name={"filter by date"} />
-          <ActionButton class={"action assign"} name={"assignment +"} />
-          </div>
-        </div>
-        <div className="student-page-view">
-          <h2 className="page-header">All Students</h2>
-          <div className="assignment-container">
-            <Table userTableName={"Student ID"} data={students} />
-          </div>
-          <div>
-           {/* pagewsitcher component */}
-          </div>
+  const [studentList, setStudentList] = useState<UserInterface[] | null | undefined>();
+
+  const dispatch = useAppDispatch();
+  const { student } = useAppSelector((state) => state.lecturersStudentData);
+
+  useEffect(() => {
+    dispatch(fetchLecturersStudent());
+    setStudentList(student);
+  }, [student?.length, dispatch, student]);
+
+  let contents;
+  if (studentList === undefined) {
+    contents = (
+      <div className='main-content'>
+        <div className='wrapper'>
+          <CircularProgress size='lg' />
         </div>
       </div>
+    );
+  } else if (studentList?.length === 0) {
+    contents = (
+      <div className='main-content'>
+        <p>cannot load data...</p>
+      </div>
+    );
+  } else if (studentList === null) {
+    contents = (
+      <div className='main-content'>
+        <p>
+          Oops, nothing created or uploaded yet. Click on any of the buttons above to get started
+        </p>
+      </div>
+    );
+  } else {
+    contents = <Table userTableName={'Student ID'} data={studentList && studentList} />;
+  }
+
+  return (
+    <LecturerView sidebar>
+      <div className='main-content'>
+        <div className='top-content'>
+          <Actionbar />
+          <h2>Assignment</h2>
+        </div>
+        <div className='wrapper'>
+          <div className='student-table'> {contents}</div>
+        </div>
+      </div>
+    </LecturerView>
   );
 };
 

@@ -1,57 +1,46 @@
-import { useLocation } from "react-router-dom";
-import ActionButton from "../../components/Lecturer/ActionButton";
-import TopContent from "../../components/Lecturer/TopContent";
-import BottomContent from "../../components/Lecturer/BottomContent";
-import Searchbar from "../../components/Lecturer/Searchbar";
-import useData from "../../hooks/useAssignmentData";
-import { SearchProvider } from "../../components/Lecturer/SearchContext";
-import useSearch from "../../hooks/useSearch";
+import { useLocation } from 'react-router-dom';
+import Actionbar from '../../components/lecturer_dashboard/Actionbar';
+import LecturerView from '../../components/lecturer_dashboard/LecturerView';
+import useAssignmentCardClicked from '../../hooks/useAssignmentCardClicked';
+import TopContent from '../../components/lecturer_dashboard/TopContent';
+import BottomContent from '../../components/lecturer_dashboard/BottomContent';
+import LecturerAddStudentModal from '../../components/lecturer_dashboard/LecturerAddStudentModal';
+import { useState } from 'react';
 
 const AssignmentCardClicked = () => {
-  const keyword = useLocation();
-  const uniqueCode: string = keyword.state.name;
+  const keyId = useLocation();
+  const cardInformationToDisplay = keyId.state.name;
+  const {studentsdata, assignmentsdata} = useAssignmentCardClicked(cardInformationToDisplay);
+  const [showUserModal,setShowUserModal]=useState(false)
 
-  const dataValue = useData();
+  console.log(assignmentsdata,'assignment Data settings');
+  const handleShowAddUserModal =()=>{
+      setShowUserModal(prev=>!prev)
+  }
 
-  const assignmentData = dataValue.assignments;
-
-  const output = assignmentData.filter((item) => {
-    return item.code === uniqueCode;
-  });
-
- const {search, word} =useSearch();
   return (
-    <div className="main-content">
-      <div className="page-features">
-        <SearchProvider search={search} word={word}>
-          <Searchbar />
-        </SearchProvider>
-
-        <div className="header-right">
-          <ActionButton class={"action filter"} name={"filter by date"} />
-          <ActionButton class={"action assign"} name={"assignment +"} />
+    <LecturerView sidebar>
+      <div className='main-content'>
+        <div className='top-content'>
+          <Actionbar />
+          <h2>Assignment</h2>
         </div>
+        <div className='wrapper'>
+          <div className='clicked-top'>
+          <TopContent
+                title={assignmentsdata&& assignmentsdata.title}
+                uniqueCode={assignmentsdata?.uniqueCode}
+                deadline={assignmentsdata?.deadline}
+                description={assignmentsdata?.description}
+              />
+           
+          </div>
+          <BottomContent data={studentsdata} showAddUserModal={handleShowAddUserModal}/>
+        </div>
+        
       </div>
-      {/* //// */}
-      <h2 className="clicked-header1">Assignment</h2>
-      <div className="clicked-top">
-        {output.map((item) => {
-          return (
-            <TopContent
-              title={item.title}
-              uniqueCode={item.code}
-              date={item.date}
-              details={item.fullDetails}
-            />
-          );
-        })}
-      </div>
-      {output.map((item) => {
-        return <BottomContent invitedStudents={item.numberOfStudents} />;
-      })}
-
-      {/* //// */}
-    </div>
+      {showUserModal && <LecturerAddStudentModal showAddUserModal={handleShowAddUserModal} setShowUserModal={setShowUserModal}/>}
+    </LecturerView>
   );
 };
 

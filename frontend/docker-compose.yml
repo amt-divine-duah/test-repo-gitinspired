@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  acms-web:
+    image: gitinspired-frontend
+    container_name: gitinspired-frontend
+    build :
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '3000:4173'
+    restart: on-failure

@@ -1,0 +1,51 @@
+@import './breakpoints';
+
+.studentDashBoardPage {
+  @include lg {
+    height: 100vh;
+
+    .empty-student-board {
+      height: calc(100vh - 10rem);
+
+      h1 {
+        color: #31394e;
+        font-weight: 600;
+        width: fit-content;
+        margin-top: 3rem;
+        margin-left: 2rem;
+      }
+
+      .empty-student-board-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: calc(100% - 5.04rem);
+
+        h2 {
+          color: #9f9f9f;
+          font-weight: 400;
+        }
+        .empty-body-image {
+          width: 25vw;
+          height: auto;
+          img {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+.students-dashboard-header {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  margin-right: 10vw;
+  margin-left: 1.5vw;
+
+  .student-filter {
+    align-self: flex-end;
+  }
+}

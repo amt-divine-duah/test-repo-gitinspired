@@ -1,0 +1,36 @@
+.main-board-table {
+  table {
+    margin-top: 3rem;
+    border-collapse: collapse;
+    width: 100%;
+    color: #797676;
+    text-align: left;
+  }
+
+  table th:nth-child(3),
+  table td:nth-child(3) {
+    text-align: center;
+  }
+
+  thead tr {
+    border-bottom: 2px solid #b9bbbe;
+  }
+  tbody tr {
+    border-bottom: 1px solid #b9bbbe;
+  }
+
+  thead th {
+    padding: 0.3rem 0;
+    padding-left: 2em;
+    font-size: 1.3em;
+  }
+  tbody td {
+    padding: 0.6rem 0;
+    padding-left: 2.7rem;
+    font-size: 1rem;
+  }
+  th:first-child,
+  td:first-child {
+    width: 40%;
+  }
+}

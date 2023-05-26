@@ -1,0 +1,182 @@
+.admin-main-dashboard-route {
+  @include lg {
+    display: grid;
+    grid-template-columns: 60% 35%;
+    width: 100%;
+    max-width: 1440px;
+    max-height: 1024px;
+    height: 87%;
+    overflow-y: auto;
+
+    .left-admin-dashboard {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin: 0 2rem;
+
+      .overview {
+        margin-bottom: 1rem;
+        color: #9f9f9f;
+      }
+
+      .overview-content {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        .overview-cards {
+          height: 5rem;
+          background-color: #f7f9fb;
+          width: 100%;
+          padding-left: 0.5rem;
+          gap: 0.7rem;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          p {
+            color: #788b9a;
+            font-size: 0.8rem;
+          }
+          .overview-image {
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 100%;
+            background-color: #e5e3fe;
+          }
+        }
+      }
+      .admin-dashboard-header {
+        display: flex;
+        align-items: center;
+        background: url('/Rectangle 82.svg');
+        background-position: bottom;
+        background-size: 80vw 28vh;
+        background-repeat: no-repeat;
+
+        .admin-header-text {
+          margin-top: 4rem;
+          padding-left: 0.4rem;
+          padding-bottom: 1rem;
+          align-items: center;
+          width: 100rem;
+          border-radius: 8px;
+
+          h1 {
+            color: #31394e;
+            font-weight: 400;
+            font-size: 2.4vw;
+          }
+          p {
+            color: #788b9a;
+            line-height: 1.3vw;
+            font-size: 0.9vw;
+            margin-bottom: 0.1vw;
+          }
+        }
+      }
+      .left-admin-dashboard-down {
+        .students-progress {
+          color: #9f9f9f;
+          margin-bottom: 1.5rem;
+        }
+        .student-progress-graph {
+          width: 90%;
+          img {
+            width: 100%;
+          }
+        }
+      }
+    }
+    .right-admin-dashboard {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin: 2rem 1rem 1rem 2rem;
+      width: 100%;
+
+      .right-admin-dashboard-top {
+        h4 {
+          margin-bottom: 1rem;
+        }
+        .notification-card-info {
+          p {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            img {
+              width: 1.5rem;
+            }
+            font-size: 0.9rem;
+            &:nth-child(2) {
+              color: rgba(0, 0, 0, 0.4);
+              padding-left: 2.4rem;
+            }
+          }
+        }
+      }
+
+      .right-admin-dashboard-down {
+        width: 95%;
+        height: 50%;
+        background: rgba(247, 249, 251, 1);
+        border-radius: 8px;
+
+        h4 {
+          margin-top: 1rem;
+          margin-left: 1rem;
+          font-weight: 600;
+        }
+        table {
+          margin-left: 1rem;
+          margin-top: 1rem;
+          width: 90%;
+          border-top: none;
+          font-size: 0.8rem;
+          text-align: left;
+          border-collapse: collapse;
+
+          .completed {
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 100%;
+            background-color: rgba(161, 227, 203, 1);
+          }
+          .in-progress {
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 100%;
+            background-color: rgba(149, 164, 252, 1);
+          }
+          .blue {
+            color: rgba(138, 140, 217, 1);
+          }
+          .green {
+            color: rgba(74, 167, 133, 1);
+          }
+
+          tr {
+            line-height: 1.6;
+
+            th {
+              color: rgba(0, 0, 0, 0.4);
+              font-weight: 200;
+            }
+            td {
+              border-bottom: none;
+              height: 0;
+              color: #1c1c1c;
+              &:nth-child(3) {
+                margin-top: 0.58rem;
+                display: flex;
+                align-items: center;
+                gap: 0.2rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
