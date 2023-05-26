@@ -21,13 +21,13 @@ import ForbiddenPage from "./components/ForbiddenPage";
 const App = () => {
   return (
     <div className="app">
-      {/* <HomePage>
+      <HomePage>
       <Routes>
         <Route path="/student" element={<AdminStudentDashBoard/>}/>
         <Route path="/lecturer" element={<AdminLecturerDashBoard/>}/>
         <Route path="/" element={<AdminMainDashBoard/>} />
       </Routes>
-      </HomePage> */}
+      </HomePage>
       {/* <MainStudentDashBoard>
         <Routes>
           <Route path="students-dashboard" element={<StudentsDashBoard/>}/>
@@ -36,7 +36,7 @@ const App = () => {
       </MainStudentDashBoard> */}
       {/* <LoginPage/> */}
       {/* <LecturerView/> */}
-      <ForbiddenPage/>
+      {/* <ForbiddenPage/> */}
       
      
     </div>
