@@ -1,9 +1,4 @@
-interface EditAssignment {
-  data:any;
-  showAddUserModal?:any
-}
-
-const BottomContent = (prop: EditAssignment) => {
+const BottomContent = (prop: { data: any }) => {
   const data = prop.data;
   return (
     <div className='clicked-card'>
@@ -11,7 +6,7 @@ const BottomContent = (prop: EditAssignment) => {
         <h2 className='bottom-content-header'>Students</h2>
         <div className='student-participation'>
           <p>{data.length} students</p>
-          <img src='/add.png' alt='icon' className='add' onClick={prop.showAddUserModal} />
+          <img src='/add.png' alt='icon' className='add' />
         </div>
       </div>
       <div className='bottom-table-wrapper'>

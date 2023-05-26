@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { showErrorMessage } from '../constants/messages';
 import axios from 'axios';
 import api from '../ApiClient';

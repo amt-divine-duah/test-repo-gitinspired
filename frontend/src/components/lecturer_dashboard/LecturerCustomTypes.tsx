@@ -12,9 +12,9 @@ export interface ActionButtonType {
 export interface AssignmentCardType {
   title: string;
   description: string;
-  deadline: string;
+  deadline: Date;
   uniqueCode: string;
-  course?: string;
+  id: number;
 }
 
 export interface MainProps {
@@ -97,16 +97,37 @@ export interface DraftDataType {
   updatedAt: string;
   _count: {
     students: number;
-  };
+  }
 }
 
 export interface SubmissionData {
   title: string;
-  id: number;
-  course: string;
-  submissions: number;
+      id: number;
+      course: string;
+      submissions: number;
 }
-export interface searchType {
+export interface SearchType {
   search: ((e: React.ChangeEvent<HTMLInputElement>) => void) | undefined;
   word: string;
+}
+
+export interface FullAssignmentData {
+  course?: string;
+  deadline?: Date;
+  description?: string;
+  title?: string;
+  uniqueCode?: string;
+  updatedAt?: Date;
+}
+
+export interface StudentsListData {
+  assignmentId?: number;
+  id: number;
+  students : {
+    firstName: string;
+    lastName: string;
+    email: string;
+    studentId: string;
+  }
+
 }
