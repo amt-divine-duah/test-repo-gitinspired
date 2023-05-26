@@ -1,8 +1,14 @@
 .main-board-table {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: calc(100%);
   table {
     margin-top: 3rem;
     border-collapse: collapse;
     width: 100%;
+    overflow-y: auto;
+
     color: #797676;
     text-align: left;
   }

@@ -162,11 +162,14 @@
             th {
               color: rgba(0, 0, 0, 0.4);
               font-weight: 200;
+              text-align: left;
             }
             td {
               border-bottom: none;
               height: 0;
               color: #1c1c1c;
+              text-align: left;
+
               &:nth-child(3) {
                 margin-top: 0.58rem;
                 display: flex;

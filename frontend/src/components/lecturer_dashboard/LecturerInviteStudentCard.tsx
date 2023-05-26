@@ -16,7 +16,7 @@ const LecturerInviteStudentCard = ({
       }
     });
   };
-
+  console.log(studentData);
   return (
     <div className='invite-student-container'>
       {studentData?.map((user, index) => (

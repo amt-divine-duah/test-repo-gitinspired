@@ -58,7 +58,6 @@
     justify-content: space-between;
     height: 100%;
     margin: 2rem 13rem;
-    overflow-y: auto;
   }
   .main-board .admin-board {
     display: flex;
@@ -131,10 +130,17 @@
   background-color: #fff;
 }
 
+.main-board-table {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
 .main-board-table table {
   margin-top: 3rem;
   border-collapse: collapse;
   width: 100%;
+  overflow-y: auto;
   color: #797676;
   text-align: left;
 }
@@ -440,7 +446,11 @@
     color: #788b9a;
     font-size: 0.8rem;
   }
-  .admin-main-dashboard-route .left-admin-dashboard .overview-content .overview-cards .overview-image {
+  .admin-main-dashboard-route
+    .left-admin-dashboard
+    .overview-content
+    .overview-cards
+    .overview-image {
     width: 2rem;
     height: 2rem;
     display: flex;
@@ -452,7 +462,7 @@
   .admin-main-dashboard-route .left-admin-dashboard .admin-dashboard-header {
     display: flex;
     align-items: center;
-    background: url("/Rectangle 82.svg");
+    background: url('/Rectangle 82.svg');
     background-position: bottom;
     background-size: 80vw 28vh;
     background-repeat: no-repeat;
@@ -480,10 +490,17 @@
     color: #9f9f9f;
     margin-bottom: 1.5rem;
   }
-  .admin-main-dashboard-route .left-admin-dashboard .left-admin-dashboard-down .student-progress-graph {
+  .admin-main-dashboard-route
+    .left-admin-dashboard
+    .left-admin-dashboard-down
+    .student-progress-graph {
     width: 90%;
   }
-  .admin-main-dashboard-route .left-admin-dashboard .left-admin-dashboard-down .student-progress-graph img {
+  .admin-main-dashboard-route
+    .left-admin-dashboard
+    .left-admin-dashboard-down
+    .student-progress-graph
+    img {
     width: 100%;
   }
   .admin-main-dashboard-route .right-admin-dashboard {
@@ -496,16 +513,29 @@
   .admin-main-dashboard-route .right-admin-dashboard .right-admin-dashboard-top h4 {
     margin-bottom: 1rem;
   }
-  .admin-main-dashboard-route .right-admin-dashboard .right-admin-dashboard-top .notification-card-info p {
+  .admin-main-dashboard-route
+    .right-admin-dashboard
+    .right-admin-dashboard-top
+    .notification-card-info
+    p {
     display: flex;
     align-items: center;
     gap: 1rem;
     font-size: 0.9rem;
   }
-  .admin-main-dashboard-route .right-admin-dashboard .right-admin-dashboard-top .notification-card-info p img {
+  .admin-main-dashboard-route
+    .right-admin-dashboard
+    .right-admin-dashboard-top
+    .notification-card-info
+    p
+    img {
     width: 1.5rem;
   }
-  .admin-main-dashboard-route .right-admin-dashboard .right-admin-dashboard-top .notification-card-info p:nth-child(2) {
+  .admin-main-dashboard-route
+    .right-admin-dashboard
+    .right-admin-dashboard-top
+    .notification-card-info
+    p:nth-child(2) {
     color: rgba(0, 0, 0, 0.4);
     padding-left: 2.4rem;
   }
@@ -535,7 +565,11 @@
     border-radius: 100%;
     background-color: rgb(161, 227, 203);
   }
-  .admin-main-dashboard-route .right-admin-dashboard .right-admin-dashboard-down table .in-progress {
+  .admin-main-dashboard-route
+    .right-admin-dashboard
+    .right-admin-dashboard-down
+    table
+    .in-progress {
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 100%;
@@ -553,13 +587,20 @@
   .admin-main-dashboard-route .right-admin-dashboard .right-admin-dashboard-down table tr th {
     color: rgba(0, 0, 0, 0.4);
     font-weight: 200;
+    text-align: left;
   }
   .admin-main-dashboard-route .right-admin-dashboard .right-admin-dashboard-down table tr td {
     border-bottom: none;
     height: 0;
     color: #1c1c1c;
+    text-align: left;
   }
-  .admin-main-dashboard-route .right-admin-dashboard .right-admin-dashboard-down table tr td:nth-child(3) {
+  .admin-main-dashboard-route
+    .right-admin-dashboard
+    .right-admin-dashboard-down
+    table
+    tr
+    td:nth-child(3) {
     margin-top: 0.58rem;
     display: flex;
     align-items: center;
@@ -705,6 +746,41 @@
 }
 
 @media (min-width: 1020px) {
+  .select-menu {
+    width: 13rem;
+    height: 2rem;
+    border-radius: 5px;
+  }
+  .select-menu ul {
+    list-style: none;
+  }
+  .select-menu .select-btn {
+    display: flex;
+    align-items: center;
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    cursor: pointer;
+    justify-content: center;
+    height: 2rem;
+  }
+  .select-menu .options {
+    position: relative;
+    margin-top: 0.4rem;
+    border-radius: 8px;
+    border: 2px solid rgb(159, 159, 159);
+    color: rgb(159, 159, 159);
+  }
+  .select-menu .options .option {
+    display: flex;
+    flex-direction: column;
+    height: 1.2rem;
+    margin-top: 0.4rem;
+    align-items: center;
+    cursor: pointer;
+  }
+}
+
+@media (min-width: 1020px) {
   .student-dashboard-table table {
     margin-top: 3rem;
     width: calc(100% - 20vw);
@@ -755,7 +831,10 @@
   .students-assignment-details-wrapper .assignment-details-header .assignment-header-left h1 {
     font-weight: 400;
   }
-  .students-assignment-details-wrapper .assignment-details-header .assignment-header-left .not-submitted-with-image {
+  .students-assignment-details-wrapper
+    .assignment-details-header
+    .assignment-header-left
+    .not-submitted-with-image {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -794,11 +873,6 @@
     place-items: center;
     overflow-y: auto;
   }
-  .create-assignment-modal-container .add-assignment-modal {
-    width: 30%;
-    height: 60%;
-    background-color: #fff;
-  }
   .create-assignment-modal-container .assignment-modal {
     width: 72%;
     height: 90%;
@@ -806,7 +880,7 @@
     max-height: 726px;
     background-color: #fff;
     -webkit-backdrop-filter: blur(2px);
-            backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
     border-radius: 16px;
   }
   .create-assignment-modal-container .assignment-modal .modal-content {
@@ -827,7 +901,7 @@
     color: rgba(168, 168, 168, 0.6);
   }
   .create-assignment-modal-container .assignment-modal .modal-content .modal-middle-line {
-    border-left: 1px solid #B9BBBE;
+    border-left: 1px solid #b9bbbe;
     height: 90%;
   }
   .create-assignment-modal-container .assignment-modal .modal-content .modal-left-side {
@@ -842,14 +916,28 @@
     text-align: center;
     margin-bottom: 1rem;
   }
-  .create-assignment-modal-container .assignment-modal .modal-content .modal-left-side .modal-input-container {
+  .create-assignment-modal-container
+    .assignment-modal
+    .modal-content
+    .modal-left-side
+    .modal-input-container {
     line-height: 2rem;
   }
-  .create-assignment-modal-container .assignment-modal .modal-content .modal-left-side .modal-input-container p {
+  .create-assignment-modal-container
+    .assignment-modal
+    .modal-content
+    .modal-left-side
+    .modal-input-container
+    p {
     margin-left: 1rem;
     font-size: 0.9rem;
   }
-  .create-assignment-modal-container .assignment-modal .modal-content .modal-left-side .modal-input-container input {
+  .create-assignment-modal-container
+    .assignment-modal
+    .modal-content
+    .modal-left-side
+    .modal-input-container
+    input {
     color: rgba(0, 0, 0, 0.6);
   }
   .create-assignment-modal-container .assignment-modal .modal-content .modal-right-side {
@@ -859,23 +947,44 @@
   .create-assignment-modal-container .assignment-modal .modal-content .modal-right-side h3 {
     text-align: center;
   }
-  .create-assignment-modal-container .assignment-modal .modal-content .modal-right-side .invite-student-container {
+  .create-assignment-modal-container
+    .assignment-modal
+    .modal-content
+    .modal-right-side
+    .invite-student-container {
     height: calc(100vh - 170px);
     max-height: 580px;
     overflow-y: auto;
     color: #797676;
     margin-top: 2rem;
   }
-  .create-assignment-modal-container .assignment-modal .modal-content .modal-right-side .invite-student-container .invite-student-card {
+  .create-assignment-modal-container
+    .assignment-modal
+    .modal-content
+    .modal-right-side
+    .invite-student-container
+    .invite-student-card {
     display: flex;
     align-items: center;
     gap: 2rem;
     margin-top: 2rem;
   }
-  .create-assignment-modal-container .assignment-modal .modal-content .modal-right-side .invite-student-container .invite-student-card .user-name-and-email {
+  .create-assignment-modal-container
+    .assignment-modal
+    .modal-content
+    .modal-right-side
+    .invite-student-container
+    .invite-student-card
+    .user-name-and-email {
     width: 67%;
   }
-  .create-assignment-modal-container .assignment-modal .modal-content .modal-right-side .invite-student-container .invite-student-card .circle {
+  .create-assignment-modal-container
+    .assignment-modal
+    .modal-content
+    .modal-right-side
+    .invite-student-container
+    .invite-student-card
+    .circle {
     width: 2vw;
     height: 2vw;
     display: flex;
@@ -904,4 +1013,4 @@
     background-color: transparent;
     color: #5d34ec;
   }
-}/*# sourceMappingURL=mainStyle.css.map */
+} /*# sourceMappingURL=mainStyle.css.map */

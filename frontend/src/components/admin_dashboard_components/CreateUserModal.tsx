@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { StatusCodes } from 'http-status-codes';
 import _ from 'lodash';
-import React from 'react';
+import React, { useEffect } from 'react';
 import api from '../../ApiClient';
 import { showErrorMessage, showSuccessMessage } from '../../constants/messages';
 import {
@@ -62,13 +62,15 @@ const CreateUserModal = ({ showModal, user, onCreateUser }: CreateUserPropType) 
     }
   }
 
-  if (formErrors['email']?.[0]) {
-    showErrorMessage(formErrors['email']?.[0]);
-  } else if (formErrors['firstname']?.[0]) {
-    showErrorMessage(formErrors['firstname']?.[0]);
-  } else if (formErrors['lastname']?.[0]) {
-    showErrorMessage(formErrors['lastname']?.[0]);
-  }
+  useEffect(() => {
+    if (formErrors['email']?.[0]) {
+      showErrorMessage(formErrors['email']?.[0]);
+    } else if (formErrors['firstname']?.[0]) {
+      showErrorMessage(formErrors['firstname']?.[0]);
+    } else if (formErrors['lastname']?.[0]) {
+      showErrorMessage(formErrors['lastname']?.[0]);
+    }
+  }, [formErrors]);
 
   return (
     <div className='container' onClick={showModal}>

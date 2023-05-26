@@ -3,19 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import LogOutModal from '../LogOutModal';
 
 const Sidebar = () => {
-  const [ activeDashboard, setActiveDashboard] = useState<boolean>(true);
-  const [ activeStudent, setActiveStudent] = useState<boolean>(false);
-  const [ activeSubmission, setActiveSubmission] = useState<boolean>(false);
-  const [ activeDraft, setActiveDraft] = useState<boolean>(false);
+  const [activeDashboard, setActiveDashboard] = useState<boolean>(true);
+  const [activeStudent, setActiveStudent] = useState<boolean>(false);
+  const [activeSubmission, setActiveSubmission] = useState<boolean>(false);
+  const [activeDraft, setActiveDraft] = useState<boolean>(false);
   const [logout, setLogout] = useState(false);
   const handleLogout = () => {
     setLogout((prev) => !prev);
   };
   const navigate = useNavigate();
-  const tabClick = (event: React.MouseEvent<HTMLElement>) => { 
-     
-     const page: string = event.currentTarget.classList[1];
-     if(page === 'dashboard') {
+  const tabClick = (event: React.MouseEvent<HTMLElement>) => {
+    const page: string = event.currentTarget.classList[1];
+    if (page === 'dashboard') {
       setActiveDashboard(true);
     } else if (page === 'students') {
       setActiveStudent(true);

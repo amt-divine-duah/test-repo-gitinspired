@@ -22,7 +22,6 @@ const DashboardTab = () => {
                   description={item.description}
                   deadline={item.deadline}
                   uniqueCode={item.uniqueCode}
-                  id={item.id}
                 />
               );
             })}

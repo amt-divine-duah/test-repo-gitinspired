@@ -35,7 +35,7 @@ const useAssignmentData = () => {
         }
       }
     })();
-  }, [auth()?.loginId]);
+  }, [auth.name]);
   const sort = (e: React.MouseEvent<HTMLLIElement>) => {
     const key: string = e.currentTarget.id.toLowerCase();
 

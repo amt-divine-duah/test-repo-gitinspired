@@ -18,4 +18,5 @@ export type StudentTableTypeII = {
 
 export interface Assignment {
   assignment: TableDataFormatType;
+  deadline: string;
 }

@@ -13,7 +13,7 @@ const initialState: SubmissionState = {
 export const fetchSubmission = createAsyncThunk('submission/fetch', async (data, thunkAPI) => {
   data;
   try {
-    const response = await api.get('/api/admin/assignments');
+    const response = await api.get('/api/admin/submissions');
     const keysToPick = ['staffId', 'firstName', 'lastName', 'email'];
     const submissions = (await _.map(response.data?.data, (obj) =>
       _.pick(obj, keysToPick),

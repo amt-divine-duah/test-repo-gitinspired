@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { StatusCodes } from 'http-status-codes';
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import api from '../../ApiClient';
 import { showErrorMessage, showSuccessMessage } from '../../constants/messages';
 import { FormErrors, LoginSubmitButtonType } from './CustomTypes';
@@ -31,8 +31,8 @@ const PasswordResetForm = () => {
   const special = new RegExp("(?=.*[$&+,:;=?@#|'<>.^*()%!-])");
 
   const navigate = useNavigate();
-  const { token } = useParams();
-
+  const location = useLocation();
+  const token = new URLSearchParams(location.search).get('token');
   useEffect(() => {
     (async () => {
       try {

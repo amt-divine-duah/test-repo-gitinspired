@@ -1,7 +1,6 @@
 import { CircularProgress } from '@mui/joy';
 import { BoardPropType } from '../../customTypesAndInterface/AdminCustomTypes';
 import Table from '../Table';
-import TableFooter from '../TableFooter';
 
 const Board = ({
   users,
@@ -66,8 +65,6 @@ const Board = ({
 
         {contents}
       </section>
-
-      {data?.length !== 0 && <TableFooter />}
     </div>
   );
 };

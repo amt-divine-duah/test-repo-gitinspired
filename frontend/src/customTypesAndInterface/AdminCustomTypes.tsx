@@ -55,8 +55,8 @@ export type CreateUserPropType = {
 };
 
 export interface TableDataType {
-  userTableName: string;
-  data: UserInterface[] | null | undefined;
+  userTableName?: string;
+  data?: UserInterface[] | null;
 }
 
 export interface ProtectedType {

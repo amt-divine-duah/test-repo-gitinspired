@@ -18,8 +18,8 @@ const LecturerCreateNewAssignmentModal = ({ handleShowAssignmentModal }: ShowMoa
   const auth = useAuthUser();
 
   const descriptionValue = description;
-  const title = titleRef.current ?.value ??'';
-  const deadline = deadlineRef.current ?.value ??'';
+  const title = titleRef.current?.value ?? '';
+  const deadline = deadlineRef.current?.value ?? '';
 
   const formData = {
     title: title,

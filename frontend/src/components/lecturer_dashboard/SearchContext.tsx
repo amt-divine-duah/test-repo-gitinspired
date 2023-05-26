@@ -1,22 +1,16 @@
-import React from "react";
-import { SearchType } from "./LecturerCustomTypes";
+import React from 'react';
+import { searchType } from './LecturerCustomTypes';
 
-export const SearchContext = React.createContext<SearchType>({} as SearchType);
+export const SearchContext = React.createContext<searchType>({} as searchType);
 
-interface Child extends SearchType {
+interface Child extends searchType {
   children: React.ReactNode;
 }
 export const SearchProvider = ({
-    children,
+  children,
   word,
   search,
-  // data,
-}: Child) => {
-  return (
-    <SearchContext.Provider
-      value={{ search, word}}
-    >
-      {children}
-    </SearchContext.Provider>
-  );
+}: // data,
+Child) => {
+  return <SearchContext.Provider value={{ search, word }}>{children}</SearchContext.Provider>;
 };

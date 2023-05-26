@@ -5,7 +5,6 @@ import { StudentTableType } from '../../customTypesAndInterface/StudentCustomTyp
 const StudentsDashBoardTable = ({ tableTitles, tableData }: StudentTableType) => {
   const colors = ['rgba(251, 251, 251, 1)', '#fff'];
   const navigate = useNavigate();
-  console.log(tableData);
 
   return (
     <div className='student-dashboard-table'>

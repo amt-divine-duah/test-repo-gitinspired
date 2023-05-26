@@ -1,8 +1,6 @@
 import { UserInterface } from '../../customTypesAndInterface/AdminCustomTypes';
 export type ShowMoadalType = {
   handleShowAssignmentModal: React.MouseEventHandler;
-  Title?:string;
-  id: number;
 };
 export interface ActionButtonType {
   class: string;
@@ -14,9 +12,9 @@ export interface ActionButtonType {
 export interface AssignmentCardType {
   title: string;
   description: string;
-  deadline: Date;
+  deadline: string;
   uniqueCode: string;
-  id: number;
+  course?: string;
 }
 
 export interface MainProps {
@@ -87,7 +85,6 @@ export interface SubmissionState {
 }
 
 export interface DraftCardType {
-  id: number;
   title: string;
   description: string;
   date: string;
@@ -95,43 +92,21 @@ export interface DraftCardType {
 }
 
 export interface DraftDataType {
-  id: number;
   title: string;
   description: string;
   updatedAt: string;
   _count: {
     students: number;
-  }
+  };
 }
 
 export interface SubmissionData {
   title: string;
-      id: number;
-      course: string;
-      submissions: number;
+  id: number;
+  course: string;
+  submissions: number;
 }
-export interface SearchType {
+export interface searchType {
   search: ((e: React.ChangeEvent<HTMLInputElement>) => void) | undefined;
   word: string;
-}
-
-export interface FullAssignmentData {
-  course?: string;
-  deadline?: Date;
-  description?: string;
-  title?: string;
-  uniqueCode?: string;
-  updatedAt?: Date;
-}
-
-export interface StudentsListData {
-  assignmentId?: number;
-  id: number;
-  students : {
-    firstName: string;
-    lastName: string;
-    email: string;
-    studentId: string;
-  }
-
 }

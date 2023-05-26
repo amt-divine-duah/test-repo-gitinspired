@@ -38,7 +38,7 @@ const App = () => {
             <Routes>
               <Route path='/' element={<Navigate to='/login' />} />
               <Route path='/login' element={<LoginPage />} />
-              <Route path='/auth/claim-account/:token' element={<ResetPassword />} />
+              <Route path='/auth/claim-account' element={<ResetPassword />} />
               <Route
                 path='/landing'
                 element={
