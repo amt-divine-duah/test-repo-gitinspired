@@ -106,7 +106,8 @@ const AdminLecturerDashBoard = () => {
         const keysToPick = ["staffId", "firstName", "lastName", "email"];
         const lecturers = _.map(response.data?.data, (obj) =>
           _.pick(obj, keysToPick)
-        ) as UserInterface[];
+        ) as UserInterface[]; 
+        const new = [...lecturers]
         setLecturersData(lecturers);
 
         setPaginationInfo(response.data?.paginationInfo);

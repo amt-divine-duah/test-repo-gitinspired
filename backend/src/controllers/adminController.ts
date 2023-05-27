@@ -72,7 +72,7 @@ export class AdminController {
         const filteredUser = _.pick(user[1], ['email']);
         let message = studentInviteTemplate(
           studentId,
-          configValues.ACCOUNT_CONFIRMATION_URL + '/' + token.accessToken,
+          `${configValues.ACCOUNT_CONFIRMATION_URL}?token=${token.accessToken}`,
           otp.otpCode
         );
         const mailOptions: mailOptionsInterface = {
@@ -164,7 +164,7 @@ export class AdminController {
         const filteredUser = _.pick(user[1], ['email']);
         let message = lecturerInviteTemplate(
           lecturerId,
-          configValues.ACCOUNT_CONFIRMATION_URL + '/' + token.accessToken,
+          `${configValues.ACCOUNT_CONFIRMATION_URL}?token=${token.accessToken}`,
           otp.otpCode
         );
         const mailOptions: mailOptionsInterface = {

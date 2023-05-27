@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.submitSpecificSnapshot = void 0;
 const path = require("path");
 const fg = require("fast-glob");
-const _ = require("lodash");
 const submitSpecificSnapshot = async (snapshotName) => {
     let snapshotFiles = [];
     const allSnapshotFiles = await fg("*.zip", {
@@ -16,8 +15,8 @@ const submitSpecificSnapshot = async (snapshotName) => {
     for (const file of allSnapshotFiles) {
         // Get the filename, without the extension
         const filename = path.basename(file, path.extname(file));
-        const unslugifiedName = _.join(filename.split("-").slice(1), " ");
-        if (snapshotName === unslugifiedName) {
+        const slugifiedName = filename.slice(filename.indexOf("-") + 1);
+        if (snapshotName === slugifiedName) {
             snapshotFiles.push(file);
         }
     }
