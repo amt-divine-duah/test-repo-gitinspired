@@ -11,6 +11,8 @@ import cliRouter from "./routers/cliRouter";
 import lecturerRouter from "./routers/lecturerRouter";
 import studentRouter from "./routers/studentRouter";
 import { ResponseUtil } from "./utils/Response";
+import swaggerUI from "swagger-ui-express"
+import * as swaggerDocument from "./swagger.json";
 
 export default function configureApp() {
   const app: Application = express();
@@ -44,12 +46,19 @@ export default function configureApp() {
       }
     }
   );
-  
+
   app.use("/api/auth", authRouter);
   app.use("/api/admin", adminRouter);
   app.use("/api/lecturer", lecturerRouter);
-  app.use('/api/student', studentRouter);
-  app.use('/api/cli', cliRouter);
+  app.use("/api/student", studentRouter);
+  app.use("/api/cli", cliRouter);
+
+  // swwagger docs
+  const options = {
+    customCss: ".swagger-ui .topbar { display: none }",
+    customSiteTitle: "Git Inspired Assignment Submission System",
+  };
+  app.use("/api/docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument, options));
 
   // end routers
 

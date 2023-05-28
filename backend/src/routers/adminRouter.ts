@@ -10,8 +10,8 @@ const adminRouter = Router();
 
 adminRouter.post(
   "/create-student",
-  // ErrorHandler.catchErrors(AuthMiddleware.authenticate),
-  // ErrorHandler.catchErrors(AdminMiddleware.checkAdminStatus),
+  ErrorHandler.catchErrors(AuthMiddleware.authenticate),
+  ErrorHandler.catchErrors(AdminMiddleware.checkAdminStatus),
   ErrorHandler.catchErrors(adminController.createStudent)
 );
 adminRouter.post(
@@ -24,7 +24,6 @@ adminRouter.post(
   "/upload-student-info",
   ErrorHandler.catchErrors(AuthMiddleware.authenticate),
   ErrorHandler.catchErrors(AdminMiddleware.checkAdminStatus),
-  ErrorHandler.catchErrors(AuthMiddleware.authenticate),
   FileUploader.upload("files", "students", 2 * 1024 * 1024),
   ErrorHandler.catchErrors(adminController.uploadStdInfo)
 );

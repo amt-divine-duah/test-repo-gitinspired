@@ -1,0 +1,1468 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Git Inspired App",
+    "description": "This is the documentation of Git Inspired Assignment Submission System",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": [
+    { "url": "http://localhost:3001/api", "description": "localhost" },
+    { "url": "https://gitinspired-api.amalitech-dev.net/api", "description": "Live URL" }
+  ],
+  "tags": [{ "name": "Auth" }, {"name": "Admin"}, {"name": "Lecturer"}, {"name": "Student"}],
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Login a user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLogin"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/LoginResponse" }
+              }
+            },
+            "description": "OK"
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid credentials, account not activated, etc",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/confirm-account/{token}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "token",
+            "schema": { "type": "string" },
+            "required": true
+          }
+        ],
+        "tags": ["Auth"],
+        "summary": "Claim user account",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SuccessfulResponse" }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid or Expired Token",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "409": {
+            "description": "Account has been confirmed",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/reset-password": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Reset Password",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "password": { "type": "string" },
+                  "confirmPassword": { "type": "string" },
+                  "token": { "type": "string" }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SuccessfulResponse" }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid or expired Token",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "409": {
+            "description": "Account has been confirmed",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/create-student": {
+      "post": {
+        "tags": ["Admin"],
+        "summary": "Create a student account",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUser"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SuccessfulResponse" }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid or expired Token",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid authorization",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "403": {
+            "description": "Access Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        },
+        "security": [{ "token_auth": [] }]
+      }
+    },
+    "/admin/create-lecturer": {
+      "post": {
+        "tags": ["Admin"],
+        "summary": "Create a lecturer account",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUser"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SuccessfulResponse" }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid or expired Token",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid authorization",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "403": {
+            "description": "Access Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        },
+        "security": [{ "token_auth": [] }]
+      }
+    },
+    "/admin/upload-student-info": {
+      "post": {
+        "tags": ["Admin"],
+        "summary": "Upload student information in bulk",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "files": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": ["files"]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SuccessfulResponse" }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid or expired Token",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid authorization",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "403": {
+            "description": "Access Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        },
+        "security": [{ "token_auth": [] }]
+      }
+    },
+    "/admin/upload-lecturer-info": {
+      "post": {
+        "tags": ["Admin"],
+        "summary": "Upload lecturer information in bulk",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "files": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": ["files"]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SuccessfulResponse" }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid or expired Token",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid authorization",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "403": {
+            "description": "Access Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        },
+        "security": [{ "token_auth": [] }]
+      }
+    },
+    "/admin/lecturers": {
+      "get": {
+        "parameters": [],
+        "tags": ["Admin"],
+        "summary": "Get Lecturers List",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/LecturerResponse" }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid or expired Token",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid authorization",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "403": {
+            "description": "Access Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        },
+        "security": [{ "token_auth": [] }]
+      }
+    },
+    "/admin/students": {
+      "get": {
+        "parameters": [],
+        "tags": ["Admin"],
+        "summary": "Get Students List",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/StudentResponse" }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid or expired Token",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid authorization",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "403": {
+            "description": "Access Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        },
+        "security": [{ "token_auth": [] }]
+      }
+    },
+    "/admin/assignments": {
+      "get": {
+        "parameters": [],
+        "tags": ["Admin"],
+        "summary": "Get Assignment List",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AssignmentResponse" }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid or expired Token",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid authorization",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "403": {
+            "description": "Access Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        },
+        "security": [{ "token_auth": [] }]
+      }
+    },
+    "/admin/submissions": {
+      "get": {
+        "parameters": [],
+        "tags": ["Admin"],
+        "summary": "Get Submissions List",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudentsOnAssignmentsResponse"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid or expired Token",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid authorization",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "403": {
+            "description": "Access Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        },
+        "security": [{ "token_auth": [] }]
+      }
+    },
+    "/lecturer/students": {
+      "get": {
+        "parameters": [],
+        "tags": ["Lecturer"],
+        "summary": "Get List of Students",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/StudentResponse" }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid or expired Token",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid authorization",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "403": {
+            "description": "Access Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        },
+        "security": [{ "token_auth": [] }]
+      }
+    },
+    "/lecturer/dashboard/{lecturerId}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "lecturerId",
+            "schema": { "type": "string" },
+            "required": true
+          }
+        ],
+        "tags": ["Lecturer"],
+        "summary": "Get List of Assignments",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AssignmentResponse" }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid or expired Token",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid authorization",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "403": {
+            "description": "Access Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        },
+        "security": [{ "token_auth": [] }]
+      }
+    },
+    "/lecturer/drafts/{lecturerId}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "lecturerId",
+            "schema": { "type": "string" },
+            "required": true
+          }
+        ],
+        "tags": ["Lecturer"],
+        "summary": "Get Drafted Assignments",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/DraftResponse" }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid or expired Token",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid authorization",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "403": {
+            "description": "Access Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        },
+        "security": [{ "token_auth": [] }]
+      }
+    },
+    "/lecturer/submissions/{lecturerId}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "lecturerId",
+            "schema": { "type": "string" },
+            "required": true
+          }
+        ],
+        "tags": ["Lecturer"],
+        "summary": "Gets Number Of Student Submissions For Each Assignment Published By Lecturer",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SubmissionsResponse" }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid or expired Token",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid authorization",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "403": {
+            "description": "Access Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        },
+        "security": [{ "token_auth": [] }]
+      }
+    },
+    "/lecturer/create-assignment": {
+      "post": {
+        "parameters": [],
+        "tags": ["Lecturer"],
+        "summary": "Creates an Assignment",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAssignment"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AssignmentResponse" }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid or expired Token",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid authorization",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "403": {
+            "description": "Access Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        },
+        "security": [{ "token_auth": [] }]
+      }
+    },
+    "/student/dashboard": {
+      "get": {
+        "parameters": [],
+        "tags": ["Student"],
+        "summary": "Get List of Assignments of a Particular Student",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/StudentAssignmentResponse" }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid or expired Token",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid authorization",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "403": {
+            "description": "Access Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        },
+        "security": [{ "token_auth": [] }]
+      }
+    },
+    "/student/submissions": {
+      "get": {
+        "parameters": [],
+        "tags": ["Student"],
+        "summary": "Get List of Submitted Assignments of a Particular User",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/StudentSubmissionResponse" }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid or expired Token",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid authorization",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "403": {
+            "description": "Access Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        },
+        "security": [{ "token_auth": [] }]
+      }
+    },
+    "/student/assignment/{assignmentId}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "assignmentId",
+            "schema": { "type": "integer" },
+            "required": true
+          }
+        ],
+        "tags": ["Student"],
+        "summary": "View Assignment Details of a Particular Student",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AssignmentResponse" }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid or expired Token",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid authorization",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "403": {
+            "description": "Access Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        },
+        "security": [{ "token_auth": [] }]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "loginId": { "type": "string" },
+          "email": { "type": "string" },
+          "password": {
+            "type": "string",
+            "writeOnly": true
+          },
+          "role": { "type": "string", "readOnly": true },
+          "isActive": { "type": "boolean", "writeOnly": true },
+          "createdAt": { "type": "string", "writeOnly": true }
+        }
+      },
+      "Student": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "number"},
+          "studentId": {"type": "string"},
+          "firstName": {"type": "string"},
+          "lastName":{"type": "string"},
+          "email":{"type": "string"}
+        }
+      },
+      "Lecturer": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "number"},
+          "staffId": {"type": "string"},
+          "firstName": {"type": "string"},
+          "lastName":{"type": "string"},
+          "email":{"type": "string"}
+        }
+      },
+      "Assignment": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "integer"},
+          "title": {"type": "string"},
+          "deadline": {"type": "string"},
+          "description": {"type": "string"},
+          "course": {"type": "string"},
+          "lecturerId": { "type": "string" },
+          "uniqueCode": { "type": "string" },
+          "isPublished": {"type": "boolean"},
+          "updatedAt": { "type": "string" }
+        }
+      },
+      "StudentsOnAssignments":{
+        "type": "object",
+        "properties": {
+          "id": {"type": "integer"},
+          "studentId": {"type": "string"},
+          "assignmentId": {"type": "integer"},
+          "status": {"type": "boolean"},
+          "sent": {"type": "boolean"},
+          "assignmnent": {
+            "type": "object",
+            "$ref": "#/components/schemas/Assignment"
+          },
+          "student":{
+            "type": "object",
+            "properties": {
+              "firstName":{"type": "string"},
+              "lastName":{"type": "string"}
+            }
+          }
+        }
+      },
+      "UserLogin": {
+        "type": "object",
+        "properties": {
+          "emailOrId": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "required": ["emailOrId", "password"]
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "message": { "type": "string" },
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "integer" },
+              "email": { "type": "string" },
+              "loginId": { "type": "string" },
+              "role": { "type": "string" },
+              "accessToken": { "type": "string" }
+            }
+          },
+          "paginationInfo": {
+            "oneOf": [
+              { "type": "string", "default": "null" },
+              { "$ref": "#/components/schemas/PaginationInfo" }
+            ]
+          }
+        }
+      },
+      "StudentResponse":{
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean", "example": true },
+          "message": { "type": "string" },
+          "data": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Student" }
+          },
+          "paginationInfo": {
+            "oneOf": [
+              { "type": "string", "default": "null" },
+              { "$ref": "#/components/schemas/PaginationInfo" }
+            ]
+          }
+        }
+      },
+      "LecturerResponse":{
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean", "example": true },
+          "message": { "type": "string" },
+          "data": {
+            "type": "array",
+            "items":{ "$ref": "#/components/schemas/Lecturer" }
+          },
+          "paginationInfo": {
+            "oneOf": [
+              { "type": "string", "default": "null" },
+              { "$ref": "#/components/schemas/PaginationInfo" }
+            ]
+          }
+        }
+      },
+      "AssignmentResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean", "example": true },
+          "message": { "type": "string" },
+          "data":{
+            "type": "array",
+            "items":{
+              "type": "object",
+              "$ref": "#/components/schemas/Assignment"
+            }
+          },
+          "paginationInfo": {
+            "oneOf": [
+              { "type": "string", "default": "null" },
+              { "$ref": "#/components/schemas/PaginationInfo" }
+            ]
+          }
+        }
+      },
+      "StudentAssignmentResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean", "example": true },
+          "message": { "type": "string" },
+          "data":{
+            "type": "array",
+            "items":{
+              "allOf": [
+                {"$ref": "#/components/schemas/Assignment"},
+                {"type": "object", "properties": {
+                  "createdBy": {
+                    "type": "object",
+                    "properties": {
+                      "id": {"type": "integer"},
+                      "staffId": {"type": "string"},
+                      "firstName": { "type": "string" },
+                      "lastName": {"type": "string"},
+                      "email": { "type": "string" }
+                    }
+                  }
+                }}
+              ]
+            }
+          },
+          "paginationInfo": {
+            "oneOf": [
+              { "type": "string", "default": "null" },
+              { "$ref": "#/components/schemas/PaginationInfo" }
+            ]
+          }
+        }
+      },
+      "StudentSubmissionResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean", "example": true },
+          "message": { "type": "string" },
+          "data":{
+            "type": "array",
+            "items":{
+              "type": "object",
+              "properties": {
+                "id": {"type": "integer"},
+                "studentId": {"type": "string"},
+                "assignmentId": { "type": "integer" },
+                "status": {"type": "boolean"},
+                "sent": {"type": "boolean"},
+                "assignment":{ "$ref": "#/components/schemas/Assignment" }
+              }
+            }
+          },
+          "paginationInfo": {
+            "oneOf": [
+              { "type": "string", "default": "null" },
+              { "$ref": "#/components/schemas/PaginationInfo" }
+            ]
+          }
+        }
+      },
+      "DraftResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean", "example": true },
+          "message": { "type": "string" },
+          "data":{
+            "type": "array",
+            "items":{
+              "type": "object",
+              "properties": {
+                "id": {"type": "integer"},
+                "title": {"type": "string"},
+                "description": { "type": "string" },
+                "course": { "type": "string" },
+                "updatedAt": { "type": "string" },
+                "_count": {
+                  "type": "object",
+                  "properties": {
+                    "students": {"type": "integer"}
+                  }
+                }
+              }
+            }
+          },
+          "paginationInfo": {
+            "oneOf": [
+              { "type": "string", "default": "null" },
+              { "$ref": "#/components/schemas/PaginationInfo" }
+            ]
+          }
+        }
+      },
+      "SubmissionsResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean", "example": true },
+          "message": { "type": "string" },
+          "data":{
+            "type": "array",
+            "items":{
+              "type": "object",
+              "properties": {
+                "title": { "type": "string" },
+                "id": { "type": "integer" },
+                "course": { "type": "string" },
+                "submissions": { "type": "integer" }
+              }
+            }
+          },
+          "paginationInfo": {
+            "oneOf": [
+              { "type": "string", "default": "null" },
+              { "$ref": "#/components/schemas/PaginationInfo" }
+            ]
+          }
+        }
+      },
+      "StudentsOnAssignmentsResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean", "example": true },
+          "message": { "type": "string" },
+          "data":{
+            "type": "array",
+            "items":{
+              "type": "object",
+              "$ref": "#/components/schemas/StudentsOnAssignments"
+            }
+          },
+          "paginationInfo": {
+            "oneOf": [
+              { "type": "string", "default": "null" },
+              { "$ref": "#/components/schemas/PaginationInfo" }
+            ]
+          }
+        }
+      },
+      "PaginationInfo": {
+        "type": "object",
+        "properties": {
+          "currentPage": { "type": "integer" },
+          "pageSize": { "type": "integer" },
+          "totalItems": { "type": "integer" },
+          "pages": { "type": "integer", "readOnly": true },
+          "hasNext": { "type": "boolean", "readOnly": true },
+          "hasPrevious": { "type": "boolean", "readOnly": true }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": false
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      },
+      "SuccessfulResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      },
+      "CreateUser": {
+        "type": "object",
+        "properties": {
+          "email": { "type": "string" },
+          "firstname": { "type": "string" },
+          "lastname": { "type": "string" }
+        },
+        "required": ["email", "firstname", "lastname"]
+      },
+      "CreateAssignment": {
+        "type": "object",
+        "properties": {
+          "title": {"type": "string"},
+          "description": { "type": "string" },
+          "course": { "type": "string" },
+          "deadline": { "type": "string" },
+          "createdBy": { "type": "string" },
+          "publish": {"type": "boolean"},
+          "students":{"type": "array", "items":{
+            "type": "string"
+          }}
+        },
+        "required": ["email", "firstname", "lastname"]
+      }
+    },
+    "securitySchemes": {
+      "token_auth": { "type": "http", "scheme": "bearer" }
+    }
+  }
+}
