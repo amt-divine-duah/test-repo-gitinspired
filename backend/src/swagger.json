@@ -11,9 +11,17 @@
   },
   "servers": [
     { "url": "http://localhost:3001/api", "description": "localhost" },
-    { "url": "https://gitinspired-api.amalitech-dev.net/api", "description": "Live URL" }
+    {
+      "url": "https://gitinspired-api.amalitech-dev.net/api",
+      "description": "Live URL"
+    }
   ],
-  "tags": [{ "name": "Auth" }, {"name": "Admin"}, {"name": "Lecturer"}, {"name": "Student"}],
+  "tags": [
+    { "name": "Auth" },
+    { "name": "Admin" },
+    { "name": "Lecturer" },
+    { "name": "Student" }
+  ],
   "paths": {
     "/auth/login": {
       "post": {
@@ -778,7 +786,7 @@
           }
         ],
         "tags": ["Lecturer"],
-        "summary": "Get Drafted Assignments",
+        "summary": "Get List of Draft Assignments",
         "responses": {
           "200": {
             "content": {
@@ -881,6 +889,276 @@
         "security": [{ "token_auth": [] }]
       }
     },
+    "/lecturer/edit-assignment/{assignmentId}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "assignmentId",
+            "schema": { "type": "string" },
+            "required": true
+          }
+        ],
+        "tags": ["Lecturer"],
+        "summary": "Get Details of a Drafted Assignment",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DraftAssignmentResponse"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid or expired Token",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid authorization",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "403": {
+            "description": "Access Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        },
+        "security": [{ "token_auth": [] }]
+      },
+      "put": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "assignmentId",
+            "schema": { "type": "integer" },
+            "required": true
+          }
+        ],
+        "tags": ["Lecturer"],
+        "summary": "Edit an Assignment",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditAssignment"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AssignmentResponse" }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid or expired Token",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid authorization",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "403": {
+            "description": "Access Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        },
+        "security": [{ "token_auth": [] }]
+      }
+    },
+    "/lecturer/invite-students/{assignmentId}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "assignmentId",
+            "schema": { "type": "string" },
+            "required": true
+          }
+        ],
+        "tags": ["Lecturer"],
+        "summary": "Get List of Invited Students for A Particluar Assignment",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InviteStudentResponse"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid or expired Token",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid authorization",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "403": {
+            "description": "Access Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        },
+        "security": [{ "token_auth": [] }]
+      },
+      "post": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "assignmentId",
+            "schema": { "type": "integer" },
+            "required": true
+          }
+        ],
+        "tags": ["Lecturer"],
+        "summary": "Add Students to A Created Asssignment",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "students": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AssignmentResponse" }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid or expired Token",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid authorization",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "403": {
+            "description": "Access Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        },
+        "security": [{ "token_auth": [] }]
+      }
+    },
     "/lecturer/create-assignment": {
       "post": {
         "parameters": [],
@@ -940,6 +1218,7 @@
         "security": [{ "token_auth": [] }]
       }
     },
+    
     "/student/dashboard": {
       "get": {
         "parameters": [],
@@ -949,7 +1228,9 @@
           "200": {
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/StudentAssignmentResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/StudentAssignmentResponse"
+                }
               }
             },
             "description": "OK"
@@ -999,7 +1280,9 @@
           "200": {
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/StudentSubmissionResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/StudentSubmissionResponse"
+                }
               }
             },
             "description": "OK"
@@ -1121,54 +1404,54 @@
       "Student": {
         "type": "object",
         "properties": {
-          "id": {"type": "number"},
-          "studentId": {"type": "string"},
-          "firstName": {"type": "string"},
-          "lastName":{"type": "string"},
-          "email":{"type": "string"}
+          "id": { "type": "number" },
+          "studentId": { "type": "string" },
+          "firstName": { "type": "string" },
+          "lastName": { "type": "string" },
+          "email": { "type": "string" }
         }
       },
       "Lecturer": {
         "type": "object",
         "properties": {
-          "id": {"type": "number"},
-          "staffId": {"type": "string"},
-          "firstName": {"type": "string"},
-          "lastName":{"type": "string"},
-          "email":{"type": "string"}
+          "id": { "type": "number" },
+          "staffId": { "type": "string" },
+          "firstName": { "type": "string" },
+          "lastName": { "type": "string" },
+          "email": { "type": "string" }
         }
       },
       "Assignment": {
         "type": "object",
         "properties": {
-          "id": {"type": "integer"},
-          "title": {"type": "string"},
-          "deadline": {"type": "string"},
-          "description": {"type": "string"},
-          "course": {"type": "string"},
+          "id": { "type": "integer" },
+          "title": { "type": "string" },
+          "deadline": { "type": "string" },
+          "description": { "type": "string" },
+          "course": { "type": "string" },
           "lecturerId": { "type": "string" },
           "uniqueCode": { "type": "string" },
-          "isPublished": {"type": "boolean"},
+          "isPublished": { "type": "boolean" },
           "updatedAt": { "type": "string" }
         }
       },
-      "StudentsOnAssignments":{
+      "StudentsOnAssignments": {
         "type": "object",
         "properties": {
-          "id": {"type": "integer"},
-          "studentId": {"type": "string"},
-          "assignmentId": {"type": "integer"},
-          "status": {"type": "boolean"},
-          "sent": {"type": "boolean"},
+          "id": { "type": "integer" },
+          "studentId": { "type": "string" },
+          "assignmentId": { "type": "integer" },
+          "status": { "type": "boolean" },
+          "sent": { "type": "boolean" },
           "assignmnent": {
             "type": "object",
             "$ref": "#/components/schemas/Assignment"
           },
-          "student":{
+          "student": {
             "type": "object",
             "properties": {
-              "firstName":{"type": "string"},
-              "lastName":{"type": "string"}
+              "firstName": { "type": "string" },
+              "lastName": { "type": "string" }
             }
           }
         }
@@ -1208,7 +1491,7 @@
           }
         }
       },
-      "StudentResponse":{
+      "StudentResponse": {
         "type": "object",
         "properties": {
           "success": { "type": "boolean", "example": true },
@@ -1225,14 +1508,39 @@
           }
         }
       },
-      "LecturerResponse":{
+      "LecturerResponse": {
         "type": "object",
         "properties": {
           "success": { "type": "boolean", "example": true },
           "message": { "type": "string" },
           "data": {
             "type": "array",
-            "items":{ "$ref": "#/components/schemas/Lecturer" }
+            "items": { "$ref": "#/components/schemas/Lecturer" }
+          },
+          "paginationInfo": {
+            "oneOf": [
+              { "type": "string", "default": "null" },
+              { "$ref": "#/components/schemas/PaginationInfo" }
+            ]
+          }
+        }
+      },
+      "InviteStudentResponse":{
+        "type": "object",
+        "properties": {
+          "success": { "type": "object", "example": true },
+          "message": { "type": "string" },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "firstName": { "type": "string" },
+                "lastName": { "type": "string" },
+                "email": { "type": "string" },
+                "studentId": { "type": "string" }
+              }
+            }
           },
           "paginationInfo": {
             "oneOf": [
@@ -1247,9 +1555,9 @@
         "properties": {
           "success": { "type": "boolean", "example": true },
           "message": { "type": "string" },
-          "data":{
+          "data": {
             "type": "array",
-            "items":{
+            "items": {
               "type": "object",
               "$ref": "#/components/schemas/Assignment"
             }
@@ -1267,23 +1575,26 @@
         "properties": {
           "success": { "type": "boolean", "example": true },
           "message": { "type": "string" },
-          "data":{
+          "data": {
             "type": "array",
-            "items":{
+            "items": {
               "allOf": [
-                {"$ref": "#/components/schemas/Assignment"},
-                {"type": "object", "properties": {
-                  "createdBy": {
-                    "type": "object",
-                    "properties": {
-                      "id": {"type": "integer"},
-                      "staffId": {"type": "string"},
-                      "firstName": { "type": "string" },
-                      "lastName": {"type": "string"},
-                      "email": { "type": "string" }
+                { "$ref": "#/components/schemas/Assignment" },
+                {
+                  "type": "object",
+                  "properties": {
+                    "createdBy": {
+                      "type": "object",
+                      "properties": {
+                        "id": { "type": "integer" },
+                        "staffId": { "type": "string" },
+                        "firstName": { "type": "string" },
+                        "lastName": { "type": "string" },
+                        "email": { "type": "string" }
+                      }
                     }
                   }
-                }}
+                }
               ]
             }
           },
@@ -1300,17 +1611,17 @@
         "properties": {
           "success": { "type": "boolean", "example": true },
           "message": { "type": "string" },
-          "data":{
+          "data": {
             "type": "array",
-            "items":{
+            "items": {
               "type": "object",
               "properties": {
-                "id": {"type": "integer"},
-                "studentId": {"type": "string"},
+                "id": { "type": "integer" },
+                "studentId": { "type": "string" },
                 "assignmentId": { "type": "integer" },
-                "status": {"type": "boolean"},
-                "sent": {"type": "boolean"},
-                "assignment":{ "$ref": "#/components/schemas/Assignment" }
+                "status": { "type": "boolean" },
+                "sent": { "type": "boolean" },
+                "assignment": { "$ref": "#/components/schemas/Assignment" }
               }
             }
           },
@@ -1327,20 +1638,20 @@
         "properties": {
           "success": { "type": "boolean", "example": true },
           "message": { "type": "string" },
-          "data":{
+          "data": {
             "type": "array",
-            "items":{
+            "items": {
               "type": "object",
               "properties": {
-                "id": {"type": "integer"},
-                "title": {"type": "string"},
+                "id": { "type": "integer" },
+                "title": { "type": "string" },
                 "description": { "type": "string" },
                 "course": { "type": "string" },
                 "updatedAt": { "type": "string" },
                 "_count": {
                   "type": "object",
                   "properties": {
-                    "students": {"type": "integer"}
+                    "students": { "type": "integer" }
                   }
                 }
               }
@@ -1359,9 +1670,9 @@
         "properties": {
           "success": { "type": "boolean", "example": true },
           "message": { "type": "string" },
-          "data":{
+          "data": {
             "type": "array",
-            "items":{
+            "items": {
               "type": "object",
               "properties": {
                 "title": { "type": "string" },
@@ -1384,11 +1695,54 @@
         "properties": {
           "success": { "type": "boolean", "example": true },
           "message": { "type": "string" },
-          "data":{
+          "data": {
             "type": "array",
-            "items":{
+            "items": {
               "type": "object",
               "$ref": "#/components/schemas/StudentsOnAssignments"
+            }
+          },
+          "paginationInfo": {
+            "oneOf": [
+              { "type": "string", "default": "null" },
+              { "$ref": "#/components/schemas/PaginationInfo" }
+            ]
+          }
+        }
+      },
+      "DraftAssignmentResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean", "example": true },
+          "message": { "type": "string" },
+          "data": {
+            "type": "object",
+            "properties": {
+              "assignment": {
+                "$ref": "#/components/schemas/Assignment"
+              },
+              "students": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "integer" },
+                    "studentId": { "type": "string" },
+                    "assignmentId": { "type": "integer" },
+                    "status": { "type": "boolean" },
+                    "sent": { "type": "boolean" },
+                    "student": {
+                      "type": "object",
+                      "properties": {
+                        "firstName": { "type": "string" },
+                        "lastName": { "type": "string" },
+                        "email": { "type": "string" },
+                        "studentId": { "type": "string" }
+                      }
+                    }
+                  }
+                }
+              }
             }
           },
           "paginationInfo": {
@@ -1448,15 +1802,36 @@
       "CreateAssignment": {
         "type": "object",
         "properties": {
-          "title": {"type": "string"},
+          "title": { "type": "string" },
           "description": { "type": "string" },
           "course": { "type": "string" },
           "deadline": { "type": "string" },
           "createdBy": { "type": "string" },
-          "publish": {"type": "boolean"},
-          "students":{"type": "array", "items":{
-            "type": "string"
-          }}
+          "publish": { "type": "boolean" },
+          "students": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": ["email", "firstname", "lastname"]
+      },
+      "EditAssignment": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "course": { "type": "string" },
+          "deadline": { "type": "string" },
+          "assignmentId": { "type": "integer" },
+          "publish": { "type": "boolean" },
+          "students": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
         },
         "required": ["email", "firstname", "lastname"]
       }
