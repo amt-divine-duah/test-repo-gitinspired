@@ -45,7 +45,7 @@ export class AuthMiddleware {
       logger.error(error);
       return ResponseUtil.sendError(
         res,
-        "Invalid Authorzation Header",
+        "Invalid Authorization Header",
         StatusCodes.UNAUTHORIZED,
         ReasonPhrases.UNAUTHORIZED
       );

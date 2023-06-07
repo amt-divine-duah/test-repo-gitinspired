@@ -38,8 +38,10 @@ switch (process.env.NODE_ENV) {
     break;
   case "testing":
     configValues = testingConfig;
+    break;
   case "production":
     configValues = productionConfig;
+    break;
   default:
     logger.warn(
       "Invalid NODE_ENV value. Defaulting to development configuration."

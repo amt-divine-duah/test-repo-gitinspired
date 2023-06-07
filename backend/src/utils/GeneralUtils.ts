@@ -35,7 +35,7 @@ export function validateToken(token: string) {
   }
 }
 
-async function getExistingIds() {
+export async function getExistingIds() {
   const users = await prisma.user.findMany();
   const loginIds = _.map(users, "loginId");
   return loginIds;
@@ -74,7 +74,7 @@ export async function generateUniqueCode() {
   return uniqueCode;
 }
 
-async function getExistingCodes() {
+export async function getExistingCodes() {
   const assignments = await prisma.assignment.findMany();
   const codes = _.map(assignments, "uniqueCode");
   return codes;
